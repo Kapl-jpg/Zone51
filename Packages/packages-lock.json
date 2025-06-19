@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.kapl.era": {
+      "version": "https://github.com/Kapl-jpg/Event-Request-Architecture.git#StableVersion",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "137bbd62f020f9d5e8e452c1767f2f369faf3c65"
+    },
     "com.unity.burst": {
       "version": "1.8.21",
       "depth": 2,
