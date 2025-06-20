@@ -1,0 +1,27 @@
+using UnityEngine;
+
+public class InputMeneger : MonoBehaviour
+{
+    private InputSystem_Actions input;
+
+    private void Start()
+    {
+        input = new InputSystem_Actions();
+        input.Player.Enable();
+    }
+
+    public bool InputShift()
+    {
+        return input.Player.Sprint.IsPressed();
+    }
+
+    public Vector2 InputMouse()
+    {
+        return input.Player.Look.ReadValue<Vector2>();
+    }
+
+    public Vector2 GetMove()
+    {
+        return input.Player.Move.ReadValue<Vector2>();
+    }
+}

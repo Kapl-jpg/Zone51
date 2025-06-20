@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedRunning;
 
     private MouseMovement mouseMovement;
-    private InputSystem_Actions input;
+    private InputMeneger inputMeneger;
     private Rigidbody rb;
     
 
@@ -14,8 +14,7 @@ public class PlayerMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         mouseMovement = GetComponent<MouseMovement>();
-        input = new InputSystem_Actions();
-        input.Player.Enable();
+        inputMeneger = GetComponent<InputMeneger>();
     }
 
     private void FixedUpdate()
@@ -24,19 +23,9 @@ public class PlayerMovement : MonoBehaviour
         mouseMovement.RotateCharacter();
     }
 
-    public Vector2 GetMove()
-    {
-        return input.Player.Move.ReadValue<Vector2>();
-    }
-
-    public bool InputShift()
-    {
-        return input.Player.Sprint.IsPressed();
-    }
-
     private void MoveCharacter()
     {
-        if (InputShift() == false)
+        if (inputMeneger.InputShift() == false)
         {
             Move(speedWalking);
         }
@@ -48,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float speed) 
     {
-        Vector3 moveDirection = transform.TransformDirection(new Vector3(GetMove().x, 0, GetMove().y));
+        Vector3 moveDirection = transform.TransformDirection(new Vector3(inputMeneger.GetMove().x, 0, inputMeneger.GetMove().y));
         rb.AddForce(moveDirection * speed);
     }
 }
