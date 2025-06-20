@@ -7,20 +7,22 @@ public class PlayerMovement : MonoBehaviour
 
     private MouseMovement mouseMovement;
     private InputMeneger inputMeneger;
+    private JumpController jumpController;
     private Rigidbody rb;
     
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         mouseMovement = GetComponent<MouseMovement>();
         inputMeneger = GetComponent<InputMeneger>();
+        jumpController = GetComponent<JumpController>();
     }
 
     private void FixedUpdate()
     {
         MoveCharacter();
         mouseMovement.RotateCharacter();
+        jumpController.Jump();
     }
 
     private void MoveCharacter()
@@ -37,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move(float speed) 
     {
-        Vector3 moveDirection = transform.TransformDirection(new Vector3(inputMeneger.GetMove().x, 0, inputMeneger.GetMove().y));
-        rb.AddForce(moveDirection * speed);
+        Vector3 moveDirection = transform.right * inputMeneger.GetMove().x + transform.forward * inputMeneger.GetMove().y;
+        rb.linearVelocity = new Vector3(moveDirection.x * speed, rb.linearVelocity.y, moveDirection.z * speed);
     }
 }

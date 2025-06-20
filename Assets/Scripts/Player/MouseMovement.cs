@@ -5,8 +5,8 @@ public class MouseMovement : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private Transform camera;
     [SerializeField] private float mouseSensitivity = 0.1f;
-    [SerializeField] private float minY;
-    [SerializeField] private float maxY;
+    [SerializeField] private float minY = -30;
+    [SerializeField] private float maxY = 30;
 
     private InputMeneger inputMeneger;
 
@@ -29,10 +29,8 @@ public class MouseMovement : MonoBehaviour
         yRotation -= mouseY;
         yRotation = Mathf.Clamp(yRotation, minY, maxY);
 
-        // Поворот камеры только вокруг оси X
         camera.localEulerAngles = new Vector3(yRotation, 0f, 0f); 
 
-        // Поворот игрока только вокруг оси Y
         player.localEulerAngles = new Vector3(0f, xRotation, 0f);
     }
 }
