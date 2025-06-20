@@ -8,20 +8,20 @@ public class MouseMovement : MonoBehaviour
     [SerializeField] private float minY;
     [SerializeField] private float maxY;
 
-    private InputSystem_Actions input;
+    private InputMeneger inputMeneger;
+
     private float xRotation = 0f;
     private float yRotation = 0f;
 
     private void Awake()
     {
-        input = new InputSystem_Actions();
-        input.Player.Enable();
+        inputMeneger = GetComponent<InputMeneger>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void RotateCharacter()
     {
-        Vector2 mouseInput = input.Player.Look.ReadValue<Vector2>();
+        Vector2 mouseInput = inputMeneger.InputMouse();
         float mouseX = mouseInput.x * mouseSensitivity;
         float mouseY = mouseInput.y * mouseSensitivity;
 
