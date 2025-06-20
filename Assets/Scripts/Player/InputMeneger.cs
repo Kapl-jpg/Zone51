@@ -24,4 +24,9 @@ public class InputMeneger : MonoBehaviour
     {
         return input.Player.Move.ReadValue<Vector2>();
     }
+
+    public bool InputSpace()
+    {
+        return input.Player.Jump.triggered;
+    }
 }
