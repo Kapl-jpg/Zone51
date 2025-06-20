@@ -17,6 +17,7 @@ public class JumpController : MonoBehaviour
 
     public void Jump()
     {
+        print("Jump");
         if (inputMeneger.InputSpace() && activeJump)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
