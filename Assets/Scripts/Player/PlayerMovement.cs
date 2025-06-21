@@ -18,11 +18,15 @@ public class PlayerMovement : MonoBehaviour
         jumpController = GetComponent<JumpController>();
     }
 
+    private void Update()
+    {
+        jumpController.Jump();
+    }
+    
     private void FixedUpdate()
     {
         MoveCharacter();
         mouseMovement.RotateCharacter();
-        jumpController.Jump();
     }
 
     private void MoveCharacter()
