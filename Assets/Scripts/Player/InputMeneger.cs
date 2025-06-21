@@ -29,4 +29,9 @@ public class InputMeneger : MonoBehaviour
     {
         return input.Player.Jump.triggered;
     }
+
+    public bool InputE()
+    {
+        return input.Player.Interact.triggered;
+    }
 }
