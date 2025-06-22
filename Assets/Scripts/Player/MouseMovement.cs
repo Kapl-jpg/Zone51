@@ -16,7 +16,9 @@ public class MouseMovement : MonoBehaviour
     private void Awake()
     {
         inputMeneger = GetComponent<InputMeneger>();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
+        
+        //Cursor.visible = false;
     }
 
     public void RotateCharacter()

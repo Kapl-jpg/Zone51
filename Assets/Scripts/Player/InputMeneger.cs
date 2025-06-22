@@ -34,4 +34,14 @@ public class InputMeneger : MonoBehaviour
     {
         return input.Player.Interact.triggered;
     }
+
+    public bool InputMouseLeftButton()
+    {
+        return input.Player.LeftButtonMouse.triggered;
+    }
+
+    public bool InputMouseRightButton()
+    {
+        return input.Player.RightButtonMouse.triggered;
+    }
 }

@@ -153,6 +153,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""LeftButtonMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""19de29bb-bc11-4d00-9f12-fd588d317c1b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightButtonMouse"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb256b0f-cf6e-4dbf-8870-454cec161b91"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -362,6 +380,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd824bd3-3f55-461b-905f-f8c9f790ed57"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""LeftButtonMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ef50d961-8162-4aa6-86cf-a336a0b02aab"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""RightButtonMouse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -956,6 +996,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
+        m_Player_LeftButtonMouse = m_Player.FindAction("LeftButtonMouse", throwIfNotFound: true);
+        m_Player_RightButtonMouse = m_Player.FindAction("RightButtonMouse", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1056,6 +1098,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
+    private readonly InputAction m_Player_LeftButtonMouse;
+    private readonly InputAction m_Player_RightButtonMouse;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1095,6 +1139,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Look".
         /// </summary>
         public InputAction @Look => m_Wrapper.m_Player_Look;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LeftButtonMouse".
+        /// </summary>
+        public InputAction @LeftButtonMouse => m_Wrapper.m_Player_LeftButtonMouse;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/RightButtonMouse".
+        /// </summary>
+        public InputAction @RightButtonMouse => m_Wrapper.m_Player_RightButtonMouse;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1142,6 +1194,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
+            @LeftButtonMouse.started += instance.OnLeftButtonMouse;
+            @LeftButtonMouse.performed += instance.OnLeftButtonMouse;
+            @LeftButtonMouse.canceled += instance.OnLeftButtonMouse;
+            @RightButtonMouse.started += instance.OnRightButtonMouse;
+            @RightButtonMouse.performed += instance.OnRightButtonMouse;
+            @RightButtonMouse.canceled += instance.OnRightButtonMouse;
         }
 
         /// <summary>
@@ -1174,6 +1232,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
+            @LeftButtonMouse.started -= instance.OnLeftButtonMouse;
+            @LeftButtonMouse.performed -= instance.OnLeftButtonMouse;
+            @LeftButtonMouse.canceled -= instance.OnLeftButtonMouse;
+            @RightButtonMouse.started -= instance.OnRightButtonMouse;
+            @RightButtonMouse.performed -= instance.OnRightButtonMouse;
+            @RightButtonMouse.canceled -= instance.OnRightButtonMouse;
         }
 
         /// <summary>
@@ -1523,6 +1587,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLook(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LeftButtonMouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLeftButtonMouse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RightButtonMouse" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRightButtonMouse(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ForJump
   - Interactable
+  - ForTelekinesis
   layers:
   - Default
   - TransparentFX
