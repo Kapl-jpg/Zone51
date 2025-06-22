@@ -44,4 +44,14 @@ public class InputMeneger : MonoBehaviour
     {
         return input.Player.RightButtonMouse.triggered;
     }
+
+    public bool Transformation()
+    {
+        return input.Player.Transformation.triggered;
+    }
+
+    public bool Crouch()
+    {
+        return input.Player.Crouch.IsPressed();
+    }
 }

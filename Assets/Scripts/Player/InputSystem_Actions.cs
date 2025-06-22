@@ -171,6 +171,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Transformation"",
+                    ""type"": ""Button"",
+                    ""id"": ""ce8e2a6b-5d49-4df0-a75a-02e2181a735d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -298,7 +307,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""36e52cba-0905-478e-a818-f4bfcb9f3b9a"",
-                    ""path"": ""<Keyboard>/c"",
+                    ""path"": ""<Keyboard>/leftCtrl"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -402,6 +411,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""RightButtonMouse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""011b0a57-30a7-435e-9f3f-44dfe38b09d2"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Transformation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -998,6 +1018,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_LeftButtonMouse = m_Player.FindAction("LeftButtonMouse", throwIfNotFound: true);
         m_Player_RightButtonMouse = m_Player.FindAction("RightButtonMouse", throwIfNotFound: true);
+        m_Player_Transformation = m_Player.FindAction("Transformation", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1100,6 +1121,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_LeftButtonMouse;
     private readonly InputAction m_Player_RightButtonMouse;
+    private readonly InputAction m_Player_Transformation;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1147,6 +1169,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/RightButtonMouse".
         /// </summary>
         public InputAction @RightButtonMouse => m_Wrapper.m_Player_RightButtonMouse;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/Transformation".
+        /// </summary>
+        public InputAction @Transformation => m_Wrapper.m_Player_Transformation;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1200,6 +1226,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RightButtonMouse.started += instance.OnRightButtonMouse;
             @RightButtonMouse.performed += instance.OnRightButtonMouse;
             @RightButtonMouse.canceled += instance.OnRightButtonMouse;
+            @Transformation.started += instance.OnTransformation;
+            @Transformation.performed += instance.OnTransformation;
+            @Transformation.canceled += instance.OnTransformation;
         }
 
         /// <summary>
@@ -1238,6 +1267,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @RightButtonMouse.started -= instance.OnRightButtonMouse;
             @RightButtonMouse.performed -= instance.OnRightButtonMouse;
             @RightButtonMouse.canceled -= instance.OnRightButtonMouse;
+            @Transformation.started -= instance.OnTransformation;
+            @Transformation.performed -= instance.OnTransformation;
+            @Transformation.canceled -= instance.OnTransformation;
         }
 
         /// <summary>
@@ -1601,6 +1633,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRightButtonMouse(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Transformation" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTransformation(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
