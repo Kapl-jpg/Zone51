@@ -84,13 +84,12 @@ public class Telekinesis : MonoBehaviour
 
     private void PullObject()
     {
-        if (grabbedRigidbody != null)
-        {
-            float smoothSpeed = 5f;
-            Vector3 targetPosition = grabPoint.position;
-            Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
-            grabbedRigidbody.MovePosition(newPosition);
-        }
+        if (grabbedRigidbody == null) return;
+        
+        float smoothSpeed = 5f;
+        Vector3 targetPosition = grabPoint.position;
+        Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
+        grabbedRigidbody.MovePosition(newPosition);
     }
 
     private void ChargeThrow()

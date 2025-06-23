@@ -7,8 +7,14 @@ namespace Player
     {
         [SerializeField] private GameObject crouchBody;
         [SerializeField] private InputMeneger input;
-        
+
+        private Vector3 _scale;
         private bool _isCrouching;
+
+        private void Start()
+        {
+            _scale = crouchBody.transform.localScale;
+        }
 
         private void Update()
         {
@@ -21,28 +27,24 @@ namespace Player
                 if (_isCrouching) return;
                 
                 var scale = crouchBody.transform.localScale;
-                scale = new Vector3(scale.x, scale.y/2, scale.z);
-                crouchBody.transform.localScale = scale;
-                
                 var position = crouchBody.transform.position;
-                position.y = transform.position.y - scale.y / 4;
-                crouchBody.transform.position = position;
+                
+                crouchBody.transform.localScale = new Vector3(_scale.x, _scale.y/2, _scale.z);
+                //crouchBody.transform.position = new Vector3(transform.position.x, transform.position.y - _scale.y / 4, transform.position.z);
                 
                 _isCrouching = true;
+                EventManager.Publish("Crouch", true);
             }
             else
             {
                 if (!_isCrouching) return;
                 
-                var scale = crouchBody.transform.localScale;
-                scale = new Vector3(scale.x, scale.y * 2, scale.z);
-                crouchBody.transform.localScale = scale;
                 
-                var position = crouchBody.transform.position;
-                position.y = transform.position.y + scale.y / 4;
-                crouchBody.transform.position = position;
-                
+                crouchBody.transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
+                //crouchBody.transform.position = new Vector3(transform.position.x, transform.position.y + _scale.y / 4, transform.position.z);
+
                 _isCrouching = false;
+                EventManager.Publish("Crouch", false);
             }
         }
     }

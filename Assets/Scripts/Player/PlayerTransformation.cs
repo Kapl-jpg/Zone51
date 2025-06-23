@@ -2,7 +2,7 @@ using System.Collections;
 using Enums;
 using UnityEngine;
 
-public class Transformation : Subscriber
+public class PlayerTransformation : Subscriber
 {
     [SerializeField] private float stayTime;
     [SerializeField] private GameObject alienForm;
@@ -27,6 +27,12 @@ public class Transformation : Subscriber
 
     private IEnumerator StayHuman()
     {
+        alienForm.TryGetComponent(out Collider alienCol);
+        humanForm.TryGetComponent(out Collider humanCol);
+        
+        alienCol.enabled = false;
+        humanCol.enabled = true;
+        
         humanForm.SetActive(true);
         float t = 0;
         while (t < 1)
@@ -42,6 +48,12 @@ public class Transformation : Subscriber
 
     private IEnumerator StayAlien()
     {
+        alienForm.TryGetComponent(out Collider alienCol);
+        humanForm.TryGetComponent(out Collider humanCol);
+        
+        alienCol.enabled = true;
+        humanCol.enabled = false;
+        
         alienForm.SetActive(true);
         float t = 1;
         while (t > 0)
