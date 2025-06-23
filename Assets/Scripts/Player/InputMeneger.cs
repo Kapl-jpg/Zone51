@@ -42,7 +42,7 @@ public class InputMeneger : MonoBehaviour
 
     public bool InputMouseRightButton()
     {
-        return input.Player.RightButtonMouse.triggered;
+        return input.Player.RightButtonMouse.IsPressed();
     }
 
     public bool Transformation()

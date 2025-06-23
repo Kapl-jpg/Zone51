@@ -1206,6 +1206,8 @@ MonoBehaviour:
   grabForce: 10
   maxDistance: 10
   grabbableTag: ForTelekinesis
+  maxChargeTime: 10
+  maxThrowForce: 25
 --- !u!1 &7754626258832802264
 GameObject:
   m_ObjectHideFlags: 0
