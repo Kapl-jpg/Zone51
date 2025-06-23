@@ -1,27 +1,46 @@
 using UnityEngine;
+using UnityEngine.Rendering.HighDefinition;
 
 public class Telekinesis : MonoBehaviour
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
-    [SerializeField] private  float grabForce = 10f;
-    [SerializeField] private float maxDistance = 10f;
+    [SerializeField] private float grabForce = 10;
+    [SerializeField] private float maxDistance = 10;
     [SerializeField] private string grabbableTag = "ForTelekinesis";
-    
+    [SerializeField] private float maxChargeTime = 10;
+    [SerializeField] private float maxThrowForce = 25;
 
     private Rigidbody grabbedRigidbody;
-    private bool isGrabbing = false;
+    private Renderer objectRenderer;
 
-    private void Update()
+    private bool isGrabbing = false;
+    private bool activeCharge = false;
+    private float chargeTime = 0f;
+
+    private void FixedUpdate()
     {
         if (inputMeneger.InputMouseLeftButton())
         {
-            GrabObject();
+            if (isGrabbing == false)
+            {
+                GrabObject();
+            }
+            else
+            {
+                ReleaseObject();
+            }
         }
 
-        if (inputMeneger.InputMouseRightButton())
+        if (inputMeneger.InputMouseRightButton() && isGrabbing)
         {
-            ReleaseObject();
+            activeCharge = true;
+            ChargeThrow();
+        }
+
+        if (activeCharge && inputMeneger.InputMouseRightButton() == false && isGrabbing)
+        {
+            ThrowObject();
         }
 
         if (isGrabbing)
@@ -43,6 +62,8 @@ public class Telekinesis : MonoBehaviour
                     isGrabbing = true;
                     grabbedRigidbody.useGravity = false;
                     grabbedRigidbody.freezeRotation = true;
+
+                    //SettingTransparencyObjiect(0.5f);
                 }
             }
         }
@@ -56,6 +77,8 @@ public class Telekinesis : MonoBehaviour
             grabbedRigidbody.useGravity = true;
             grabbedRigidbody.freezeRotation = false;
             grabbedRigidbody = null;
+            chargeTime = 0f;
+
         }
     }
 
@@ -63,10 +86,45 @@ public class Telekinesis : MonoBehaviour
     {
         if (grabbedRigidbody != null)
         {
-            float smoothSpeed = 5f; 
+            float smoothSpeed = 5f;
             Vector3 targetPosition = grabPoint.position;
             Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
             grabbedRigidbody.MovePosition(newPosition);
+        }
+    }
+
+    private void ChargeThrow()
+    {
+        chargeTime += Time.deltaTime;
+
+        if (chargeTime > maxChargeTime)
+        {
+            ThrowObject();
+        }
+        print(chargeTime); // Temporarily
+    }
+
+    private void ThrowObject()
+    {
+        if (grabbedRigidbody != null)
+        {
+            float throwForce = Mathf.Clamp01(chargeTime / maxChargeTime) * maxThrowForce;
+            Vector3 throwDirection = Camera.main.transform.forward;
+            grabbedRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+            ReleaseObject();
+            activeCharge = false;
+        }
+    }
+
+    private void SettingTransparencyObjiect(float transparency)
+    {
+        objectRenderer = grabbedRigidbody.GetComponent<Renderer>();
+
+        if (objectRenderer != null)
+        {
+            Color objectColor = objectRenderer.material.color;
+            objectColor.a = transparency;
+            objectRenderer.material.color = objectColor;
         }
     }
 }
