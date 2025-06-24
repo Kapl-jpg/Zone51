@@ -10,11 +10,9 @@ namespace Player
         [SerializeField] private Transform alienCrouchTarget;
         [SerializeField] private Transform humanTarget;
 
-        [Event("ChangeForm")]
-        private void ChangeCamera()
+        [Event("SwitchForm")]
+        private void ChangeCamera(CharacterType characterType)
         {
-            var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-            
             if(characterType == CharacterType.Human)
                 cameraTransform.position = humanTarget.position;
             if(characterType == CharacterType.Alien)

@@ -480,17 +480,18 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6575044093103930079}
-  - component: {fileID: 8185078429440105542}
   - component: {fileID: 4007781674457837468}
+  - component: {fileID: 8655418425146133966}
+  - component: {fileID: 8185078429440105542}
   - component: {fileID: 3158652827177663570}
   - component: {fileID: 1723095142000130376}
-  - component: {fileID: 8655418425146133966}
   - component: {fileID: 6902032610903594143}
   - component: {fileID: 3348805055649461048}
   - component: {fileID: 6463737275786635421}
   - component: {fileID: 3488284783992375489}
   - component: {fileID: 7872638153233510384}
   - component: {fileID: 1224785289593050963}
+  - component: {fileID: 7601777784038218548}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -515,20 +516,6 @@ Transform:
   - {fileID: 3010827297785262685}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8185078429440105542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7045314489859830242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74eee480d73d68b47a5a0cd909fd9b38, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speedWalking: 7
-  speedRunning: 10
 --- !u!54 &4007781674457837468
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -556,6 +543,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!65 &8655418425146133966
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 0.76449955, z: 1}
+  m_Center: {x: 0, y: -0.70213395, z: 0}
+--- !u!114 &8185078429440105542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74eee480d73d68b47a5a0cd909fd9b38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedWalking: 7
+  speedRunning: 10
 --- !u!114 &3158652827177663570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -585,27 +607,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 735107989a652904f92d420463770cb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &8655418425146133966
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7045314489859830242}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 0.76449955, z: 1}
-  m_Center: {x: 0, y: -0.70213395, z: 0}
 --- !u!114 &6902032610903594143
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -633,7 +634,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 1723095142000130376}
   humanDuration: 30
-  humanCooldown: 10
 --- !u!114 &6463737275786635421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -700,6 +700,21 @@ MonoBehaviour:
   grabbableTag: ForTelekinesis
   maxChargeTime: 10
   maxThrowForce: 25
+--- !u!114 &7601777784038218548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1814e772dfdbcf4380c12dee6ef4957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputMeneger: {fileID: 1723095142000130376}
+  sphereCastRadius: 0.4
+  maxDistance: 2
 --- !u!1 &7303593710492277192
 GameObject:
   m_ObjectHideFlags: 0

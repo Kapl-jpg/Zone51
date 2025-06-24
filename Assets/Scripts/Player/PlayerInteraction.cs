@@ -1,3 +1,5 @@
+using System;
+using Enums;
 using Interfaces;
 using UnityEngine;
 
@@ -11,9 +13,10 @@ public class PlayerInteraction : MonoBehaviour
 
     private void Update()
     {
-        RaycastHit hit;
-
-        if (Physics.SphereCast(transform.position, sphereCastRadius, transform.forward, out hit, maxDistance))
+        var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+        if (characterType == CharacterType.Alien) return;
+        
+        if (Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out var hit, maxDistance))
         {
             hit.collider.TryGetComponent(out IInteractable interactable);
             if (interactable != null)
@@ -33,11 +36,19 @@ public class PlayerInteraction : MonoBehaviour
                 _interactable = null;
             }
         }
-
+        
         if (inputMeneger.InputE())
         {
+            
             if (_interactable != null) 
                 _interactable.Interact();
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        
+        Gizmos.DrawWireSphere(Camera.main.transform.position + Camera.main.transform.forward * maxDistance, sphereCastRadius);
     }
 }

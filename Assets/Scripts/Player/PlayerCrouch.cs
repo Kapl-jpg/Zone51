@@ -26,11 +26,7 @@ namespace Player
 
                 if (_isCrouching) return;
                 
-                var scale = crouchBody.transform.localScale;
-                var position = crouchBody.transform.position;
-                
                 crouchBody.transform.localScale = new Vector3(_scale.x, _scale.y/2, _scale.z);
-                //crouchBody.transform.position = new Vector3(transform.position.x, transform.position.y - _scale.y / 4, transform.position.z);
                 
                 _isCrouching = true;
                 EventManager.Publish("Crouch", true);
@@ -41,7 +37,6 @@ namespace Player
                 
                 
                 crouchBody.transform.localScale = new Vector3(_scale.x, _scale.y, _scale.z);
-                //crouchBody.transform.position = new Vector3(transform.position.x, transform.position.y + _scale.y / 4, transform.position.z);
 
                 _isCrouching = false;
                 EventManager.Publish("Crouch", false);

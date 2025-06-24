@@ -7,33 +7,50 @@ namespace Player
     public class PlayerState : Subscriber
     {
         [SerializeField] private InputMeneger input;
-        
         [SerializeField] private float humanDuration;
-        [SerializeField] private float humanCooldown;
         
         private float _humanDurationTimer;
-        private float _humanCooldownTimer;
+
+        private bool _transformation;
         
         [Request("CharacterType")] 
         private readonly ObservableField<CharacterType> _characterType = new(CharacterType.Alien);
         
         private void Update()
         {
-            if (!CanTransform()) return;
+            if (!input.Transformation()) return;
             
-            if (input.Transformation())
+            if (_transformation) return;
+            
+            print(_characterType.Value);
+            if (_characterType.Value == CharacterType.Alien)
             {
-                StartCoroutine(ChangeForm());
+                StartCoroutine(StayHuman());
+            }
+            
+            if(_characterType.Value == CharacterType.Human)
+            {
+                StartCoroutine(StayAlien());
             }
         }
 
-        private IEnumerator ChangeForm()
+        [Event("Transformation")]
+        private void Transformation(bool transformation)
+        {
+            _transformation = transformation;
+        }
+
+        [Event("SetForm")]
+        private void SetForm(CharacterType characterType)
+        {
+            _characterType.Value = characterType;
+        }
+
+        private IEnumerator StayHuman()
         {
             _humanDurationTimer = humanDuration;
-            _humanCooldownTimer = humanCooldown;
             
-            _characterType.Value = CharacterType.Human;
-            EventManager.Publish("ChangeForm");
+            EventManager.Publish("SwitchForm", CharacterType.Human);
 
             while (_humanDurationTimer > 0f)
             {
@@ -41,23 +58,16 @@ namespace Player
                 yield return null;
             }
             
-            _characterType.Value = CharacterType.Alien;
-            EventManager.Publish("ChangeForm");
-            StartCoroutine(RestoreCooldown());
+            EventManager.Publish("SwitchForm", CharacterType.Alien);
         }
 
-        private IEnumerator RestoreCooldown()
+        private IEnumerator StayAlien()
         {
-            while (_humanCooldownTimer > 0f)
-            {
-                _humanCooldownTimer -= Time.deltaTime;
-                yield return null;
-            }
-        }
-        
-        private bool CanTransform()
-        {
-            return _humanDurationTimer <= 0 && _humanCooldownTimer <= 0;;
+            StopCoroutine(StayHuman());
+            _humanDurationTimer = 0f;
+            
+            EventManager.Publish("SwitchForm", CharacterType.Alien);
+            yield return null;
         }
     }
 }

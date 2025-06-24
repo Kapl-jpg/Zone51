@@ -10,19 +10,14 @@ public class PlayerTransformation : Subscriber
     [SerializeField] private Material alienMaterial;
     [SerializeField] private Material humanMaterial;
 
-    [Event("ChangeForm")]
-    private void ChangeForm()
+    [Event("SwitchForm")]
+    private void SwitchForm(CharacterType characterType)
     {
-        var type = RequestManager.GetValue<CharacterType>("CharacterType");
-        switch (type)
-        {
-            case CharacterType.Alien:
-                StartCoroutine(StayAlien());
-                break;
-            case CharacterType.Human:
-                StartCoroutine(StayHuman());
-                break;
-        }
+        if (characterType == CharacterType.Alien)
+            StartCoroutine(StayAlien());
+        
+        if (characterType == CharacterType.Human)
+            StartCoroutine(StayHuman());
     }
 
     private IEnumerator StayHuman()
@@ -34,6 +29,8 @@ public class PlayerTransformation : Subscriber
         humanCol.enabled = true;
         
         humanForm.SetActive(true);
+        EventManager.Publish("Transformation", true);
+        
         float t = 0;
         while (t < 1)
         {
@@ -42,7 +39,9 @@ public class PlayerTransformation : Subscriber
             humanMaterial.SetFloat("_DissolveValue", t);
             yield return null;
         }
-
+        
+        EventManager.Publish("Transformation", false);
+        EventManager.Publish("SetForm", CharacterType.Human);
         alienForm.SetActive(false);
     }
 
@@ -55,6 +54,8 @@ public class PlayerTransformation : Subscriber
         humanCol.enabled = false;
         
         alienForm.SetActive(true);
+        EventManager.Publish("Transformation", true);
+        
         float t = 1;
         while (t > 0)
         {
@@ -64,6 +65,8 @@ public class PlayerTransformation : Subscriber
             yield return null;
         }
 
+        EventManager.Publish("Transformation", false);
+        EventManager.Publish("SetForm", CharacterType.Alien);
         humanForm.SetActive(false);
     }
 }
