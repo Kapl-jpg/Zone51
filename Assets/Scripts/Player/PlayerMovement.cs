@@ -1,15 +1,18 @@
+using Enums;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float speedWalking;
-    [SerializeField] private float speedRunning;
+    [SerializeField] private float alienSpeedWalking;
+    [SerializeField] private float alienSpeedRunning;
+    [SerializeField] private float humanSpeedWalking;
+    [SerializeField] private float humanSpeedRunning;
 
     private MouseMovement mouseMovement;
     private InputMeneger inputMeneger;
     private JumpController jumpController;
     private Rigidbody rb;
-    
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -22,28 +25,29 @@ public class PlayerMovement : MonoBehaviour
     {
         jumpController.Jump();
     }
-    
+
     private void FixedUpdate()
     {
-        MoveCharacter();
+        Move();
         mouseMovement.RotateCharacter();
     }
 
-    private void MoveCharacter()
+    private void Move()
     {
-        if (inputMeneger.InputShift() == false)
-        {
-            Move(speedWalking);
-        }
-        else
-        {
-            Move(speedRunning);
-        }
+        Vector3 moveDirection =
+            transform.right * inputMeneger.GetMove().x + transform.forward * inputMeneger.GetMove().y;
+        rb.linearVelocity = new Vector3(moveDirection.x * Speed(), rb.linearVelocity.y, moveDirection.z * Speed());
+        rb.angularVelocity = Vector3.zero;
     }
 
-    private void Move(float speed) 
+    private float Speed()
     {
-        Vector3 moveDirection = transform.right * inputMeneger.GetMove().x + transform.forward * inputMeneger.GetMove().y;
-        rb.linearVelocity = new Vector3(moveDirection.x * speed, rb.linearVelocity.y, moveDirection.z * speed);
+        var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+        if (inputMeneger.InputShift())
+        {
+            return characterType == CharacterType.Human ? humanSpeedRunning : alienSpeedRunning;
+        }
+
+        return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
     }
 }

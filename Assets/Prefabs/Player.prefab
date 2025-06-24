@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1535965274896533526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.383, y: -0.191, z: 0.505}
+  m_LocalPosition: {x: 0.47, y: -0.191, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -343,7 +343,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -594,8 +594,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 0.76449955, z: 1}
-  m_Center: {x: 0, y: -0.70213395, z: 0}
+  m_Size: {x: 0.5, y: 0.3, z: 0.5}
+  m_Center: {x: 0, y: -1, z: 0}
 --- !u!114 &8185078429440105542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,8 +608,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eee480d73d68b47a5a0cd909fd9b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedWalking: 7
-  speedRunning: 10
+  alienSpeedWalking: 7
+  alienSpeedRunning: 10
+  humanSpeedWalking: 5
+  humanSpeedRunning: 7
 --- !u!114 &3158652827177663570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,7 +653,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8749a6f671a155645bd1bc75df317c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 7
+  alienJumpForce: 7
+  humanJumpForce: 5
 --- !u!114 &3348805055649461048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -727,11 +730,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputMeneger: {fileID: 1723095142000130376}
   grabPoint: {fileID: 419398331934202992}
-  objectForTelekineses: []
+  objectForTelekineses:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  smoothSpeed: 5
   grabForce: 10
   maxDistance: 10
-  maxChargeTime: 10
-  maxThrowForce: 25
+  maxChargeTime: 5
+  maxHoldTime: 10
+  maxThrowForce: 40
 --- !u!114 &7601777784038218548
 MonoBehaviour:
   m_ObjectHideFlags: 0

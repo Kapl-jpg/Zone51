@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 public class Telekinesis : MonoBehaviour
@@ -5,9 +6,11 @@ public class Telekinesis : MonoBehaviour
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
     [SerializeField] private ObjectForTelekinesis[] objectForTelekineses;
+    [SerializeField] private float smoothSpeed = 5f;
     [SerializeField] private float grabForce = 10;
     [SerializeField] private float maxDistance = 10;
-    [SerializeField] private float maxChargeTime = 10;
+    [SerializeField] private float maxChargeTime = 5;
+    [SerializeField] private float maxHoldTime = 10;
     [SerializeField] private float maxThrowForce = 25;
 
     private Rigidbody grabbedRigidbody;
@@ -15,6 +18,7 @@ public class Telekinesis : MonoBehaviour
     private bool isGrabbing = false;
     private bool activeCharge = false;
     private float chargeTime = 0f;
+    private float _holdTime;
 
     private void FixedUpdate()
     {
@@ -26,18 +30,28 @@ public class Telekinesis : MonoBehaviour
 
     private void Update()
     {
+        var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (inputMeneger.InputMouseLeftButton())
         {
-            if (isGrabbing == false)
+            if (characterType == CharacterType.Alien)
             {
-                GrabObject();
-            }
-            else
-            {
-                ReleaseObject();
+                if (isGrabbing == false)
+                {
+                    GrabObject();
+                }
+                else
+                {
+                    ReleaseObject();
+                }
             }
         }
 
+        if (isGrabbing)
+        {
+            if(characterType == CharacterType.Human)
+                ReleaseObject();
+        }
+        
         if (inputMeneger.InputMouseRightButton() && isGrabbing)
         {
             activeCharge = true;
@@ -79,6 +93,7 @@ public class Telekinesis : MonoBehaviour
             grabbedRigidbody.freezeRotation = false;
             grabbedRigidbody = null;
             chargeTime = 0f;
+            _holdTime = 0f;
             CheckingAllObjects();
         }
     }
@@ -87,7 +102,6 @@ public class Telekinesis : MonoBehaviour
     {
         if (grabbedRigidbody == null) return;
         
-        float smoothSpeed = 5f;
         Vector3 targetPosition = grabPoint.position;
         Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
         grabbedRigidbody.MovePosition(newPosition);
@@ -95,13 +109,14 @@ public class Telekinesis : MonoBehaviour
 
     private void ChargeThrow()
     {
-        chargeTime += Time.deltaTime;
-
-        if (chargeTime > maxChargeTime)
+        chargeTime = Mathf.Clamp(chargeTime + Time.deltaTime,0,maxChargeTime);
+        _holdTime += Time.deltaTime;
+        
+        if (_holdTime > maxHoldTime)
         {
-            ThrowObject();
+            ReleaseObject();
         }
-        print(chargeTime); // Temporarily
+        //print(chargeTime); // Temporarily
     }
 
     private void ThrowObject()
