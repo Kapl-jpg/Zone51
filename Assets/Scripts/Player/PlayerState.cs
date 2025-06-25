@@ -22,7 +22,6 @@ namespace Player
             
             if (_transformation) return;
             
-            print(_characterType.Value);
             if (_characterType.Value == CharacterType.Alien)
             {
                 StartCoroutine(StayHuman());
