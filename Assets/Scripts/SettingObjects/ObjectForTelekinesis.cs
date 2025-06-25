@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ObjectForTelekinesis : MonoBehaviour
@@ -5,12 +6,21 @@ public class ObjectForTelekinesis : MonoBehaviour
     private Rigidbody rb;
     private Renderer renderer;
     private Color originalColor;
-    private bool activeChecking = false;
+
+    private bool activeCheckingMovement = false;
+    private bool activeCheckingGravity = false;
+    private float massObject;
+    private float massForDeductions;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();
+
+        massObject = rb.mass;
+        massForDeductions = massObject * 100;
+        rb.mass = massForDeductions;
+
         if (renderer != null)
         {
             originalColor = renderer.material.color;
@@ -19,20 +29,29 @@ public class ObjectForTelekinesis : MonoBehaviour
 
     private void Update()
     {
-        if (activeChecking)
+        if (activeCheckingMovement)
         {
             if (rb.linearVelocity == Vector3.zero)
             {
-                rb.isKinematic = true;
-                activeChecking = false;
+                rb.mass = massForDeductions;
                 SettingTransparent(true);
+                activeCheckingMovement = false;
             }
-        }     
+        } 
+        
+        if (activeCheckingGravity)
+        {
+            if (rb.useGravity == true)
+            {
+                activeCheckingMovement = true;
+                activeCheckingGravity = false;
+            }
+        }
     }
 
-    public void ActivatorChecking(bool active)
+    public void ActivatorCheckingGravity(bool active)
     {
-        activeChecking = active;
+        activeCheckingGravity = active;
     }
 
     public void SettingTransparent(bool activator)
@@ -46,5 +65,10 @@ public class ObjectForTelekinesis : MonoBehaviour
                 renderer.material.color = newColor;
             }
         }
+    }
+
+    public void PurposeRealMass()
+    {
+        rb.mass = massObject;
     }
 }
