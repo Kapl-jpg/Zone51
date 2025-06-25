@@ -5,7 +5,6 @@ public class Telekinesis : MonoBehaviour
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
-    [SerializeField] private ObjectForTelekinesis[] objectForTelekineses;
     [SerializeField] private float smoothSpeed = 5f;
     [SerializeField] private float grabForce = 10;
     [SerializeField] private float maxDistance = 10;
@@ -69,16 +68,20 @@ public class Telekinesis : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance))
         {
-            if (hit.collider.GetComponent<ObjectForTelekinesis>() != null)
+            ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
+
+            if (objectForTelekinesis != null)
             {
                 grabbedRigidbody = hit.rigidbody;
                 if (grabbedRigidbody != null)
                 {
                     isGrabbing = true;
-                    grabbedRigidbody.useGravity = false;
                     grabbedRigidbody.freezeRotation = true;
-                    SettingKinematicAllObjects(false);
+                    grabbedRigidbody.useGravity = false;
 
+                    objectForTelekinesis.PurposeRealMass();
+                    objectForTelekinesis.SettingTransparent(false);
+                    objectForTelekinesis.ActivatorCheckingGravity(true);
                 }
             }
         }
@@ -94,7 +97,6 @@ public class Telekinesis : MonoBehaviour
             grabbedRigidbody = null;
             chargeTime = 0f;
             _holdTime = 0f;
-            CheckingAllObjects();
         }
     }
 
@@ -109,7 +111,7 @@ public class Telekinesis : MonoBehaviour
 
     private void ChargeThrow()
     {
-        chargeTime = Mathf.Clamp(chargeTime + Time.deltaTime,0,maxChargeTime);
+        chargeTime = Mathf.Clamp(chargeTime + Time.deltaTime, 0, maxChargeTime);
         _holdTime += Time.deltaTime;
         
         if (_holdTime > maxHoldTime)
@@ -128,30 +130,6 @@ public class Telekinesis : MonoBehaviour
             grabbedRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             ReleaseObject();
             activeCharge = false;
-            CheckingAllObjects();
-        }
-    }
-
-
-    private void SettingKinematicAllObjects(bool isActive)
-    {
-        for (int i = 0; i < objectForTelekineses.Length; i++)
-        {
-            Rigidbody rb = objectForTelekineses[i].GetComponent<Rigidbody>();
-
-            if (rb.useGravity == false)
-            {
-                rb.isKinematic = isActive;
-                objectForTelekineses[i].SettingTransparent(false); // To another place
-            }
-        }
-    }
-
-    private void CheckingAllObjects()
-    {
-        for (int i = 0; i < objectForTelekineses.Length; i++)
-        {
-            objectForTelekineses[i].ActivatorChecking(true);
         }
     }
 }
