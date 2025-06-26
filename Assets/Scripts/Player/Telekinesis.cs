@@ -1,4 +1,5 @@
 using Enums;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class Telekinesis : MonoBehaviour
@@ -61,6 +62,8 @@ public class Telekinesis : MonoBehaviour
         {
             ThrowObject();
         }
+
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
     private void GrabObject()
