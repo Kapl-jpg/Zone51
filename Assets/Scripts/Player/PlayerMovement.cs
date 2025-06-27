@@ -1,7 +1,6 @@
 using Enums;
 using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,12 +9,12 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float alienSpeedRunning;
     [SerializeField] private float humanSpeedWalking;
     [SerializeField] private float humanSpeedRunning;
-    [SerializeField] private float rotationSpeed = 10f; // Уменьшено для плавности
-    [SerializeField] private float cameraRotationSpeed = 15f; // Добавлен параметр для камеры
-    [SerializeField] private float movementSmoothing = 0.1f; // 
-    [SerializeField] private float mouseSensitivity = 2f; // 
+    [SerializeField] private float rotationSpeed = 10f;
+    [SerializeField] private float cameraRotationSpeed = 15f;
+    [SerializeField] private float movementSmoothing = 0.1f;
+    [SerializeField] private float mouseSensitivity = 2f;
 
-    //private MouseMovement mouseMovement;
+    private MouseMovement mouseMovement;
     private InputMeneger inputMeneger;
     private JumpController jumpController;
     private Rigidbody rb;
@@ -24,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        //mouseMovement = GetComponent<MouseMovement>();
+        mouseMovement = GetComponent<MouseMovement>();
         inputMeneger = GetComponent<InputMeneger>();
         jumpController = GetComponent<JumpController>();
     }
@@ -37,7 +36,13 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        //mouseMovement.RotateCharacter();
+
+        var active = RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
+
+        if (active)
+        {
+            mouseMovement.RotateCharacter();
+        }
     }
 
     private void Move()

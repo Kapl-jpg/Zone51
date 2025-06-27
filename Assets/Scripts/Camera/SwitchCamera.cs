@@ -1,20 +1,20 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class SwitchCamera : MonoBehaviour
+public class SwitchCamera : Subscriber
 {
     [SerializeField] CinemachineCamera thirdPersonCamera;
     [SerializeField] CinemachineCamera firstPersonCamera;
 
-    void Start()
-    {
-        
-    }
+    private int _priorityThirdPersonCamera;
+    private int _priorityFirstPersonCamera;
 
-    // Update is called once per frame
-    void Update()
+    [Request("ActivateFirstPersonCamera")] private ObservableField<bool> _isActiveFirstPersonCamera = new();
+
+    private void Start()
     {
-        
+        _priorityThirdPersonCamera = thirdPersonCamera.Priority;
+        _priorityFirstPersonCamera = firstPersonCamera.Priority;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,11 +23,15 @@ public class SwitchCamera : MonoBehaviour
         {
             if (thirdPersonCamera.Priority > firstPersonCamera.Priority)
             {
-                firstPersonCamera.Priority = thirdPersonCamera.Priority;
+                firstPersonCamera.Priority = _priorityThirdPersonCamera;
+                thirdPersonCamera.Priority = _priorityFirstPersonCamera;
+                _isActiveFirstPersonCamera.Value = true;
             }
             else
             {
-                thirdPersonCamera.Priority = firstPersonCamera.Priority;
+                thirdPersonCamera.Priority = _priorityThirdPersonCamera;
+                firstPersonCamera.Priority = _priorityFirstPersonCamera;
+                _isActiveFirstPersonCamera.Value = false;
             }
         }
     }

@@ -1558,6 +1558,8 @@ GameObject:
   - component: {fileID: 1224785289593050963}
   - component: {fileID: 7601777784038218548}
   - component: {fileID: 6560668320725495028}
+  - component: {fileID: 5879603978454489303}
+  - component: {fileID: 74439334123787970}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1578,6 +1580,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1942456633044495170}
   - {fileID: 3010827297785262685}
   - {fileID: 419398331934202992}
   m_Father: {fileID: 0}
@@ -1642,10 +1645,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eee480d73d68b47a5a0cd909fd9b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  virtualCamera: {fileID: 0}
   alienSpeedWalking: 7
   alienSpeedRunning: 10
   humanSpeedWalking: 5
   humanSpeedRunning: 7
+  rotationSpeed: 10
+  cameraRotationSpeed: 15
+  movementSmoothing: 0.1
+  mouseSensitivity: 2
 --- !u!114 &3158652827177663570
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1800,6 +1808,36 @@ MonoBehaviour:
   inputMeneger: {fileID: 1723095142000130376}
   animator: {fileID: 0}
   translateTime: 0
+--- !u!114 &5879603978454489303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49466d4b716a0d84c8a7a881bfa6e473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thirdPersonCamera: {fileID: 0}
+  radiusCameraForAlien: 3
+  radiusCameraForHuman: 5
+  radiusForSittingAlien: 2
+--- !u!114 &74439334123787970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5e954668fe2bc14f9bab5e26e9ae2b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thirdPersonCamera: {fileID: 0}
+  firstPersonCamera: {fileID: 0}
 --- !u!1 &7244789755757621777
 GameObject:
   m_ObjectHideFlags: 0
@@ -2036,6 +2074,37 @@ Transform:
   m_Children:
   - {fileID: 85860343806831178}
   m_Father: {fileID: 5291217452294847402}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7635571430692575695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1942456633044495170}
+  m_Layer: 0
+  m_Name: TrackingPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1942456633044495170
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7635571430692575695}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.67, y: -0.135, z: -0.23082161}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6575044093103930079}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7652983116612580156
 GameObject:

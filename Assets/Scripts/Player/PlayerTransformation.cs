@@ -42,6 +42,7 @@ public class PlayerTransformation : Subscriber
         
         EventManager.Publish("Transformation", false);
         EventManager.Publish("SetForm", CharacterType.Human);
+        EventManager.Publish("CameraForHuman");
         alienForm.SetActive(false);
     }
 
@@ -67,6 +68,7 @@ public class PlayerTransformation : Subscriber
 
         EventManager.Publish("Transformation", false);
         EventManager.Publish("SetForm", CharacterType.Alien);
+        EventManager.Publish("CameraForAlien");
         humanForm.SetActive(false);
     }
 }
