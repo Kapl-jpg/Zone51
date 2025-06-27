@@ -1,32 +1,36 @@
 using Enums;
 using UnityEngine;
 
-public class JumpController : MonoBehaviour
+public class JumpController : Subscriber
 {
     [SerializeField] private float alienJumpForce;
     [SerializeField] private float humanJumpForce;
 
-    private InputMeneger inputMeneger;
-    private Rigidbody rb;
+    private InputMeneger _inputMeneger;
+    private Rigidbody _rb;
 
-    private bool activeJump;
+    [Request("IsGrounded")]
+    private readonly ObservableField<bool> _isGrounded =  new();
 
     private void Start()
     {
-        inputMeneger = GetComponent<InputMeneger>();
-        rb = GetComponent<Rigidbody>();
+        _inputMeneger = GetComponent<InputMeneger>();
+        _rb = GetComponent<Rigidbody>();
     }
 
     public void Jump()
     {
-        if (inputMeneger.Crouch()) return;
-        
-        if (inputMeneger.InputSpace() && activeJump)
-        {
-            rb.AddForce(Vector3.up * JumpForce(), ForceMode.Impulse);
+        if (_inputMeneger.Crouch()) return;
 
-            activeJump = false;
-        }
+        if (!_inputMeneger.InputSpace() || !_isGrounded.Value) return;
+        
+        _isGrounded.Value = false;
+    }
+
+    [Event("DoJump")]
+    public void DoJump()
+    {
+        _rb.AddForce(Vector3.up * JumpForce(), ForceMode.Impulse);
     }
 
     private float JumpForce()
@@ -38,9 +42,17 @@ public class JumpController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "ForJump")
+        if (other.CompareTag("ForJump"))
         {
-            activeJump = true;
+            _isGrounded.Value = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("ForJump"))
+        {
+            _isGrounded.Value = false;
         }
     }
 }

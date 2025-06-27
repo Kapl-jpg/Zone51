@@ -75,6 +75,7 @@ GameObject:
   m_Component:
   - component: {fileID: 642509673937883159}
   - component: {fileID: 3963237682270108096}
+  - component: {fileID: 7322067096991083811}
   m_Layer: 0
   m_Name: AlienForm
   m_TagString: Untagged
@@ -122,6 +123,28 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.48, z: 0}
+--- !u!95 &7322067096991083811
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261621681332783789}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f624240d832ec67489c684e181aba70c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &972562162100073914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1557,7 @@ GameObject:
   - component: {fileID: 7872638153233510384}
   - component: {fileID: 1224785289593050963}
   - component: {fileID: 7601777784038218548}
+  - component: {fileID: 6560668320725495028}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1761,6 +1785,21 @@ MonoBehaviour:
   inputMeneger: {fileID: 1723095142000130376}
   sphereCastRadius: 0.4
   maxDistance: 2
+--- !u!114 &6560668320725495028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d82502aaf30679648a78d8868480377f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputMeneger: {fileID: 1723095142000130376}
+  animator: {fileID: 0}
+  translateTime: 0
 --- !u!1 &7244789755757621777
 GameObject:
   m_ObjectHideFlags: 0
