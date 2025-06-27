@@ -46,7 +46,7 @@ public class Password : MonoBehaviour
     {
         _numbers.Add(number);
         
-        ShowNumber();
+        UpdateNumber();
         
         if (_numbers.Count >= 4)
         {
@@ -58,11 +58,19 @@ public class Password : MonoBehaviour
     {
         if(_numbers.Count > 0)
             _numbers.RemoveAt(_numbers.Count - 1);
+        
+        UpdateNumber();
     }
 
-    private void ShowNumber()
+    private void UpdateNumber()
     {
-        FieldByIndex(_numbers.Count - 1).text = _numbers[^1].ToString();
+        for (int i = 0; i < 4; i++)
+        {
+            if(i <= _numbers.Count - 1)
+                FieldByIndex(i).text = _numbers[i].ToString();
+            else
+                FieldByIndex(i).text = String.Empty;
+        }
     }
 
     private void CheckNextScene()
@@ -98,7 +106,7 @@ public class Password : MonoBehaviour
         yield return new WaitForSeconds(waitTransitionTime);
         
         foreach (var button in buttons)
-            button.interactable = false;
+            button.interactable = true;
         
         authorizationScreenBackground.color = defaultColor;
         
