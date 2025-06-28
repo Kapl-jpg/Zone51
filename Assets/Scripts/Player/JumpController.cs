@@ -25,6 +25,7 @@ public class JumpController : Subscriber
         if (!_inputMeneger.InputSpace() || !_isGrounded.Value) return;
         
         _isGrounded.Value = false;
+        DoJump();
     }
 
     [Event("DoJump")]

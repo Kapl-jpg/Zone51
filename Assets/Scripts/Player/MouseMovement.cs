@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class MouseMovement : MonoBehaviour
+public class MouseMovement : Subscriber
 {
     [SerializeField] private Transform player;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform firstPersonCamera;
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float minY = -30;
     [SerializeField] private float maxY = 30;
@@ -16,8 +16,22 @@ public class MouseMovement : MonoBehaviour
     private void Awake()
     {
         inputMeneger = GetComponent<InputMeneger>();
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+    }
+
+    [Event("OnOffCursor")]
+
+    private void OnOffCursor(bool active)
+    {
+        if (active == false)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
     }
 
     public void RotateCharacter()
@@ -30,7 +44,7 @@ public class MouseMovement : MonoBehaviour
         yRotation -= mouseY;
         yRotation = Mathf.Clamp(yRotation, minY, maxY);
 
-        camera.localEulerAngles = new Vector3(yRotation, 0f, 0f); 
+        firstPersonCamera.localEulerAngles = new Vector3(yRotation, 0f, 0f);
 
         player.localEulerAngles = new Vector3(0f, xRotation, 0f);
     }

@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InputMeneger : MonoBehaviour
 {
@@ -54,4 +56,5 @@ public class InputMeneger : MonoBehaviour
     {
         return input.Player.Crouch.IsPressed();
     }
+
 }
