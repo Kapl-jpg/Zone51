@@ -2860,7 +2860,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 2
-    Time: 1.5
+    Time: 0.5
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
