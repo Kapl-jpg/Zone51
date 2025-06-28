@@ -3,7 +3,7 @@ using UnityEngine;
 public class MouseMovement : Subscriber
 {
     [SerializeField] private Transform player;
-    [SerializeField] private Transform camera;
+    [SerializeField] private Transform firstPersonCamera;
     [SerializeField] private float mouseSensitivity = 0.1f;
     [SerializeField] private float minY = -30;
     [SerializeField] private float maxY = 30;
@@ -44,7 +44,7 @@ public class MouseMovement : Subscriber
         yRotation -= mouseY;
         yRotation = Mathf.Clamp(yRotation, minY, maxY);
 
-        camera.localEulerAngles = new Vector3(yRotation, 0f, 0f);
+        firstPersonCamera.localEulerAngles = new Vector3(yRotation, 0f, 0f);
 
         player.localEulerAngles = new Vector3(0f, xRotation, 0f);
     }

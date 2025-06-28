@@ -19,8 +19,11 @@ public class SwitchCamera : Subscriber
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.name == "Player")
+
+
+        if (other.gameObject.name == "Player") 
         {
+            
             if (thirdPersonCamera.Priority > firstPersonCamera.Priority)
             {
                 firstPersonCamera.Priority = _priorityThirdPersonCamera;

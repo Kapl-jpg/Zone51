@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private CinemachineCamera virtualCamera;
+    [SerializeField] private CinemachineCamera thirdPersonCamera;
     [SerializeField] private float alienSpeedWalking;
     [SerializeField] private float alienSpeedRunning;
     [SerializeField] private float humanSpeedWalking;
@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private JumpController jumpController;
     private Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
+
 
     private void Awake()
     {
@@ -37,9 +38,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
 
-        var active = RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
-
-        if (active)
+        if (ActiveFirstPersonCamera())
         {
             mouseMovement.RotateCharacter();
         }
@@ -48,23 +47,28 @@ public class PlayerMovement : MonoBehaviour
     private void Move()
     {
         Vector3 moveInput = inputMeneger.GetMove();
-        Vector3 cameraForward = virtualCamera.transform.forward;
+        Vector3 cameraForward = thirdPersonCamera.transform.forward;
         cameraForward.y = 0;
         cameraForward.Normalize();
 
-        Vector3 moveDirection = cameraForward * moveInput.y + virtualCamera.transform.right * moveInput.x;
-        //Vector3 moveDirection = transform.right * inputMeneger.GetMove().x + transform.forward * inputMeneger.GetMove().y;
-
-        if (moveDirection.magnitude > 0.1f)
+        if (!ActiveFirstPersonCamera())
         {
-            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
-        }
+            Vector3 moveDirection = cameraForward * moveInput.y + thirdPersonCamera.transform.right * moveInput.x;
 
-        //velocity = Vector3.SmoothDamp(velocity, moveDirection * Speed(), ref velocity, movementSmoothing);
-        rb.linearVelocity = new Vector3(moveDirection.x * Speed(), rb.linearVelocity.y, moveDirection.z * Speed());
-        rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
-        rb.angularVelocity = Vector3.zero;
+            if (moveDirection.magnitude > 0.1f)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            }
+
+            CalculationsForMovement(moveDirection);
+            rb.angularVelocity = Vector3.zero;
+        }
+        else
+        {
+            Vector3 moveDirection = transform.right * inputMeneger.GetMove().x + transform.forward * inputMeneger.GetMove().y;
+            CalculationsForMovement(moveDirection);
+        }        
     }
 
     private float Speed()
@@ -76,5 +80,16 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
+    }
+
+    private bool ActiveFirstPersonCamera()
+    {
+        return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
+    }
+
+    private void CalculationsForMovement(Vector3 moveDirection)
+    {
+        rb.linearVelocity = new Vector3(moveDirection.x * Speed(), rb.linearVelocity.y, moveDirection.z * Speed());
+        rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
     }
 }

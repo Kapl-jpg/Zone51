@@ -6,12 +6,14 @@ public class Telekinesis : MonoBehaviour
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
+    [SerializeField] private CinemachineCamera thirdPersonCamera;
     [SerializeField] private float smoothSpeed = 5f;
     [SerializeField] private float grabForce = 10;
     [SerializeField] private float maxDistance = 10;
     [SerializeField] private float maxChargeTime = 5;
     [SerializeField] private float maxHoldTime = 10;
     [SerializeField] private float maxThrowForce = 25;
+    [SerializeField] private float turnSmoothness = 5f;
 
     private Rigidbody grabbedRigidbody;
 
@@ -63,13 +65,13 @@ public class Telekinesis : MonoBehaviour
             ThrowObject();
         }
 
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
+        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
     private void GrabObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance))
+        if (Physics.Raycast(thirdPersonCamera.transform.position, thirdPersonCamera.transform.forward, out hit, maxDistance))
         {
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
 
@@ -110,6 +112,8 @@ public class Telekinesis : MonoBehaviour
         Vector3 targetPosition = grabPoint.position;
         Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
         grabbedRigidbody.MovePosition(newPosition);
+
+        ObjectMonitoring();
     }
 
     private void ChargeThrow()
@@ -134,5 +138,22 @@ public class Telekinesis : MonoBehaviour
             ReleaseObject();
             activeCharge = false;
         }
+    }
+
+    private void ObjectMonitoring()
+    {
+        if (!ActiveFirstPersonCamera())
+        {
+            Vector3 lookDirection = grabbedRigidbody.position - transform.position;
+            lookDirection.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSmoothness);
+        }
+        
+    }
+
+    private bool ActiveFirstPersonCamera()
+    {
+        return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
     }
 }
