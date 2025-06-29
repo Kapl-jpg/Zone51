@@ -16,10 +16,10 @@ public class MouseMovement : Subscriber
     private void Awake()
     {
         inputMeneger = GetComponent<InputMeneger>();
+        OnOffCursor(false);
     }
 
     [Event("OnOffCursor")]
-
     private void OnOffCursor(bool active)
     {
         if (active == false)

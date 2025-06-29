@@ -12,25 +12,47 @@ namespace Player
         private float _humanDurationTimer;
 
         private bool _transformation;
+        private IEnumerator _humanCoroutine;
         
         [Request("CharacterType")] 
         private readonly ObservableField<CharacterType> _characterType = new(CharacterType.Alien);
         
+        [Request("ChipDisable")]
+        private readonly ObservableField<bool> _chipDisable = new();
+        
         private void Update()
         {
+            if(!_chipDisable.Value) return;
             if (!input.Transformation()) return;
             
             if (_transformation) return;
             
             if (_characterType.Value == CharacterType.Alien)
             {
-                StartCoroutine(StayHuman());
+                StartCoroutine(StayHuman(false));
             }
             
             if(_characterType.Value == CharacterType.Human)
             {
                 StartCoroutine(StayAlien());
             }
+        }
+
+        [Event("ForcedTransformation")]
+        private void ForcedTransformation(CharacterType characterType)
+        {
+            if (_characterType.Value == characterType) return;
+            if (characterType == CharacterType.Alien)
+            {
+                StartCoroutine(StayAlien());
+                _chipDisable.Value = true;
+            }
+            
+            if(characterType == CharacterType.Human)
+            {
+                StartCoroutine(StayHuman(true));
+            }
+            _characterType.Value = characterType;
         }
 
         [Event("Transformation")]
@@ -45,24 +67,29 @@ namespace Player
             _characterType.Value = characterType;
         }
 
-        private IEnumerator StayHuman()
+        private IEnumerator StayHuman(bool endless)
         {
             _humanDurationTimer = humanDuration;
             
             EventManager.Publish("SwitchForm", CharacterType.Human);
 
-            while (_humanDurationTimer > 0f)
+            if (!endless)
             {
-                _humanDurationTimer -= Time.deltaTime;
-                yield return null;
+                while (_humanDurationTimer > 0f)
+                {
+                    _humanDurationTimer -= Time.deltaTime;
+                    yield return null;
+                }
+
+                EventManager.Publish("SwitchForm", CharacterType.Alien);
             }
-            
-            EventManager.Publish("SwitchForm", CharacterType.Alien);
         }
 
         private IEnumerator StayAlien()
         {
-            StopCoroutine(StayHuman());
+            StopCoroutine(StayHuman(true));
+            StopCoroutine(StayHuman(false));
+            
             _humanDurationTimer = 0f;
             
             EventManager.Publish("SwitchForm", CharacterType.Alien);

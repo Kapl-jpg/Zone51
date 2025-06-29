@@ -2,59 +2,74 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputMeneger : MonoBehaviour
+public class InputMeneger : Subscriber
 {
-    private InputSystem_Actions input;
+    private InputSystem_Actions _input;
+    private bool _isLock;
+
+    [Event("LockController")]
+    private void LockController(bool isLock)
+    {
+        if (isLock)
+        {
+            _input.Player.Disable();
+            _input.UI.Enable();
+        }
+        else
+        {
+            _input.Player.Enable();
+            _input.UI.Disable();
+        }
+    }
 
     private void Start()
     {
-        input = new InputSystem_Actions();
-        input.Player.Enable();
+        _input = new InputSystem_Actions();
+        _input.Player.Enable();
     }
 
     public bool InputShift()
     {
-        return input.Player.Sprint.IsPressed();
+        return _input.Player.Sprint.IsPressed();
     }
 
     public Vector2 InputMouse()
     {
-        return input.Player.Look.ReadValue<Vector2>();
+        return _input.Player.Look.ReadValue<Vector2>();
     }
 
     public Vector2 GetMove()
     {
-        return input.Player.Move.ReadValue<Vector2>();
+        return _input.Player.Move.ReadValue<Vector2>();
     }
 
     public bool InputSpace()
     {
-        return input.Player.Jump.triggered;
+        return _input.Player.Jump.triggered;
     }
 
     public bool InputE()
     {
-        return input.Player.Interact.triggered;
+        return _input.Player.Interact.triggered;
     }
 
     public bool InputMouseLeftButton()
     {
-        return input.Player.LeftButtonMouse.triggered;
+        return _input.Player.LeftButtonMouse.triggered;
     }
 
     public bool InputMouseRightButton()
     {
-        return input.Player.RightButtonMouse.IsPressed();
+        return _input.Player.RightButtonMouse.IsPressed();
     }
 
     public bool Transformation()
     {
-        return input.Player.Transformation.triggered;
+        return _input.Player.Transformation.triggered;
     }
 
     public bool Crouch()
     {
-        return input.Player.Crouch.IsPressed();
+        return _input.Player.Crouch.IsPressed();
     }
-
 }

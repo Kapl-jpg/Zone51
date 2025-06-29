@@ -24,7 +24,7 @@ public class MeshUIInteraction : MonoBehaviour
     {
         if (!terminalInput.Click()) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray ray = Camera.main.ScreenPointToRay(terminalInput.MousePosition());
         RaycastHit hit;
 
         if (!_meshCollider.Raycast(ray, out hit, Mathf.Infinity)) return;

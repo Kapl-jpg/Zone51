@@ -14,6 +14,7 @@ public class Telekinesis : MonoBehaviour
     [SerializeField] private float maxHoldTime = 10;
     [SerializeField] private float maxThrowForce = 25;
     [SerializeField] private float turnSmoothness = 5f;
+    [SerializeField] private LayerMask layerMask;
 
     private Rigidbody grabbedRigidbody;
 
@@ -32,6 +33,9 @@ public class Telekinesis : MonoBehaviour
 
     private void Update()
     {
+        var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
+        if(!chipDisabled) return;
+        
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (inputMeneger.InputMouseLeftButton())
         {
@@ -71,7 +75,7 @@ public class Telekinesis : MonoBehaviour
     private void GrabObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(thirdPersonCamera.transform.position, thirdPersonCamera.transform.forward, out hit, maxDistance))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
 
