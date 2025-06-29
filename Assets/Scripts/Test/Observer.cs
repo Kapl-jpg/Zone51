@@ -9,6 +9,7 @@ public class Observer : MonoBehaviour
     [SerializeField] private float horizontalAngle = 90f;
     [SerializeField] private float verticalAngle = 60f;
     [SerializeField] private Vector3 offset;
+    [SerializeField] private bool showRays;
 
     private void Update()
     {
@@ -57,17 +58,20 @@ public class Observer : MonoBehaviour
         {
             if (hit.transform.CompareTag("Player"))
             {
-                Debug.DrawLine(origin, hit.point, Color.green);
+                if(showRays)
+                    Debug.DrawLine(origin, hit.point, Color.green);
                 return true;
             }
             else
             {
-                Debug.DrawLine(origin, hit.point, Color.blue);
+                if(showRays)
+                    Debug.DrawLine(origin, hit.point, Color.blue);
             }
         }
         else
         {
-            Debug.DrawRay(origin, dir * distance, Color.red);
+            if(showRays)
+                Debug.DrawRay(origin, dir * distance, Color.red);
         }
 
         return false;

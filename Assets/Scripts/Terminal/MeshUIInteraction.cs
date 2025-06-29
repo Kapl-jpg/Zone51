@@ -31,7 +31,7 @@ public class MeshUIInteraction : MonoBehaviour
 
         Vector2 uv = hit.textureCoord;
 
-        RectTransform canvasRect = uiCanvas.GetComponent<RectTransform>();
+        uiCanvas.TryGetComponent(out RectTransform canvasRect);
 
         Vector2 canvasMin = canvasRect.rect.min;
         Vector2 canvasMax = canvasRect.rect.max;
