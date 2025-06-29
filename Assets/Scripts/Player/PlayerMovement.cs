@@ -89,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void CalculationsForMovement(Vector3 moveDirection)
     {
-        rb.linearVelocity = new Vector3(moveDirection.x * Speed(), rb.linearVelocity.y, moveDirection.z * Speed());
+        rb.velocity = new Vector3(moveDirection.x * Speed(), rb.velocity.y, moveDirection.z * Speed());
         rb.MovePosition(transform.position + velocity * Time.fixedDeltaTime);
     }
 }

@@ -31,7 +31,7 @@ public class ObjectForTelekinesis : MonoBehaviour
     {
         if (activeCheckingMovement)
         {
-            if (rb.linearVelocity == Vector3.zero)
+            if (rb.velocity == Vector3.zero)
             {
                 rb.mass = massForDeductions;
                 SettingTransparent(true);
