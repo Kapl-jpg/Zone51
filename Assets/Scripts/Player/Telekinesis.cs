@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -69,7 +70,7 @@ public class Telekinesis : MonoBehaviour
             ThrowObject();
         }
 
-        //Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
     private void GrabObject()
@@ -77,6 +78,7 @@ public class Telekinesis : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
+            print(hit.collider.name);
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
 
             if (objectForTelekinesis != null)
@@ -159,5 +161,11 @@ public class Telekinesis : MonoBehaviour
     private bool ActiveFirstPersonCamera()
     {
         return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance);
     }
 }
