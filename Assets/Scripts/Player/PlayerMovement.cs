@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     private JumpController jumpController;
     private Rigidbody rb;
     private Vector3 velocity = Vector3.zero;
-
+    private Camera _mainCamera;
 
     private void Awake()
     {
@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         mouseMovement = GetComponent<MouseMovement>();
         inputMeneger = GetComponent<InputMeneger>();
         jumpController = GetComponent<JumpController>();
+        _mainCamera = Camera.main;
     }
 
     private void Update()
@@ -46,14 +47,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 moveInput = inputMeneger.GetMove();
-        Vector3 cameraForward = thirdPersonCamera.transform.forward;
-        cameraForward.y = 0;
-        cameraForward.Normalize();
-
         if (!ActiveFirstPersonCamera())
         {
-            Vector3 moveDirection = cameraForward * moveInput.y + thirdPersonCamera.transform.right * moveInput.x;
+            Vector3 moveDirection = _mainCamera.transform.forward * inputMeneger.GetMove().y + _mainCamera.transform.right * inputMeneger.GetMove().x;
 
             if (moveDirection.magnitude > 0.1f)
             {
@@ -66,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            Vector3 moveDirection = transform.right * inputMeneger.GetMove().x + transform.forward * inputMeneger.GetMove().y;
+            Vector3 moveDirection = _mainCamera.transform.right * inputMeneger.GetMove().x + _mainCamera.transform.forward * inputMeneger.GetMove().y;
             CalculationsForMovement(moveDirection);
         }        
     }
