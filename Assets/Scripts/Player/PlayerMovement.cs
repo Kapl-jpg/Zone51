@@ -1,7 +1,7 @@
 using Enums;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Subscriber
 {
     [SerializeField] private float alienSpeedWalking;
     [SerializeField] private float alienSpeedRunning;
@@ -15,8 +15,9 @@ public class PlayerMovement : MonoBehaviour
     private InputMeneger _inputMeneger;
     private JumpController _jumpController;
     private Rigidbody _rb;
-    private readonly Vector3 _velocity = Vector3.zero;
     private Camera _mainCamera;
+
+    private bool _moveSide;
 
     private void Awake()
     {
@@ -38,12 +39,38 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        Vector3 moveDirection = _mainCamera.transform.forward * _inputMeneger.GetMove().y +
-                                _mainCamera.transform.right * _inputMeneger.GetMove().x;
+        Vector3 moveDirection = CheckDirectionMovement()
+            ? transform.forward
+            : _mainCamera.transform.forward * _inputMeneger.GetMove().y +
+              _mainCamera.transform.right * _inputMeneger.GetMove().x;
 
         CalculationsForMovement(moveDirection);
 
         _rb.angularVelocity = Vector3.zero;
+    }
+
+    private void CalculationsForMovement(Vector3 moveDirection)
+    {
+        _rb.velocity = new Vector3(moveDirection.x * Speed(), _rb.velocity.y,
+            moveDirection.z * Speed());
+        //_rb.MovePosition(transform.position + _velocity * Time.fixedDeltaTime);
+    }
+
+    [Event("FirstPersonCamera")]
+    private void FirstPersonCamera()
+    {
+        if (_inputMeneger.GetMove().x != 0)
+            _moveSide = true;
+    }
+
+    private bool CheckDirectionMovement()
+    {
+        if (!_moveSide) return false;
+
+        if (_inputMeneger.GetMove().x == 0 || _inputMeneger.GetMove().y != 0)
+            _moveSide = false;
+
+        return true;
     }
 
     private float Speed()
@@ -55,11 +82,5 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
-    }
-
-    private void CalculationsForMovement(Vector3 moveDirection)
-    {
-        _rb.velocity = new Vector3(moveDirection.x * Speed(), _rb.velocity.y, moveDirection.z * Speed());
-        _rb.MovePosition(transform.position + _velocity * Time.fixedDeltaTime);
     }
 }
