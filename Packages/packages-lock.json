@@ -170,7 +170,7 @@
       }
     },
     "com.unity.render-pipelines.high-definition": {
-      "version": "17.1.0",
+      "version": "14.0.10",
       "depth": 0,
       "source": "builtin",
       "dependencies": {
