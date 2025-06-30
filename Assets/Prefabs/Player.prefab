@@ -1786,7 +1786,6 @@ GameObject:
   - component: {fileID: 7601777784038218548}
   - component: {fileID: 6560668320725495028}
   - component: {fileID: 5879603978454489303}
-  - component: {fileID: 74439334123787970}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1874,7 +1873,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74eee480d73d68b47a5a0cd909fd9b38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thirdPersonCamera: {fileID: 2770070214378556652}
   alienSpeedWalking: 7
   alienSpeedRunning: 10
   humanSpeedWalking: 5
@@ -1926,6 +1924,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alienJumpForce: 7
   humanJumpForce: 5
+  groundCheckRadius: 0
+  groundCheckDistance: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  showGroundChecker: 0
 --- !u!114 &3348805055649461048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2058,18 +2062,6 @@ MonoBehaviour:
   radiusCameraForAlien: 3
   radiusCameraForHuman: 5
   radiusForSittingAlien: 2
---- !u!114 &74439334123787970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7045314489859830242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5e954668fe2bc14f9bab5e26e9ae2b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7244789755757621777
 GameObject:
   m_ObjectHideFlags: 0

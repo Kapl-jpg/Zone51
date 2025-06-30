@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 4
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -715,6 +715,18 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6902032610903594143, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: groundCheckRadius
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902032610903594143, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
+    - target: {fileID: 6902032610903594143, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: groundCheckDistance
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7045314489859830242, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Name
       value: Player (1)
@@ -984,9 +996,9 @@ PrefabInstance:
       value: 3.8382063
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 74439334123787970, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
     - {fileID: 2374675485980798859, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
     - {fileID: 5053820019087850789, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+    - {fileID: 8655418425146133966, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8742640641738599845, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
     - {fileID: 5055618482833156847, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
@@ -1627,7 +1639,7 @@ GameObject:
   - component: {fileID: 949656484}
   - component: {fileID: 949656483}
   - component: {fileID: 949656482}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube
   m_TagString: ForJump
   m_Icon: {fileID: 0}
@@ -3956,7 +3968,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 2
-    Time: 0.5
+    Time: 0
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -5933,6 +5945,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   alienJumpForce: 7
   humanJumpForce: 5
+  groundCheckRadius: 0
+  groundCheckDistance: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  showGroundChecker: 0
 --- !u!1 &6932638086394956457
 GameObject:
   m_ObjectHideFlags: 0

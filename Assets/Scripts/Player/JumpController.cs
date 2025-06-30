@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using UnityEngine;
 
@@ -5,12 +6,14 @@ public class JumpController : Subscriber
 {
     [SerializeField] private float alienJumpForce;
     [SerializeField] private float humanJumpForce;
-
+    [Header("Ground")] [SerializeField] private float groundCheckRadius;
+    [SerializeField] private float groundCheckDistance;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private bool showGroundChecker;
     private InputMeneger _inputMeneger;
     private Rigidbody _rb;
 
-    [Request("IsGrounded")]
-    private readonly ObservableField<bool> _isGrounded =  new();
+    [Request("IsGrounded")] private ObservableField<bool> _isGrounded = new();
 
     private void Start()
     {
@@ -22,9 +25,8 @@ public class JumpController : Subscriber
     {
         if (_inputMeneger.Crouch()) return;
 
-        if (!_inputMeneger.InputSpace() || !_isGrounded.Value) return;
-        
-        _isGrounded.Value = false;
+        if (!_inputMeneger.InputSpace() || !CheckGround()) return;
+
         DoJump();
     }
 
@@ -37,23 +39,22 @@ public class JumpController : Subscriber
     private float JumpForce()
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        
+
         return characterType == CharacterType.Human ? humanJumpForce : alienJumpForce;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private bool CheckGround()
     {
-        if (other.CompareTag("ForJump"))
-        {
-            _isGrounded.Value = true;
-        }
+        _isGrounded.Value = Physics.SphereCast(transform.position, groundCheckRadius, -transform.up, out _,
+            groundCheckDistance, groundMask);
+        return _isGrounded.Value;
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnDrawGizmosSelected()
     {
-        if (other.CompareTag("ForJump"))
-        {
-            _isGrounded.Value = false;
-        }
+        if(!showGroundChecker) return;
+        
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position - transform.up * groundCheckDistance, groundCheckRadius);
     }
 }
