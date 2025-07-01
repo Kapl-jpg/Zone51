@@ -10,6 +10,7 @@ namespace Terminal
         private void Start()
         {
             _inputSystem = new InputSystem_Actions();
+            _inputSystem.UI.Enable();
         }
 
         public bool Click()
