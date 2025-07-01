@@ -15,6 +15,7 @@ public class ObjectForTelekinesis : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();
+        
 
         massObject = rb.mass;
         massForDeductions = massObject * 100;
@@ -51,6 +52,8 @@ public class ObjectForTelekinesis : MonoBehaviour
     public void ActivatorCheckingGravity(bool active)
     {
         activeCheckingGravity = active;
+        if(rb.isKinematic)
+            rb.isKinematic = false;
     }
 
     public void SettingTransparent(bool activator)

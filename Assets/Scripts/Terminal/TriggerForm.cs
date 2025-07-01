@@ -21,7 +21,6 @@ namespace Terminal
             if (_canTransform)
             {
                 StartCoroutine(Change());
-                print("Change");
                 _wasTransformed = true;
             }
         }

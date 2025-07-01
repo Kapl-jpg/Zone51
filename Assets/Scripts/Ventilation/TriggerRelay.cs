@@ -7,11 +7,13 @@ public class TriggerRelay : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        master?.NotifyEnter(other);
+        if(other.CompareTag("Player"))
+            master?.NotifyEnter(other);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        master?.NotifyExit(other);
+        if(other.CompareTag("Player"))
+            master?.NotifyExit(other);
     }
 }
