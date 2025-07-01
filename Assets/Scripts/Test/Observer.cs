@@ -18,7 +18,7 @@ public class Observer : MonoBehaviour
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
             if (characterType == CharacterType.Alien)
             {
-                print("GameOver");
+                print("GAME OVER");
             }
         }
     }
