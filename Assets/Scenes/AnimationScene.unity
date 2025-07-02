@@ -279,7 +279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 97c342705c261bb44b116a326fba8e0b, type: 3}
       propertyPath: m_Name
-      value: New Alien
+      value: T_pose (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -303,24 +303,14 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901478792}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 97c342705c261bb44b116a326fba8e0b, type: 3}
-  m_Controller: {fileID: 9100000, guid: f624240d832ec67489c684e181aba70c, type: 2}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b8bc5638f4594b468c4890de54268c2, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:LeftFoot'\n\tTransform 'mixamorig:LeftHandThumb2'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:LeftHandThumb3'\n\tTransform
-    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftHandMiddle3'\n\tTransform
-    'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightHandIndex3'\n\tand more
-    ...\n\tFrom animation clip 'Jump'\n\tFrom animation clip 'WalkBackwards'\n\tFrom
-    animation clip 'WalkForward'\n\tFrom animation clip 'WalkLeft'\n\tFrom animation
-    clip 'WalkRight'\n\tFrom animation clip 'RunBackwards'\n\tFrom animation clip
-    'Runing'\n\tFrom animation clip 'RunLeft'\n\tFrom animation clip 'RunRight'\n\tFrom
-    animation clip 'CrouchWalk'\n\tand more ..."
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
