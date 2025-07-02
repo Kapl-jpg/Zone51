@@ -9,6 +9,7 @@ namespace Player
         [SerializeField] private float firstPersonRotationSpeed;
 
         private float _angle;
+        
         private void Update()
         {
             Rotate();

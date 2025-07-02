@@ -78,7 +78,6 @@ public class Telekinesis : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
-            print(hit.collider.name);
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
 
             if (objectForTelekinesis != null)
