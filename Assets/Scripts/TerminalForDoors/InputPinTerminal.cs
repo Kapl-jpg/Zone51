@@ -10,6 +10,7 @@ public class InputPinTerminal : MonoBehaviour
     public void InputKeyForCode(string key)
     {
         pinText.text += key;
+        print("print");
     }
 
     public void EraseCode()
