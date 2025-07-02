@@ -23,8 +23,7 @@ namespace Player
         {
             if (!FirstPersonCamera())
             {
-                Vector2 input = inputMeneger.GetMove();
-                Vector3 moveDirection = Camera.main.transform.right * input.x + Camera.main.transform.forward * input.y;
+                Vector3 moveDirection = Camera.main.transform.forward;
 
                 if (!(moveDirection.sqrMagnitude > 0.001f)) return;
 
