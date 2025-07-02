@@ -6,9 +6,13 @@ namespace Player
     {
         [SerializeField] private InputMeneger inputMeneger;
         [SerializeField] private float thirdPersonRotationSpeed;
-        [SerializeField] private float firstPersonRotationSpeed;
-
+        [SerializeField] private float firstPersonRotationHorizontalSpeed = 10f;
+        [SerializeField] private float firstPersonRotationVerticalSpeed = .1f;
+        [SerializeField] private Transform targetPoint;
+        [SerializeField] private Vector2 minMaxTargetPointOffset = new(-.4f, .6f);
+        
         private float _angle;
+        private float _targetPointOffset;
         
         private void Update()
         {
@@ -35,7 +39,14 @@ namespace Player
             }
             else
             {
-                _angle += inputMeneger.InputMouse().x * firstPersonRotationSpeed;
+                _angle += inputMeneger.InputMouse().x * firstPersonRotationHorizontalSpeed * Time.deltaTime;
+                
+                _targetPointOffset = Mathf.Clamp(
+                    _targetPointOffset + inputMeneger.InputMouse().y * firstPersonRotationVerticalSpeed * Time.deltaTime,
+                    minMaxTargetPointOffset.x, 
+                    minMaxTargetPointOffset.y);
+                
+                targetPoint.localPosition = new Vector3(targetPoint.localPosition.x, _targetPointOffset, targetPoint.localPosition.z);
                 Quaternion targetRotation = Quaternion.Euler(0, _angle, 0);
                 transform.rotation = targetRotation;
             }
