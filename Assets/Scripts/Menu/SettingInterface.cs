@@ -60,7 +60,7 @@ public class SettingInterface : MonoBehaviour
     public void ButtonContinue()
     {
         //audioSource.Play();
-        EventManager.Publish("PauseMode");
+        //settingKeys.PauseMode();
     }
 
     public void ButtonSetting()

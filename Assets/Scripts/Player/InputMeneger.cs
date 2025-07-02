@@ -72,9 +72,4 @@ public class InputMeneger : Subscriber
     {
         return _input.Player.Crouch.IsPressed();
     }
-
-    public bool InputPause()
-    {
-        return _input.Player.Pause.triggered;
-    }
 }
