@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PauseController : MonoBehaviour
+public class PauseController : Subscriber
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private GameObject menuPause;
