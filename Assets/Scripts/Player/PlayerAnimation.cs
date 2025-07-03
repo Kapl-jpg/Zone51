@@ -59,6 +59,6 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetCrouching()
     {
-        animator.SetBool(Crouch, inputMeneger.Crouch());
+        animator.SetBool(Crouch, true);
     }
 }
