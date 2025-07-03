@@ -16,7 +16,7 @@ public class Telekinesis : MonoBehaviour
     [SerializeField] private float maxThrowForce = 25;
     [SerializeField] private float turnSmoothness = 5f;
     [SerializeField] private LayerMask layerMask;
-
+    [SerializeField] private bool needGetAbility = true;
     private Rigidbody grabbedRigidbody;
 
     private bool isGrabbing = false;
@@ -35,7 +35,7 @@ public class Telekinesis : MonoBehaviour
     private void Update()
     {
         var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
-        if(!chipDisabled) return;
+        if(!chipDisabled && needGetAbility) return;
         
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (inputMeneger.InputMouseLeftButton())
