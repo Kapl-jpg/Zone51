@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 604883640}
   - component: {fileID: 604883639}
   - component: {fileID: 604883638}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Plane
   m_TagString: ForJump
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ Animator:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148887463016}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 97c342705c261bb44b116a326fba8e0b, type: 3}
+  m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f624240d832ec67489c684e181aba70c, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0

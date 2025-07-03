@@ -7,13 +7,13 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] public float sphereCastRadius = 1.5f; 
     [SerializeField] public float maxDistance = 5f;
-    
+    [SerializeField] private bool needTransform = true;
     private IInteractable _interactable;
 
     private void Update()
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        if (characterType == CharacterType.Alien) return;
+        if (characterType == CharacterType.Alien && needTransform) return;
         
         if (Physics.SphereCast(Camera.main.transform.position, sphereCastRadius, Camera.main.transform.forward, out var hit, maxDistance))
         {
@@ -38,9 +38,10 @@ public class PlayerInteraction : MonoBehaviour
         
         if (inputMeneger.InputE())
         {
-            
-            if (_interactable != null) 
+            if (_interactable != null)
+            {
                 _interactable.Interact();
+            }
         }
     }
 
