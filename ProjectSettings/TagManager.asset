@@ -7,6 +7,7 @@ TagManager:
   - ForJump
   - Interactable
   - ForTelekinesis
+  - Battery
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - Screen
   - Eye
   - Ground
-  - 
-  - 
+  - PlayerLock
+  - Telekinesis
   - 
   - 
   - 
