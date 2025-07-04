@@ -52,7 +52,6 @@ public class Password : MonoBehaviour
         {
             CheckNextScene();
         }
-        print("Click");
     }
 
     public void ClearNumber()
