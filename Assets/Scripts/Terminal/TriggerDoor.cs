@@ -6,4 +6,9 @@ public class TriggerDoor : MonoBehaviour
     {
         EventManager.Publish("OpenMainDoor");
     }
+
+    public void OpenExperimentDoor()
+    {
+        EventManager.Publish("OpenExperimentDoor");
+    }
 }

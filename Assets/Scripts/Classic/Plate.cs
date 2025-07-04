@@ -7,7 +7,8 @@ public class Plate : MonoBehaviour
     [SerializeField] private CharacterType plateType;
     [SerializeField] private Animator animator;
     [SerializeField] private bool active;
-
+    [SerializeField] private bool final;
+    
     private bool _activated;
     private bool _canUse;
     
@@ -38,5 +39,10 @@ public class Plate : MonoBehaviour
     {
         _canUse = active;
         _activated = false;
+    }
+
+    private void FinalEvent()
+    {
+        
     }
 }
