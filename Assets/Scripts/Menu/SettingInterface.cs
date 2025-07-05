@@ -61,7 +61,6 @@ public class SettingInterface : MonoBehaviour
     public void ButtonContinue()
     {
         //audioSource.Play();
-        print("PauseMode");
         EventManager.Publish("PauseMode");
     }
 
