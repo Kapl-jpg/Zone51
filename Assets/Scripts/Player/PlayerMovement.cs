@@ -11,25 +11,18 @@ public class PlayerMovement : Subscriber
     [SerializeField] private float cameraRotationSpeed = 15f;
     [SerializeField] private float movementSmoothing = 0.1f;
     [SerializeField] private float mouseSensitivity = 2f;
-
+    
     private InputMeneger _inputMeneger;
-    private JumpController _jumpController;
     private Rigidbody _rb;
     private Camera _mainCamera;
-
+    private bool _lockMovement;
     private bool _moveSide;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _inputMeneger = GetComponent<InputMeneger>();
-        _jumpController = GetComponent<JumpController>();
         _mainCamera = Camera.main;
-    }
-
-    private void Update()
-    {
-        _jumpController.Jump();
     }
 
     private void FixedUpdate()
@@ -37,8 +30,18 @@ public class PlayerMovement : Subscriber
         Move();
     }
 
+    [Event("LockMovement")]
+    private void LockMovement(bool lockMovement)
+    {
+        _lockMovement = lockMovement;
+    }
+    
     private void Move()
     {
+        if (_lockMovement) return;
+        
+        if(!RequestManager.GetValue<bool>("IsGrounded")) return;
+        
         Vector3 moveDirection = _mainCamera.transform.forward * _inputMeneger.GetMove().y + (CheckDirectionMovement()
             ? transform.forward
             : _mainCamera.transform.right) * _inputMeneger.GetMove().x;

@@ -11,8 +11,8 @@ namespace Terminal
             _inputSystem = new InputSystem_Actions();
         }
 
-        [Event("LockController")]
-        private void EnableLockController(bool enabled)
+        [Event("InterfaceController")]
+        private void InterfaceController(bool enabled)
         {
             if (enabled)
             {

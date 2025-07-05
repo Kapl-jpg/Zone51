@@ -1,25 +1,19 @@
-using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class InputMeneger : Subscriber
 {
     private InputSystem_Actions _input;
     private bool _isLock;
 
-    [Event("LockController")]
-    private void LockController(bool isLock)
+    [Event("PlayerController")]
+    private void PlayerController(bool isLock)
     {
         if (isLock)
-        {
-            _input.Player.Disable();
-        }
-        else
-        {
             _input.Player.Enable();
-        }
+        else
+            _input.Player.Disable();
     }
-
+    
     private void Start()
     {
         _input = new InputSystem_Actions();

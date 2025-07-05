@@ -64,7 +64,6 @@ public class MeshUIInteraction : MonoBehaviour
             {
                 if (button.enabled && button.interactable)
                 {
-                    Debug.LogError(rect.name + " is enabled");
                     if (IsInRect(rect, canvasScreenPos, canvasMax))
                     {
                         button.onClick.Invoke();

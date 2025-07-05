@@ -11,7 +11,8 @@ public class TerminalInteract : MonoBehaviour, IInteractable
     {
         cinemachine.Priority = 30;
         collider.enabled = false;
-        EventManager.Publish("LockController", true);
+        EventManager.Publish("InterfaceController", true);
+        EventManager.Publish("PlayerController", false);
         EventManager.Publish("OnOffCursor", true);
         EventManager.Publish("HideInterface");
     }
@@ -20,7 +21,8 @@ public class TerminalInteract : MonoBehaviour, IInteractable
     {
         cinemachine.Priority = 0;
         collider.enabled = true;
-        EventManager.Publish("LockController", false);
+        EventManager.Publish("InterfaceController", false);
+        EventManager.Publish("PlayerController", true);
         EventManager.Publish("OnOffCursor", false);
         EventManager.Publish("ShowInterface");
     }

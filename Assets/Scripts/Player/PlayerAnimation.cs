@@ -5,11 +5,13 @@ public class PlayerAnimation : MonoBehaviour
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Animator animator;
     [SerializeField] private float translateTime;
+    [SerializeField] private Rigidbody rb;
     
     private static readonly int IsGrounded = Animator.StringToHash("Ground");
     private static readonly int MoveX = Animator.StringToHash("MoveX");
     private static readonly int MoveY = Animator.StringToHash("MoveY");
     private static readonly int Crouch = Animator.StringToHash("Crouch");
+    private static readonly int Jump = Animator.StringToHash("Jump");
 
     private float _horizontal;
     private float _vertical;
@@ -19,12 +21,27 @@ public class PlayerAnimation : MonoBehaviour
         SetGrounded();
         SetMovement();
         SetCrouching();
+        SetJump();
+    }
+
+    [Event("ResetJump")]
+    private void ResetJump()
+    {
+        animator.ResetTrigger(Jump);
+    }
+    
+    private void SetJump()
+    {
+        if(!Grounded()) return;
+        if (inputMeneger.Crouch()) return;
+        if (!inputMeneger.InputSpace()) return;
+        
+        animator.SetTrigger(Jump);
     }
 
     private void SetGrounded()
     {
-        var isGrounded = RequestManager.GetValue<bool>("IsGrounded");
-        animator.SetBool(IsGrounded, isGrounded);
+        animator.SetBool(IsGrounded, Grounded());
     }
 
     private void SetMovement()
@@ -60,5 +77,10 @@ public class PlayerAnimation : MonoBehaviour
     private void SetCrouching()
     {
         animator.SetBool(Crouch, inputMeneger.Crouch());
+    }
+
+    private bool Grounded()
+    {
+        return RequestManager.GetValue<bool>("IsGrounded");
     }
 }
