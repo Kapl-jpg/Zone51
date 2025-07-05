@@ -13,7 +13,13 @@ namespace Player
         
         private float _angle;
         private float _targetPointOffset;
-        
+        private float _currentSensitivity = 1f;
+
+        //private void Start()
+        //{
+        //    MouseSensitivity mouseSensitivity = FindObjectOfType<MouseSensitivity>();
+        //}
+
         private void Update()
         {
             Rotate();
@@ -33,15 +39,15 @@ namespace Player
 
                 transform.rotation =
                     Quaternion.RotateTowards(transform.rotation, targetRotation,
-                        thirdPersonRotationSpeed * Time.deltaTime);
+                        thirdPersonRotationSpeed * _currentSensitivity * Time.deltaTime);
                 _angle = transform.rotation.eulerAngles.y;
             }
             else
             {
-                _angle += inputMeneger.InputMouse().x * firstPersonRotationHorizontalSpeed * Time.deltaTime;
+                _angle += inputMeneger.InputMouse().x * firstPersonRotationHorizontalSpeed * _currentSensitivity * Time.deltaTime;
                 
                 _targetPointOffset = Mathf.Clamp(
-                    _targetPointOffset + inputMeneger.InputMouse().y * firstPersonRotationVerticalSpeed * Time.deltaTime,
+                    _targetPointOffset + inputMeneger.InputMouse().y * firstPersonRotationVerticalSpeed * _currentSensitivity * Time.deltaTime,
                     minMaxTargetPointOffset.x, 
                     minMaxTargetPointOffset.y);
                 
@@ -54,6 +60,11 @@ namespace Player
         private bool FirstPersonCamera()
         {
             return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
+        }
+
+        public void OnSensitivityChanged(float sensitivity)
+        {
+            _currentSensitivity = sensitivity;
         }
     }
 }

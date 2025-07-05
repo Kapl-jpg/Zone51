@@ -7,33 +7,14 @@ public class GeneratorSystem : MonoBehaviour
     [SerializeField] private List<GeneratorData> points;
     [SerializeField] private float moveTime;
     [SerializeField] private float endMoveTime;
-    
-    [SerializeField] private MeshRenderer firstWirePart;
-    [SerializeField] private MeshRenderer secondWirePart;
-    [SerializeField] private MeshRenderer thirdWirePart;
-    
-    [SerializeField] [ColorUsage(false,true)] 
-    private Color lightColor;
-    
     private const int MAX_CHARGES = 3;
     private int _chargeLevels;
-
-    private void Start()
-    {
-        var fM = firstWirePart.material;
-        var sM = secondWirePart.material;
-        var tM = thirdWirePart.material;
-        
-        firstWirePart.material = new Material(fM);
-        secondWirePart.material = new Material(sM);
-        thirdWirePart.material = new Material(tM);
-    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (_chargeLevels >= MAX_CHARGES) return;
 
-        if (!other.CompareTag("Battery")) return;
+        if (!other.CompareTag("ForTelekinesis")) return;
 
         StartCoroutine(SetCharge(other.gameObject, _chargeLevels));
         _chargeLevels++;
@@ -68,20 +49,6 @@ public class GeneratorSystem : MonoBehaviour
             go.transform.position = Vector3.Lerp(points[index].startPoint.position, points[index].endPoint.position, f);
             
             yield return null;
-        }
-
-        switch (index)
-        {
-            case 0:
-                firstWirePart.material.SetColor("_Color", lightColor);
-                break;
-            case 1:
-                secondWirePart.material.SetColor("_Color", lightColor);
-                break;
-            case 2:
-                thirdWirePart.material.SetColor("_Color", lightColor);
-                EventManager.Publish("EnableRotateMechanism");
-                break;
         }
     }
 }
