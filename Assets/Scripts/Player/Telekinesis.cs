@@ -8,6 +8,9 @@ public class Telekinesis : MonoBehaviour
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
     [SerializeField] private CinemachineCamera thirdPersonCamera;
+    [SerializeField] private AudioSource audioLifting;
+    [SerializeField] private AudioSource audioThrowing;
+    [SerializeField] private AudioSource audioRetention;
     [SerializeField] private float smoothSpeed = 5f;
     [SerializeField] private float grabForce = 10;
     [SerializeField] private float maxDistance = 10;
@@ -85,6 +88,8 @@ public class Telekinesis : MonoBehaviour
                 grabbedRigidbody = hit.rigidbody;
                 if (grabbedRigidbody != null)
                 {
+                    audioLifting.Play();
+
                     isGrabbing = true;
                     grabbedRigidbody.freezeRotation = true;
                     grabbedRigidbody.useGravity = false;
@@ -107,6 +112,12 @@ public class Telekinesis : MonoBehaviour
             grabbedRigidbody = null;
             chargeTime = 0f;
             _holdTime = 0f;
+
+            audioRetention.Stop();
+            if (!audioRetention.isPlaying)
+            {
+                audioThrowing.Play();
+            }
         }
     }
 
@@ -117,6 +128,22 @@ public class Telekinesis : MonoBehaviour
         Vector3 targetPosition = grabPoint.position;
         Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
         grabbedRigidbody.MovePosition(newPosition);
+
+        if (!audioRetention.isPlaying && !audioLifting.isPlaying)
+        {
+            bool activeAudio = true;
+            if (activeAudio)
+            {
+                audioRetention.Play();
+                activeAudio = false;
+                print("play");
+            }
+
+            if (!audioThrowing.isPlaying)
+            {
+                activeAudio = true;
+            }
+        }
 
         ObjectMonitoring();
     }
@@ -141,7 +168,7 @@ public class Telekinesis : MonoBehaviour
             Vector3 throwDirection = Camera.main.transform.forward;
             grabbedRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             ReleaseObject();
-            activeCharge = false;
+            activeCharge = false;  
         }
     }
 

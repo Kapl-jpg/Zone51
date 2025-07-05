@@ -13,12 +13,9 @@ namespace Player
         
         private float _angle;
         private float _targetPointOffset;
-        private float _currentSensitivity = 1f;
+        private float _currentSensitivity = 1;
 
-        //private void Start()
-        //{
-        //    MouseSensitivity mouseSensitivity = FindObjectOfType<MouseSensitivity>();
-        //}
+       
 
         private void Update()
         {
@@ -62,7 +59,7 @@ namespace Player
             return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
         }
 
-        public void OnSensitivityChanged(float sensitivity)
+        private void OnMouseSensitivityChanged(float sensitivity)
         {
             _currentSensitivity = sensitivity;
         }
