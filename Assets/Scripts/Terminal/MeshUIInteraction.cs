@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class MeshUIInteraction : MonoBehaviour
 {
     [SerializeField] private TerminalInput terminalInput;
+    [SerializeField] private TMPro.TMP_Text text;
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private Camera uiCamera;
     [SerializeField] private Canvas uiCanvas;
 
@@ -24,7 +26,7 @@ public class MeshUIInteraction : MonoBehaviour
     {
         if (!terminalInput.Click()) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(terminalInput.MousePosition());
+        Ray ray = mainCamera.ScreenPointToRay(terminalInput.MousePosition());
         RaycastHit hit;
 
         if (!_meshCollider.Raycast(ray, out hit, Mathf.Infinity)) return;
@@ -43,7 +45,7 @@ public class MeshUIInteraction : MonoBehaviour
 
         bool isInCanvas = canvasScreenPos.x >= canvasMin.x && canvasScreenPos.x <= canvasMax.x &&
                           canvasScreenPos.y >= canvasMin.y && canvasScreenPos.y <= canvasMax.y;
-
+        
         if (!isInCanvas)
         {
             return;
@@ -62,8 +64,10 @@ public class MeshUIInteraction : MonoBehaviour
             {
                 if (button.enabled && button.interactable)
                 {
-                    if (IsInRect(rect, canvasScreenPos, canvasMax))
+                    Vector2 screenPos = terminalInput.MousePosition();
+                    if (IsInRect(rect, screenPos, canvasMax))
                     {
+                        Debug.LogError("5");
                         button.onClick.Invoke();
                         return;
                     }
@@ -77,12 +81,29 @@ public class MeshUIInteraction : MonoBehaviour
         Vector3[] corners = new Vector3[4];
         rect.GetWorldCorners(corners);
 
-        Camera cam = uiCanvas.worldCamera ?? Camera.main;
+        Camera cam = uiCanvas.worldCamera ?? mainCamera;
 
-        Vector2 minScreenPos = RectTransformUtility.WorldToScreenPoint(cam, corners[0]) - canvasMax;
-        Vector2 maxScreenPos = RectTransformUtility.WorldToScreenPoint(cam, corners[2]) - canvasMax;
+        if (cam == null)
+        {
+            Debug.LogError("IsInRect: Camera is NULL");
+            return false;
+        }
 
-        return canvasScreenPos.x >= minScreenPos.x && canvasScreenPos.x <= maxScreenPos.x &&
-               canvasScreenPos.y >= minScreenPos.y && canvasScreenPos.y <= maxScreenPos.y;
+        // Преобразуем углы в экранные координаты
+        Vector2 screenMin = RectTransformUtility.WorldToScreenPoint(cam, corners[0]);
+        Vector2 screenMax = RectTransformUtility.WorldToScreenPoint(cam, corners[2]);
+
+        // Логируем всё для понимания
+        Debug.LogError($"[IsInRect] rect = {rect.name}");
+        Debug.LogError($"  ScreenMin = {screenMin}, ScreenMax = {screenMax}");
+        Debug.LogError($"  canvasScreenPos = {canvasScreenPos}");
+        Debug.LogError($"  canvasMax = {canvasMax}");
+
+        bool isInside = canvasScreenPos.x >= screenMin.x && canvasScreenPos.x <= screenMax.x &&
+                        canvasScreenPos.y >= screenMin.y && canvasScreenPos.y <= screenMax.y;
+
+        Debug.LogError($"  → Click is inside: {isInside}");
+
+        return isInside;
     }
 }

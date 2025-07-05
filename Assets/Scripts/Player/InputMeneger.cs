@@ -13,12 +13,10 @@ public class InputMeneger : Subscriber
         if (isLock)
         {
             _input.Player.Disable();
-            _input.UI.Enable();
         }
         else
         {
             _input.Player.Enable();
-            _input.UI.Disable();
         }
     }
 

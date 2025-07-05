@@ -3,6 +3,7 @@
     public enum CharacterType
     {
         Human,
-        Alien
+        Alien,
+        Neutral
     }
 }

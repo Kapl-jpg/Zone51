@@ -4,28 +4,68 @@ using UnityEngine;
 
 namespace Generator
 {
-    public class RotatePuzzleButton : MonoBehaviour, IInteractable
+    public class RotatePuzzleButton : Subscriber, IInteractable
     {
-        private static readonly int puzzleColor = Shader.PropertyToID("_Color");
-        
         [SerializeField] private Transform mechanism;
         [SerializeField] private float rotateTime;
-
-
+        
         [SerializeField] [ColorUsage(false, true)]
         private Color lightColor;
         private Color _defaultColor = Color.white;
+
+        [Request("GetPower")] private ObservableField<bool> _getPower = new();
+        [Header("Materials")] 
+        [SerializeField] private MeshRenderer mainWire;
+        [SerializeField] private MeshRenderer upWire;
+        [SerializeField] private MeshRenderer leftWire;
+        [SerializeField] private MeshRenderer rightWire;
+        [SerializeField] private MeshRenderer upMech;
+        [SerializeField] private MeshRenderer rightMech;
+        [SerializeField] private MeshRenderer downMech;
         
-        [Header("Materials")]
-        [SerializeField] private Material upMaterial;
-        [SerializeField] private Material leftMaterial;
-        [SerializeField] private Material rightMaterial;
         private Directions _currentDirection = Directions.Right;
-        
+
+        private bool _canUse;
         private bool _locked;
-        
+
+        private void Start()
+        {
+            var mW = mainWire.material;
+            var uW = upWire.material;
+            var lW = leftWire.material;
+            var rW = rightWire.material;
+            var uM =  upMech.material;
+            var lM = rightMech.material;
+            var dM = downMech.material;
+
+            mainWire.material = new Material(mW);
+            upWire.material = new Material(uW);
+            leftWire.material = new Material(lW);
+            rightWire.material = new Material(rW);
+            upMech.material = new Material(uM);
+            rightMech.material = new Material(lM);
+            downMech.material = new Material(dM);
+        }
+
+        [Event("EnableRotateMechanism")]
+        private void EnableRotate()
+        {
+            print("EnableRotateMechanism");
+            mainWire.material.SetColor("_Color", lightColor);
+            upWire.material.SetColor("_Color", lightColor);
+            rightWire.material.SetColor("_Color", lightColor);
+            
+            upMech.material.SetColor("_Color", lightColor);
+            rightMech.material.SetColor("_Color", lightColor);
+            downMech.material.SetColor("_Color", lightColor);
+            
+            _canUse = true;
+        }
+
         public void Interact()
         {
+            if(!_canUse) return;
+            
             if(!_locked)
                 StartCoroutine(Rotate());
         }
@@ -59,33 +99,48 @@ namespace Generator
 
         private void DisableWires()
         {
-            print("DisableWires");
-            // upMaterial.SetColor(puzzleColor, defaultColor);
-            // leftMaterial.SetColor(puzzleColor, defaultColor);
-            // rightMaterial.SetColor(puzzleColor, defaultColor);
+            upWire.material.SetColor("_Color", _defaultColor);
+            leftWire.material.SetColor("_Color", _defaultColor);
+            rightWire.material.SetColor("_Color", _defaultColor);
+            
+            upMech.material.SetColor("_Color", _defaultColor);
+            rightMech.material.SetColor("_Color", _defaultColor);
+            downMech.material.SetColor("_Color", _defaultColor);
+            
+            EventManager.Publish("DisablePowerScreen");
+            _getPower.Value = false;
         }
         
         private void EnableWires()
         {
-            //Добавить условие победы
             switch (_currentDirection)
             {
                 case Directions.Up:
-                    print("UpRight");
-                    // upMaterial.SetColor(puzzleColor, lightColor);
-                    // rightMaterial.SetColor(puzzleColor, lightColor);
+                    upWire.material.SetColor("_Color", lightColor);
+                    rightWire.material.SetColor("_Color", lightColor);
+                    EnableInnerParts();
                     break;
                 case Directions.Right:
-                    print("LeftRight");
-                    // leftMaterial.SetColor(puzzleColor, lightColor);
-                    // rightMaterial.SetColor(puzzleColor, lightColor);
+                    leftWire.material.SetColor("_Color", lightColor);
+                    rightWire.material.SetColor("_Color", lightColor);
+                    EventManager.Publish("EnablePowerScreen");
+                    _getPower.Value = true;
+                    EnableInnerParts();
                     break;
                 case Directions.Down:
-                    print("UpLeft");
-                    // upMaterial.SetColor(puzzleColor, lightColor);
-                    // leftMaterial.SetColor(puzzleColor, lightColor);
+                    upWire.material.SetColor("_Color", lightColor);
+                    leftWire.material.SetColor("_Color", lightColor);
+                    EventManager.Publish("EnablePowerScreen");
+                    EnableInnerParts();
                     break;
             }
+        }
+
+        private void EnableInnerParts()
+        {
+            upMech.material.SetColor("_Color", lightColor);
+            rightMech.material.SetColor("_Color", lightColor);
+            downMech.material.SetColor("_Color", lightColor);
         }
 
         private float TargetAngle()

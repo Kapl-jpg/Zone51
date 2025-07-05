@@ -4,18 +4,18 @@ namespace Player
 {
     public class InterfaceController: Subscriber
     {
+        [SerializeField] private GameObject crosshair;
+        
         [Event("ShowInterface")]
         private void ShowInterface()
         {
-            foreach (Transform child in transform)
-                child.gameObject.SetActive(true);
+            crosshair.SetActive(true);
         }
 
         [Event("HideInterface")]
         private void HideInterface()
         {
-            foreach (Transform child in transform)
-                child.gameObject.SetActive(false);
+            crosshair.SetActive(false);
         }
     }
 }
