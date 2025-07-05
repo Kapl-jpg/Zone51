@@ -9,6 +9,7 @@ public class PlayerTransformation : Subscriber
     [SerializeField] private GameObject humanForm;
     [SerializeField] private Material alienMaterial;
     [SerializeField] private Material humanMaterial;
+    [SerializeField] private AudioSource audioTransformation;
 
     [Event("SwitchForm")]
     private void SwitchForm(CharacterType characterType)
@@ -30,16 +31,20 @@ public class PlayerTransformation : Subscriber
         
         humanForm.SetActive(true);
         EventManager.Publish("Transformation", true);
-        
+
+        audioTransformation.Play();
+
+
         float t = 0;
         while (t < 1)
         {
             t = Mathf.Clamp01(t + Time.deltaTime / stayTime);
             //alienMaterial.SetFloat("_DissolveValue", 1-t);
             humanMaterial.SetFloat("_DissolveValue", t);
+
             yield return null;
         }
-        
+
         EventManager.Publish("Transformation", false);
         EventManager.Publish("SetForm", CharacterType.Human);
         EventManager.Publish("CameraForHuman");
@@ -56,13 +61,16 @@ public class PlayerTransformation : Subscriber
         
         alienForm.SetActive(true);
         EventManager.Publish("Transformation", true);
-        
+
+        audioTransformation.Play();
+
         float t = 1;
         while (t > 0)
         {
             t = Mathf.Clamp01(t - Time.deltaTime / stayTime);
             //alienMaterial.SetFloat("_DissolveValue", 1-t);
             humanMaterial.SetFloat("_DissolveValue", t);
+            
             yield return null;
         }
 

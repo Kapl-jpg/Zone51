@@ -1,4 +1,3 @@
-using System;
 using Enums;
 using UnityEngine;
 
@@ -25,8 +24,9 @@ public class JumpController : Subscriber
     {
         if (_inputMeneger.Crouch()) return;
 
+        print(CheckGround());
         if (!_inputMeneger.InputSpace() || !CheckGround()) return;
-
+        
         DoJump();
     }
 
@@ -45,7 +45,7 @@ public class JumpController : Subscriber
 
     private bool CheckGround()
     {
-        _isGrounded.Value = Physics.SphereCast(transform.position, groundCheckRadius, -transform.up, out _,
+        _isGrounded.Value = Physics.SphereCast(transform.position + Vector3.up, groundCheckRadius, -transform.up, out _,
             groundCheckDistance, groundMask);
         return _isGrounded.Value;
     }

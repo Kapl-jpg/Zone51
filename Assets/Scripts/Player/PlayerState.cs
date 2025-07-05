@@ -8,7 +8,7 @@ namespace Player
     {
         [SerializeField] private InputMeneger input;
         [SerializeField] private float humanDuration;
-        [SerializeField] private bool needGetAgility = true;
+        
         private float _humanDurationTimer;
 
         private bool _transformation;
@@ -22,8 +22,7 @@ namespace Player
         
         private void Update()
         {
-            if(!_chipDisable.Value && needGetAgility) return;
-            
+            if(!_chipDisable.Value) return;
             if (!input.Transformation()) return;
             
             if (_transformation) return;
