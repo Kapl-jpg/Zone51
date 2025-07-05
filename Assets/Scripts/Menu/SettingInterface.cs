@@ -10,6 +10,7 @@ public class SettingInterface : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject exitMenu;
     [SerializeField] private GameObject imageExit;
+    [SerializeField] private GameObject pauseMenu;
 
     //private AudioSource audioSource;
     private bool activebTools;
@@ -60,7 +61,6 @@ public class SettingInterface : MonoBehaviour
     public void ButtonContinue()
     {
         //audioSource.Play();
-        print("PauseMode");
         EventManager.Publish("PauseMode");
     }
 
@@ -68,6 +68,18 @@ public class SettingInterface : MonoBehaviour
     {
         mainMenu.SetActive(false);
         settingMenu.SetActive(true);
+    }
+
+    public void ButtonInSettindWithPause()
+    {
+        pauseMenu.SetActive(false);
+        settingMenu.SetActive(true);
+    }
+
+    public void ButtonInMenuPause()
+    {
+        settingMenu.SetActive(false);
+        pauseMenu.SetActive(true);
     }
 
     IEnumerator LoadNextSceneAfterTime(float time, int index)
