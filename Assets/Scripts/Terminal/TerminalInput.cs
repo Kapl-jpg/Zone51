@@ -16,12 +16,10 @@ namespace Terminal
         {
             if (enabled)
             {
-                Debug.LogError("EnableLockController");
                 _inputSystem.UI.Enable();
             }
             else
             {
-                Debug.LogError("DisableLockController");
                 _inputSystem.UI.Disable();
             }
         }
