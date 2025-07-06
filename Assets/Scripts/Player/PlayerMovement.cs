@@ -18,10 +18,9 @@ public class PlayerMovement : Subscriber
     
     private InputMeneger _inputMeneger;
     private Rigidbody _rb;
-    private Camera _mainCamera;
+    private UnityEngine.Camera _mainCamera;
     private AudioSource whoseWalking;
     private AudioSource whoseRunning;
-    private bool _lockMovement;
     private bool _moveSide;
     private bool _isHuman;
 
@@ -29,7 +28,7 @@ public class PlayerMovement : Subscriber
     {
         _rb = GetComponent<Rigidbody>();
         _inputMeneger = GetComponent<InputMeneger>();
-        _mainCamera = Camera.main;
+        _mainCamera = UnityEngine.Camera.main;
     }
 
     private void FixedUpdate()
@@ -38,20 +37,8 @@ public class PlayerMovement : Subscriber
         PlayWalkingOrRunningSound();
     }
 
-    [Event("LockMovement")]
-    private void LockMovement(bool lockMovement)
-    {
-        _lockMovement = lockMovement;
-    }
-
-    
-
     private void Move()
     {
-        if (_lockMovement) return;
-        
-        if(!RequestManager.GetValue<bool>("IsGrounded")) return;
-        
         Vector3 moveDirection = _mainCamera.transform.forward * _inputMeneger.GetMove().y + (CheckDirectionMovement()
             ? transform.forward
             : _mainCamera.transform.right) * _inputMeneger.GetMove().x;

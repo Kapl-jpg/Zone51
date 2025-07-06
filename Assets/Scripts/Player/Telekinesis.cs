@@ -73,13 +73,13 @@ public class Telekinesis : MonoBehaviour
             ThrowObject();
         }
 
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
+        Debug.DrawRay(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
     private void GrabObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance, layerMask))
+        if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
 
@@ -165,7 +165,7 @@ public class Telekinesis : MonoBehaviour
         if (grabbedRigidbody != null)
         {
             float throwForce = Mathf.Clamp01(chargeTime / maxChargeTime) * maxThrowForce;
-            Vector3 throwDirection = Camera.main.transform.forward;
+            Vector3 throwDirection = UnityEngine.Camera.main.transform.forward;
             grabbedRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             ReleaseObject();
             activeCharge = false;  
@@ -192,6 +192,6 @@ public class Telekinesis : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance);
+        Gizmos.DrawRay(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward * maxDistance);
     }
 }
