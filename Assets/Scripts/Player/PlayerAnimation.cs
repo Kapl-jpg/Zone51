@@ -3,9 +3,9 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private InputMeneger inputMeneger;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator alienAnimator;
+    [SerializeField] private Animator humanAnimator;
     [SerializeField] private float translateTime;
-    [SerializeField] private Rigidbody rb;
     
     private static readonly int IsGrounded = Animator.StringToHash("Ground");
     private static readonly int MoveX = Animator.StringToHash("MoveX");
@@ -27,7 +27,10 @@ public class PlayerAnimation : MonoBehaviour
     [Event("ResetJump")]
     private void ResetJump()
     {
-        animator.ResetTrigger(Jump);
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator.ResetTrigger(Jump);
+        if(humanAnimator.gameObject.activeInHierarchy)
+            humanAnimator?.ResetTrigger(Jump);
     }
     
     private void SetJump()
@@ -36,18 +39,33 @@ public class PlayerAnimation : MonoBehaviour
         if (inputMeneger.Crouch()) return;
         if (!inputMeneger.InputSpace()) return;
         
-        animator.SetTrigger(Jump);
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator?.SetTrigger(Jump);
+        if(humanAnimator.gameObject.activeInHierarchy)
+            humanAnimator?.SetTrigger(Jump);
     }
 
     private void SetGrounded()
     {
-        animator.SetBool(IsGrounded, Grounded());
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator?.SetBool(IsGrounded, Grounded());
+        if(humanAnimator.gameObject.activeInHierarchy)
+            humanAnimator?.SetBool(IsGrounded, Grounded());
     }
 
     private void SetMovement()
     {
-        animator.SetFloat(MoveX, Move().x);
-        animator.SetFloat(MoveY, Move().y);
+        if (alienAnimator.gameObject.activeInHierarchy)
+        {
+            alienAnimator?.SetFloat(MoveX, Move().x);
+            alienAnimator?.SetFloat(MoveY, Move().y);
+        }
+
+        if (humanAnimator.gameObject.activeInHierarchy)
+        {
+            humanAnimator?.SetFloat(MoveX, Move().x);
+            humanAnimator?.SetFloat(MoveY, Move().y);
+        }
     }
 
     private Vector2 Move()
@@ -76,7 +94,8 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetCrouching()
     {
-        animator.SetBool(Crouch, inputMeneger.Crouch());
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator?.SetBool(Crouch, inputMeneger.Crouch());
     }
 
     private bool Grounded()
