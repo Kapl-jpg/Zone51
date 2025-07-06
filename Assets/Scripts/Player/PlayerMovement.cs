@@ -18,7 +18,7 @@ public class PlayerMovement : Subscriber
     
     private InputMeneger _inputMeneger;
     private Rigidbody _rb;
-    private Camera _mainCamera;
+    private UnityEngine.Camera _mainCamera;
     private AudioSource whoseWalking;
     private AudioSource whoseRunning;
     private bool _moveSide;
@@ -28,7 +28,7 @@ public class PlayerMovement : Subscriber
     {
         _rb = GetComponent<Rigidbody>();
         _inputMeneger = GetComponent<InputMeneger>();
-        _mainCamera = Camera.main;
+        _mainCamera = UnityEngine.Camera.main;
     }
 
     private void FixedUpdate()

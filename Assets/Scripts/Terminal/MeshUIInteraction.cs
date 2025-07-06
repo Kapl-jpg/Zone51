@@ -7,7 +7,7 @@ public class MeshUIInteraction : MonoBehaviour
     [SerializeField] private TerminalInput terminalInput;
 
 
-    [SerializeField] private Camera uiCamera;
+    [SerializeField] private UnityEngine.Camera uiCamera;
     [SerializeField] private Canvas uiCanvas;
 
     private Collider _meshCollider;
@@ -26,7 +26,7 @@ public class MeshUIInteraction : MonoBehaviour
     {
         if (!terminalInput.Click()) return;
 
-        Ray ray = Camera.main.ScreenPointToRay(terminalInput.MousePosition());
+        Ray ray = UnityEngine.Camera.main.ScreenPointToRay(terminalInput.MousePosition());
         RaycastHit hit;
 
         if (!_meshCollider.Raycast(ray, out hit, Mathf.Infinity)) return;
@@ -79,7 +79,7 @@ public class MeshUIInteraction : MonoBehaviour
         Vector3[] corners = new Vector3[4];
         rect.GetWorldCorners(corners);
 
-        Camera cam = uiCanvas.worldCamera ?? Camera.main;
+        UnityEngine.Camera cam = uiCanvas.worldCamera ?? UnityEngine.Camera.main;
         
         Vector2 minScreenPos = RectTransformUtility.WorldToScreenPoint(cam, corners[0]) - canvasMax;
         Vector2 maxScreenPos = RectTransformUtility.WorldToScreenPoint(cam, corners[2]) - canvasMax;

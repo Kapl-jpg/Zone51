@@ -46,13 +46,13 @@ public class JumpController : Subscriber
     [Event("ActiveAudioJumpStart")]
     private void ActiveAudioJumpStart()
     {
-        _whoseJumpStart.Play();
+        _whoseJumpStart?.Play();
     }
 
 
     [Event("ActiveAudioJumpEnd")] 
     private void ActiveAudioJumpEnd()
     {
-        _whoseJumpEnd.Play();
+        _whoseJumpEnd?.Play();
     }
 }
