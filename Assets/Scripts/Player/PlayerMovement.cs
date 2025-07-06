@@ -3,6 +3,10 @@ using UnityEngine;
 
 public class PlayerMovement : Subscriber
 {
+    [SerializeField] private AudioSource audioWalkingUsualAlien;
+    [SerializeField] private AudioSource audioWalkingVentilationAlien;
+    [SerializeField] private AudioSource audioRunningUsualAlien;
+    [SerializeField] private AudioSource audioRunningVentilationAlien;
     [SerializeField] private float alienSpeedWalking;
     [SerializeField] private float alienSpeedRunning;
     [SerializeField] private float humanSpeedWalking;
@@ -15,8 +19,11 @@ public class PlayerMovement : Subscriber
     private InputMeneger _inputMeneger;
     private Rigidbody _rb;
     private Camera _mainCamera;
+    private AudioSource whoseWalking;
+    private AudioSource whoseRunning;
     private bool _lockMovement;
     private bool _moveSide;
+    private bool _isHuman;
 
     private void Awake()
     {
@@ -28,6 +35,7 @@ public class PlayerMovement : Subscriber
     private void FixedUpdate()
     {
         Move();
+        PlayWalkingOrRunningSound();
     }
 
     [Event("LockMovement")]
@@ -35,7 +43,9 @@ public class PlayerMovement : Subscriber
     {
         _lockMovement = lockMovement;
     }
+
     
+
     private void Move()
     {
         if (_lockMovement) return;
@@ -80,9 +90,57 @@ public class PlayerMovement : Subscriber
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (_inputMeneger.InputShift())
         {
-            return characterType == CharacterType.Human ? humanSpeedRunning : alienSpeedRunning;
+            //return characterType == CharacterType.Human ? humanSpeedRunning : alienSpeedRunning;
+            if (characterType == CharacterType.Human)
+            {
+                _isHuman = true;
+                //whoseRunning =
+                return humanSpeedRunning;
+                
+            }
+            else
+            {
+                _isHuman = false;
+                whoseRunning = audioRunningUsualAlien;
+                return alienSpeedRunning;
+                
+            }
         }
 
-        return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
+        //return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
+
+        if (characterType == CharacterType.Human)
+        {
+            _isHuman = true;
+            //whoseWalking =
+            return humanSpeedWalking;
+        }
+        else
+        {
+            _isHuman = false;
+            whoseWalking = audioWalkingUsualAlien;
+            return alienSpeedWalking;
+        }
+        
+    }
+
+    private void PlayWalkingOrRunningSound()
+    {
+        if (!_isHuman)
+        {
+            if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
+            {
+                whoseWalking.Play();
+            }
+            else if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
+            {
+                whoseRunning.Play();
+            }
+        }
+        else
+        {
+            //
+        }
+        
     }
 }

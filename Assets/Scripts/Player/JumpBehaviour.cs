@@ -5,16 +5,19 @@ public class JumpBehaviour : MonoBehaviour
     public void StartJump()
     {
         EventManager.Publish("DoJump");
+        EventManager.Publish("ActiveAudioJumpStart");
     }
 
     public void StopJump()
     {
         EventManager.Publish("LockMovement", false);
         EventManager.Publish("ResetJump");
+        EventManager.Publish("ActiveAudioJumpEnd");
     }
     
     public void DropController()
     {
         EventManager.Publish("LockMovement", true);
+        
     }
 }
