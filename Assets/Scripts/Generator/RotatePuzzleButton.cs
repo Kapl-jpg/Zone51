@@ -50,7 +50,6 @@ namespace Generator
         [Event("EnableRotateMechanism")]
         private void EnableRotate()
         {
-            print("EnableRotateMechanism");
             mainWire.material.SetColor("_Color", lightColor);
             upWire.material.SetColor("_Color", lightColor);
             rightWire.material.SetColor("_Color", lightColor);
