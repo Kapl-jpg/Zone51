@@ -184,7 +184,7 @@ Material:
     - _CoatMask: 0
     - _Columns: 120
     - _ConservativeDepthOffsetEnable: 0
-    - _CrtEffect: 0.2
+    - _CrtEffect: 0
     - _CrtStrength: 0.2
     - _CullMode: 2
     - _CullModeForward: 2
