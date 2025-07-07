@@ -19,6 +19,7 @@ public class UnifiedTriggerZone : Subscriber
             {
                 EventManager.Publish("FirstPersonCamera");
                 EventManager.Publish("Ventilation", true);
+                EventManager.Publish("ActiveAudioInVentilation", false);
                 _isActiveFirstPersonCamera.Value = true;
             }
         }
@@ -40,6 +41,7 @@ public class UnifiedTriggerZone : Subscriber
             {
                 EventManager.Publish("ThirdPersonCamera");
                 EventManager.Publish("Ventilation", false);
+                EventManager.Publish("ActiveAudioInVentilation", true);
                 _isActiveFirstPersonCamera.Value = false;
             }
         }
