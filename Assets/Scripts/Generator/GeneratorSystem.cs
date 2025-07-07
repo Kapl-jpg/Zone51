@@ -36,6 +36,7 @@ public class GeneratorSystem : MonoBehaviour
         print(other.name);
         if (!other.CompareTag("Battery")) return;
 
+        EventManager.Publish("ReleaseTelekinesis");
         StartCoroutine(SetCharge(other.gameObject, _chargeLevels));
         _chargeLevels++;
     }

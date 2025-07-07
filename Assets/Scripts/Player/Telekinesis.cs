@@ -76,6 +76,12 @@ public class Telekinesis : MonoBehaviour
         Debug.DrawRay(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
+    [Event("ReleaseTelekinesis")]
+    private void ReleaseTelekinesis()
+    {
+        ReleaseObject();
+    }
+    
     private void GrabObject()
     {
         RaycastHit hit;
@@ -125,9 +131,42 @@ public class Telekinesis : MonoBehaviour
     {
         if (grabbedRigidbody == null) return;
         
-        Vector3 targetPosition = grabPoint.position;
-        Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
-        grabbedRigidbody.MovePosition(newPosition);
+        Vector3 currentPos = grabbedRigidbody.position;
+        Vector3 targetPos  = grabPoint.position;
+
+        // направление и желаемый шаг
+        Vector3 dir  = (targetPos - currentPos);
+        float   dist = dir.magnitude;
+        if (dist < 0.001f) return;
+
+        dir  = dir / dist;                              // нормализованный вектор
+        float maxStep = smoothSpeed * Time.fixedDeltaTime;
+        float step    = Mathf.Min(maxStep, dist);
+
+        // 1) Проверяем, упремся ли в стену на этом шаге
+        if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step))
+        {
+            // 2) Вычисляем остаток до столкновения
+            float allowedMove = hit.distance;
+
+            // 3) Двигаемся вплотную к стене (без проникновения)
+            Vector3 posToWall = currentPos + dir * allowedMove;
+            
+            // 4) Скользим вдоль поверхности: проекция исходного вектора на плоскость стены
+            Vector3 slideDir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
+
+            // 5) Остаток шага скольжения
+            float slideStep = step - allowedMove;
+            Vector3 finalPos = posToWall + slideDir * slideStep;
+
+            grabbedRigidbody.MovePosition(finalPos);
+        }
+        else
+        {
+            // 6) Нет препятствий — идём прямо
+            Vector3 finalPos = currentPos + dir * step;
+            grabbedRigidbody.MovePosition(finalPos);
+        }
 
         if (!audioRetention.isPlaying && !audioLifting.isPlaying)
         {
@@ -181,7 +220,6 @@ public class Telekinesis : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSmoothness);
         }
-        
     }
 
     private bool ActiveFirstPersonCamera()

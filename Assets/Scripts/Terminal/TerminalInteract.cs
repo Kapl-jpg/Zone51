@@ -1,4 +1,5 @@
-﻿using Interfaces;
+﻿using Enums;
+using Interfaces;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -6,7 +7,18 @@ public class TerminalInteract : MonoBehaviour, IInteractable
 {
     [SerializeField] private CinemachineCamera cinemachine;
     [SerializeField] private Collider collider;
+    private bool _interact;
     
+    private void Update()
+    {
+        if(!_interact) return;
+        
+        if (RequestManager.GetValue<CharacterType>("CharacterType") == CharacterType.Alien)
+        {
+            Exit();
+        }
+    }
+
     public void Interact()
     {
         cinemachine.Priority = 30;
@@ -15,6 +27,7 @@ public class TerminalInteract : MonoBehaviour, IInteractable
         EventManager.Publish("PlayerController", false);
         EventManager.Publish("OnOffCursor", true);
         EventManager.Publish("HideInterface");
+        _interact = true;
     }
 
     public void Exit()
@@ -25,5 +38,6 @@ public class TerminalInteract : MonoBehaviour, IInteractable
         EventManager.Publish("PlayerController", true);
         EventManager.Publish("OnOffCursor", false);
         EventManager.Publish("ShowInterface");
+        _interact = false;
     }
 }
