@@ -134,28 +134,22 @@ public class Telekinesis : MonoBehaviour
         Vector3 currentPos = grabbedRigidbody.position;
         Vector3 targetPos  = grabPoint.position;
 
-        // направление и желаемый шаг
         Vector3 dir  = (targetPos - currentPos);
         float   dist = dir.magnitude;
         if (dist < 0.001f) return;
 
-        dir  = dir / dist;                              // нормализованный вектор
+        dir /= dist;
         float maxStep = smoothSpeed * Time.fixedDeltaTime;
         float step    = Mathf.Min(maxStep, dist);
 
-        // 1) Проверяем, упремся ли в стену на этом шаге
         if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step))
         {
-            // 2) Вычисляем остаток до столкновения
             float allowedMove = hit.distance;
 
-            // 3) Двигаемся вплотную к стене (без проникновения)
             Vector3 posToWall = currentPos + dir * allowedMove;
             
-            // 4) Скользим вдоль поверхности: проекция исходного вектора на плоскость стены
             Vector3 slideDir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
 
-            // 5) Остаток шага скольжения
             float slideStep = step - allowedMove;
             Vector3 finalPos = posToWall + slideDir * slideStep;
 
@@ -163,7 +157,6 @@ public class Telekinesis : MonoBehaviour
         }
         else
         {
-            // 6) Нет препятствий — идём прямо
             Vector3 finalPos = currentPos + dir * step;
             grabbedRigidbody.MovePosition(finalPos);
         }

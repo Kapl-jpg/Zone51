@@ -33,7 +33,6 @@ public class GeneratorSystem : MonoBehaviour
     {
         if (_chargeLevels >= MAX_CHARGES) return;
 
-        print(other.name);
         if (!other.CompareTag("Battery")) return;
 
         EventManager.Publish("ReleaseTelekinesis");
