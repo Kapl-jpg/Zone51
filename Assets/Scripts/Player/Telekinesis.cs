@@ -3,7 +3,7 @@ using Enums;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class Telekinesis : MonoBehaviour
+public class Telekinesis : Subscriber
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
