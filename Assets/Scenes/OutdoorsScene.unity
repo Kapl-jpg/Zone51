@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.00012501726, g: 0.0001549034, b: 0.00020502417, a: 1}
+  m_IndirectSpecularColor: {r: 0.00012494934, g: 0.00015481508, b: 0.00020490878, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10079,11 +10079,19 @@ PrefabInstance:
     - target: {fileID: 8185078429440105542, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: audioRunningUsualAlien
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1331533741}
     - target: {fileID: 8185078429440105542, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: audioWalkingUsualAlien
       value: 
       objectReference: {fileID: 300044056}
+    - target: {fileID: 8185078429440105542, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: audioRunningVentilationAlien
+      value: 
+      objectReference: {fileID: 219833544}
+    - target: {fileID: 8185078429440105542, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: audioWalkingVentilationAlien
+      value: 
+      objectReference: {fileID: 1136500244}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 261621681332783789, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
@@ -26460,6 +26468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerScreen: {fileID: 1134620875}
+  interactionCollider: {fileID: 0}
 --- !u!1001 &765492444
 PrefabInstance:
   m_ObjectHideFlags: 0
