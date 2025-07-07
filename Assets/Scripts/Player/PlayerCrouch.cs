@@ -13,6 +13,8 @@ namespace Player
         
         private Vector3 _crouchCenter;
         private float _crouchHeight;
+        
+        private bool _ventilationEnabled;
 
         private void Start()
         {
@@ -25,6 +27,24 @@ namespace Player
 
         private void Update()
         {
+            Crouch();
+        }
+
+        [Event("Ventilation")]
+        private void Ventilation(bool value)
+        {
+            _ventilationEnabled = value;
+            if (!value) return;
+            
+            alienCollider.center = _crouchCenter;
+            alienCollider.height = _crouchHeight;
+            EventManager.Publish("Crouch", true);
+        }
+
+        private void Crouch()
+        {
+            if(_ventilationEnabled) return;
+            
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
             if (characterType == CharacterType.Human) return;
             
