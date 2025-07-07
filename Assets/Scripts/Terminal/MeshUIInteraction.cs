@@ -24,8 +24,6 @@ public class MeshUIInteraction : MonoBehaviour
 
     void Update()
     {
-        if (!terminalInput.Click()) return;
-
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(terminalInput.MousePosition());
         RaycastHit hit;
 
@@ -62,13 +60,21 @@ public class MeshUIInteraction : MonoBehaviour
 
             if (rect.TryGetComponent(out Button button))
             {
-                if (button.enabled && button.interactable)
+                if (IsInRect(rect, canvasScreenPos, canvasMax))
                 {
-                    if (IsInRect(rect, canvasScreenPos, canvasMax))
+                    if (button.enabled && button.interactable)
                     {
-                        button.onClick.Invoke();
-                        return;
+                        if (terminalInput.Click())
+                        {
+                            button.onClick.Invoke();
+                            return;
+                        }
                     }
+                    button.image.color = Color.white;
+                }
+                else
+                {
+                    button.image.color = Color.clear;
                 }
             }
         }
