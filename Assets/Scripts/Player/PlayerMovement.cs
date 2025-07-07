@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using UnityEngine;
 
@@ -23,12 +24,14 @@ public class PlayerMovement : Subscriber
     private AudioSource whoseRunning;
     private bool _moveSide;
     private bool _isHuman;
+    [SerializeField] private bool _activeAudioByGender;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _inputMeneger = GetComponent<InputMeneger>();
         _mainCamera = UnityEngine.Camera.main;
+        _activeAudioByGender = true;
     }
 
     private void FixedUpdate()
@@ -113,21 +116,37 @@ public class PlayerMovement : Subscriber
 
     private void PlayWalkingOrRunningSound()
     {
-        if (!_isHuman)
+        if (!_isHuman && _activeAudioByGender)
         {
+
             if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
             {
                 whoseWalking.Play();
             }
-            else if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
+            else if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
             {
                 whoseRunning.Play();
             }
+            
         }
-        else
+        else if (!_isHuman && !_activeAudioByGender)
         {
-            //
+            if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && !audioRunningVentilationAlien.isPlaying)
+            {
+                audioRunningVentilationAlien.Play();
+            }
+            else if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && !audioWalkingVentilationAlien.isPlaying)
+            {
+                audioWalkingVentilationAlien.Play(); 
+            }
         }
         
+    }
+
+    [Event("ActiveAudioInVentilation")]
+
+    private void ActiveAudioInVentilation(bool active)
+    {
+        _activeAudioByGender = active;
     }
 }

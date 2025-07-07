@@ -3,7 +3,7 @@ using Enums;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class Telekinesis : MonoBehaviour
+public class Telekinesis : Subscriber
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
@@ -76,6 +76,12 @@ public class Telekinesis : MonoBehaviour
         Debug.DrawRay(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
+    [Event("ReleaseTelekinesis")]
+    private void ReleaseTelekinesis()
+    {
+        ReleaseObject();
+    }
+    
     private void GrabObject()
     {
         RaycastHit hit;
@@ -125,9 +131,35 @@ public class Telekinesis : MonoBehaviour
     {
         if (grabbedRigidbody == null) return;
         
-        Vector3 targetPosition = grabPoint.position;
-        Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
-        grabbedRigidbody.MovePosition(newPosition);
+        Vector3 currentPos = grabbedRigidbody.position;
+        Vector3 targetPos  = grabPoint.position;
+
+        Vector3 dir  = (targetPos - currentPos);
+        float   dist = dir.magnitude;
+        if (dist < 0.001f) return;
+
+        dir /= dist;
+        float maxStep = smoothSpeed * Time.fixedDeltaTime;
+        float step    = Mathf.Min(maxStep, dist);
+
+        if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step))
+        {
+            float allowedMove = hit.distance;
+
+            Vector3 posToWall = currentPos + dir * allowedMove;
+            
+            Vector3 slideDir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
+
+            float slideStep = step - allowedMove;
+            Vector3 finalPos = posToWall + slideDir * slideStep;
+
+            grabbedRigidbody.MovePosition(finalPos);
+        }
+        else
+        {
+            Vector3 finalPos = currentPos + dir * step;
+            grabbedRigidbody.MovePosition(finalPos);
+        }
 
         if (!audioRetention.isPlaying && !audioLifting.isPlaying)
         {
@@ -181,7 +213,6 @@ public class Telekinesis : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSmoothness);
         }
-        
     }
 
     private bool ActiveFirstPersonCamera()

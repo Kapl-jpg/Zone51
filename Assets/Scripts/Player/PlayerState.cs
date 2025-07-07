@@ -10,6 +10,7 @@ namespace Player
         [SerializeField] private float humanDuration;
         [SerializeField] private bool needGetAbility = true;
         private float _humanDurationTimer;
+        private bool _ventilationEnabled;
 
         private bool _transformation;
         private IEnumerator _humanCoroutine;
@@ -22,9 +23,9 @@ namespace Player
         
         private void Update()
         {
+            if(_ventilationEnabled) return;
             if(!_chipDisable.Value && needGetAbility) return;
             if (!input.Transformation()) return;
-            
             if (_transformation) return;
             
             if (_characterType.Value == CharacterType.Alien)
@@ -36,6 +37,12 @@ namespace Player
             {
                 StartCoroutine(StayAlien());
             }
+        }
+
+        [Event("Ventilation")]
+        private void Ventilation(bool value)
+        {
+            _ventilationEnabled = value;
         }
 
         [Event("ForcedTransformation")]

@@ -18,6 +18,8 @@ public class UnifiedTriggerZone : Subscriber
             if (_colliderCounts.Count == 1)
             {
                 EventManager.Publish("FirstPersonCamera");
+                EventManager.Publish("Ventilation", true);
+                EventManager.Publish("ActiveAudioInVentilation", false);
                 _isActiveFirstPersonCamera.Value = true;
             }
         }
@@ -38,6 +40,8 @@ public class UnifiedTriggerZone : Subscriber
             if (_colliderCounts.Count == 0)
             {
                 EventManager.Publish("ThirdPersonCamera");
+                EventManager.Publish("Ventilation", false);
+                EventManager.Publish("ActiveAudioInVentilation", true);
                 _isActiveFirstPersonCamera.Value = false;
             }
         }
