@@ -5,11 +5,9 @@ using UnityEngine.UI;
 public class MeshUIInteraction : MonoBehaviour
 {
     [SerializeField] private TerminalInput terminalInput;
-
-
     [SerializeField] private UnityEngine.Camera uiCamera;
     [SerializeField] private Canvas uiCanvas;
-
+    [SerializeField] private bool ignoreColor;
     private Collider _meshCollider;
 
     void Start()
@@ -24,8 +22,6 @@ public class MeshUIInteraction : MonoBehaviour
 
     void Update()
     {
-        if (!terminalInput.Click()) return;
-
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(terminalInput.MousePosition());
         RaycastHit hit;
 
@@ -64,11 +60,24 @@ public class MeshUIInteraction : MonoBehaviour
             {
                 if (button.enabled && button.interactable)
                 {
+                    var color = button.image.color;
                     if (IsInRect(rect, canvasScreenPos, canvasMax))
                     {
-                        button.onClick.Invoke();
-                        return;
+                        if(!ignoreColor)
+                            button.image.color = new Color(color.r, color.g, color.b, 1f);;
+                        
+                        if (terminalInput.Click())
+                        {
+                            button.onClick.Invoke();
+                            return;
+                        }
                     }
+                    else
+                    {
+                        if(!ignoreColor)
+                            button.image.color = new Color(color.r, color.g, color.b, 0);
+                    }
+
                 }
             }
         }

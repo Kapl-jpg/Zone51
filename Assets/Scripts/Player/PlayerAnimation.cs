@@ -32,16 +32,17 @@ public class PlayerAnimation : MonoBehaviour
         if(humanAnimator.gameObject.activeInHierarchy)
             humanAnimator?.ResetTrigger(Jump);
     }
-    
+
     private void SetJump()
     {
-        if(!Grounded()) return;
+        if (!Grounded()) return;
         if (inputMeneger.Crouch()) return;
         if (!inputMeneger.InputSpace()) return;
-        
-        if(alienAnimator.gameObject.activeInHierarchy)
+        if (RequestManager.GetValue<bool>("IsCrouching")) return;
+
+        if (alienAnimator.gameObject.activeInHierarchy)
             alienAnimator?.SetTrigger(Jump);
-        if(humanAnimator.gameObject.activeInHierarchy)
+        if (humanAnimator.gameObject.activeInHierarchy)
             humanAnimator?.SetTrigger(Jump);
     }
 

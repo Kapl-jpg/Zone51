@@ -6,7 +6,6 @@ public class UnifiedTriggerZone : Subscriber
     [Request("ActivateFirstPersonCamera")] 
     private ObservableField<bool> _isActiveFirstPersonCamera = new();
 
-    // Вместо одного общего счётчика — ведём счёт по каждому объекту
     private readonly Dictionary<Collider, int> _colliderCounts = new();
 
     public void NotifyEnter(Collider other)

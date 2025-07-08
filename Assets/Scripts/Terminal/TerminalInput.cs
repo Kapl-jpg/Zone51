@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Terminal
 {
@@ -23,7 +25,7 @@ namespace Terminal
                 _inputSystem.UI.Disable();
             }
         }
-        
+
         public bool Click()
         {
             return _inputSystem.UI.Click.triggered;
