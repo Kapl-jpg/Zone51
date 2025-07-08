@@ -1,37 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Subscriber
 {
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject[] cameras;
     [SerializeField] private float maxDistance;
 
+    private readonly Dictionary<GameObject,bool> _camerasInUse = new();
     private bool _disabled;
-    
-    private void Update()
+
+    [Event("AddActiveCamera")]
+    private void AddActiveCamera(GameObject cam)
     {
-        var distance = Vector3.Distance(player.transform.position, transform.position);
-        if (distance > maxDistance)
+        _camerasInUse[cam] = true;
+    }
+
+    [Event("RemoveActiveCamera")]
+    private void RemoveActiveCamera(GameObject cam)
+    {
+        _camerasInUse[cam] = false;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        if(!other.CompareTag("Player")) return;
+        
+        foreach (var cam in cameras)
         {
-            if (_disabled) return;
+            if(_camerasInUse.ContainsKey(cam))
+                if(!_camerasInUse[cam])
+                    continue;
             
-            foreach (var cam in cameras)
-            {
-                cam.SetActive(false);
-            }
-                
-            _disabled = true;
+            cam.SetActive(true);
         }
-        else
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(!other.CompareTag("Player")) return;
+        
+        foreach (var cam in cameras)
         {
-            if (!_disabled) return;
-            
-            foreach (var cam in cameras)
-            {
-                cam.SetActive(true);
-            }
-                
-            _disabled = false;
+            cam.SetActive(false);
         }
     }
 }

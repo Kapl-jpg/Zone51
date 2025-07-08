@@ -2,7 +2,7 @@
 
 namespace Camera
 {
-    public class TrackingPointBehaviour : MonoBehaviour
+    public class TrackingPointBehaviour : Subscriber
     {
         [SerializeField] private Transform thirdPersonTarget;
         [SerializeField] private Transform firstPersonTarget;
@@ -13,12 +13,16 @@ namespace Camera
         private readonly float _currentSensitivity = 1f;
         private float _targetPointOffset;
 
+        [Event("Ventilation")]
+        private void ChangeCamera(bool ventilation)
+        {
+            EventManager.Publish(ventilation ? "HidePlayerVisible" : "ShowPlayerVisible");
+        }
+
         private void Update()
         {
-            if (FirstPersonCamera())
+            if (RequestManager.GetValue<bool>("ActivateFirstPersonCamera"))
             {
-                if(LayerEnabled())
-                    EventManager.Publish("ShowPlayerVisible");
                 _targetPointOffset = Mathf.Clamp(
                     _targetPointOffset + inputMeneger.InputMouse().y * firstPersonRotationVerticalSpeed *
                     _currentSensitivity * Time.deltaTime,
@@ -29,21 +33,6 @@ namespace Camera
                     new Vector3(firstPersonTarget.localPosition.x, _targetPointOffset,
                         firstPersonTarget.localPosition.z);
             }
-            else
-            {
-                if(!LayerEnabled())
-                    EventManager.Publish("HidePlayerVisible");
-            }
-        }
-
-        private bool LayerEnabled()
-        {
-            return RequestManager.GetValue<bool>("PlayerIsVisible");
-        }
-
-        private bool FirstPersonCamera()
-        {
-            return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
         }
     }
 }

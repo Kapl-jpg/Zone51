@@ -7047,7 +7047,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputMeneger: {fileID: 1723095142000130376}
   alienAnimator: {fileID: 4522002537005244485}
-  humanAnimator: {fileID: 7641573187015142088}
+  humanAnimator: {fileID: 8837437811060070379}
   translateTime: 1
 --- !u!114 &5879603978454489303
 MonoBehaviour:

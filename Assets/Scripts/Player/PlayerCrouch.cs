@@ -7,7 +7,7 @@ namespace Player
     {
         [SerializeField] private CapsuleCollider alienCollider;
         [SerializeField] private InputMeneger input;
-
+        [Request("IsCrouching")] private readonly ObservableField<bool> _isCrouching =  new();
         private Vector3 _defaultCenter;
         private float _defaultHeight;
         
@@ -34,6 +34,7 @@ namespace Player
         private void Ventilation(bool value)
         {
             _ventilationEnabled = value;
+            _isCrouching.Value = value;
             if (!value) return;
             
             alienCollider.center = _crouchCenter;
@@ -47,7 +48,8 @@ namespace Player
             
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
             if (characterType == CharacterType.Human) return;
-            
+
+            _isCrouching.Value = input.Crouch();
             if (input.Crouch())
             {
                 alienCollider.center = _crouchCenter;
