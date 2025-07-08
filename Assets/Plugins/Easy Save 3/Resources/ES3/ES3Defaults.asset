@@ -40,6 +40,8 @@ MonoBehaviour:
     - Autodesk.Fbx
     - Event_Request
     - FbxBuildTestAssets
+    - FMODUnity
+    - FMODUnityResonance
     showAdvancedSettings: 0
   addMgrToSceneAutomatically: 0
   autoUpdateReferences: 1

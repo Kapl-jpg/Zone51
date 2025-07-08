@@ -102,11 +102,6 @@
                 "value": "{\"m_Value\":1}"
             },
             {
-                "type": "UnityEngine.ProBuilder.SelectMode, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "key": "editor.lastMeshSelectMode",
-                "value": "{\"m_Value\":2}"
-            },
-            {
                 "type": "UnityEngine.ProBuilder.SelectionModifierBehavior, Unity.ProBuilder, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "editor.rectSelectModifier",
                 "value": "{\"m_Value\":2}"
@@ -139,7 +134,7 @@
             {
                 "type": "UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
                 "key": "ShapeBuilder.LastSize",
-                "value": "{\"m_Value\":{\"x\":-1.4138050079345704,\"y\":3.7919745445251467,\"z\":0.5297126770019531}}"
+                "value": "{\"m_Value\":{\"x\":-1.2114372253417969,\"y\":2.1837000846862795,\"z\":0.9254026412963867}}"
             },
             {
                 "type": "UnityEngine.Quaternion, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
