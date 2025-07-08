@@ -10,7 +10,6 @@ namespace Camera
         [SerializeField] private float firstPersonRotationVerticalSpeed = .1f;
         [SerializeField] private InputMeneger inputMeneger;
         [SerializeField] private new UnityEngine.Camera camera;
-        [SerializeField] private int ignoreMask = 7;
         private readonly float _currentSensitivity = 1f;
         private float _targetPointOffset;
 
@@ -19,7 +18,7 @@ namespace Camera
             if (FirstPersonCamera())
             {
                 if(LayerEnabled())
-                    camera.cullingMask &= ~(1 << ignoreMask);
+                    EventManager.Publish("ShowPlayerVisible");
                 _targetPointOffset = Mathf.Clamp(
                     _targetPointOffset + inputMeneger.InputMouse().y * firstPersonRotationVerticalSpeed *
                     _currentSensitivity * Time.deltaTime,
@@ -33,13 +32,13 @@ namespace Camera
             else
             {
                 if(!LayerEnabled())
-                    camera.cullingMask |= (1 << ignoreMask);
+                    EventManager.Publish("HidePlayerVisible");
             }
         }
 
         private bool LayerEnabled()
         {
-            return (camera.cullingMask & (1 << ignoreMask)) != 0;
+            return RequestManager.GetValue<bool>("PlayerIsVisible");
         }
 
         private bool FirstPersonCamera()

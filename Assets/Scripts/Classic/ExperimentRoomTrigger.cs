@@ -17,9 +17,14 @@ namespace Classic
             }
             doorCollider.enabled = true;
             EventManager.Publish("CloseExperimentDoor");
-            tvMaterial.SetInt("_Enable", 1);
+            tvMaterial.SetFloat("_Enable", 1);
 
             gameObject.SetActive(false);
+        }
+
+        private void OnApplicationQuit()
+        {
+            tvMaterial.SetFloat("_Enable", 0);
         }
     }
 }

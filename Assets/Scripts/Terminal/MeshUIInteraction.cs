@@ -5,11 +5,9 @@ using UnityEngine.UI;
 public class MeshUIInteraction : MonoBehaviour
 {
     [SerializeField] private TerminalInput terminalInput;
-
-
     [SerializeField] private UnityEngine.Camera uiCamera;
     [SerializeField] private Canvas uiCanvas;
-
+    [SerializeField] private bool ignoreColor;
     private Collider _meshCollider;
 
     void Start()
@@ -60,21 +58,25 @@ public class MeshUIInteraction : MonoBehaviour
 
             if (rect.TryGetComponent(out Button button))
             {
-                if (IsInRect(rect, canvasScreenPos, canvasMax))
+                if (button.enabled && button.interactable)
                 {
-                    if (button.enabled && button.interactable)
+                    if (IsInRect(rect, canvasScreenPos, canvasMax))
                     {
+                        if(!ignoreColor)
+                            button.image.color = Color.white;
+                        
                         if (terminalInput.Click())
                         {
                             button.onClick.Invoke();
                             return;
                         }
                     }
-                    button.image.color = Color.white;
-                }
-                else
-                {
-                    button.image.color = Color.clear;
+                    else
+                    {
+                        if(!ignoreColor)
+                            button.image.color = Color.clear;
+                    }
+
                 }
             }
         }
