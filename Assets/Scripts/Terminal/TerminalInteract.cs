@@ -8,7 +8,6 @@ public class TerminalInteract : MonoBehaviour, IInteractable
     [SerializeField] private CinemachineCamera cinemachine;
     [SerializeField] private Collider collider;
     [SerializeField] private bool canUseOneTime;
-    [SerializeField] private bool needClosed;
     private bool _interact;
     
     private void Update()
@@ -36,7 +35,6 @@ public class TerminalInteract : MonoBehaviour, IInteractable
     public void Exit()
     {
         cinemachine.Priority = 0;
-        print(canUseOneTime);
         if(!canUseOneTime)
             collider.enabled = true;
         EventManager.Publish("InterfaceController", false);

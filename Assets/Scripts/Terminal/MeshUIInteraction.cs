@@ -60,10 +60,11 @@ public class MeshUIInteraction : MonoBehaviour
             {
                 if (button.enabled && button.interactable)
                 {
+                    var color = button.image.color;
                     if (IsInRect(rect, canvasScreenPos, canvasMax))
                     {
                         if(!ignoreColor)
-                            button.image.color = Color.white;
+                            button.image.color = new Color(color.r, color.g, color.b, 1f);;
                         
                         if (terminalInput.Click())
                         {
@@ -74,7 +75,7 @@ public class MeshUIInteraction : MonoBehaviour
                     else
                     {
                         if(!ignoreColor)
-                            button.image.color = Color.clear;
+                            button.image.color = new Color(color.r, color.g, color.b, 0);
                     }
 
                 }
