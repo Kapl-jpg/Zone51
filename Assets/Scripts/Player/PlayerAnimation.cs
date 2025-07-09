@@ -3,13 +3,15 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     [SerializeField] private InputMeneger inputMeneger;
-    [SerializeField] private Animator animator;
+    [SerializeField] private Animator alienAnimator;
+    [SerializeField] private Animator humanAnimator;
     [SerializeField] private float translateTime;
     
     private static readonly int IsGrounded = Animator.StringToHash("Ground");
     private static readonly int MoveX = Animator.StringToHash("MoveX");
     private static readonly int MoveY = Animator.StringToHash("MoveY");
     private static readonly int Crouch = Animator.StringToHash("Crouch");
+    private static readonly int Jump = Animator.StringToHash("Jump");
 
     private float _horizontal;
     private float _vertical;
@@ -19,18 +21,52 @@ public class PlayerAnimation : MonoBehaviour
         SetGrounded();
         SetMovement();
         SetCrouching();
+        SetJump();
+    }
+
+    [Event("ResetJump")]
+    private void ResetJump()
+    {
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator.ResetTrigger(Jump);
+        if(humanAnimator.gameObject.activeInHierarchy)
+            humanAnimator?.ResetTrigger(Jump);
+    }
+
+    private void SetJump()
+    {
+        if (!Grounded()) return;
+        if (inputMeneger.Crouch()) return;
+        if (!inputMeneger.InputSpace()) return;
+        if (RequestManager.GetValue<bool>("IsCrouching")) return;
+
+        if (alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator?.SetTrigger(Jump);
+        if (humanAnimator.gameObject.activeInHierarchy)
+            humanAnimator?.SetTrigger(Jump);
     }
 
     private void SetGrounded()
     {
-        var isGrounded = RequestManager.GetValue<bool>("IsGrounded");
-        animator.SetBool(IsGrounded, isGrounded);
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator?.SetBool(IsGrounded, Grounded());
+        if(humanAnimator.gameObject.activeInHierarchy)
+            humanAnimator?.SetBool(IsGrounded, Grounded());
     }
 
     private void SetMovement()
     {
-        animator.SetFloat(MoveX, Move().x);
-        animator.SetFloat(MoveY, Move().y);
+        if (alienAnimator.gameObject.activeInHierarchy)
+        {
+            alienAnimator?.SetFloat(MoveX, Move().x);
+            alienAnimator?.SetFloat(MoveY, Move().y);
+        }
+
+        if (humanAnimator.gameObject.activeInHierarchy)
+        {
+            humanAnimator?.SetFloat(MoveX, Move().x);
+            humanAnimator?.SetFloat(MoveY, Move().y);
+        }
     }
 
     private Vector2 Move()
@@ -59,6 +95,12 @@ public class PlayerAnimation : MonoBehaviour
 
     private void SetCrouching()
     {
-        animator.SetBool(Crouch, inputMeneger.Crouch());
+        if(alienAnimator.gameObject.activeInHierarchy)
+            alienAnimator?.SetBool(Crouch, inputMeneger.Crouch());
+    }
+
+    private bool Grounded()
+    {
+        return RequestManager.GetValue<bool>("IsGrounded");
     }
 }

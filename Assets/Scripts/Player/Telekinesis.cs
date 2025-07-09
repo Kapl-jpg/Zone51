@@ -1,13 +1,17 @@
 using System;
 using Enums;
+using Interfaces;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class Telekinesis : MonoBehaviour
+public class Telekinesis : Subscriber
 {
     [SerializeField] private InputMeneger inputMeneger;
     [SerializeField] private Transform grabPoint;
     [SerializeField] private CinemachineCamera thirdPersonCamera;
+    [SerializeField] private AudioSource audioLifting;
+    [SerializeField] private AudioSource audioThrowing;
+    [SerializeField] private AudioSource audioRetention;
     [SerializeField] private float smoothSpeed = 5f;
     [SerializeField] private float grabForce = 10;
     [SerializeField] private float maxDistance = 10;
@@ -70,21 +74,32 @@ public class Telekinesis : MonoBehaviour
             ThrowObject();
         }
 
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance, Color.red, 1f);
+        Debug.DrawRay(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward * maxDistance, Color.red, 1f);
     }
 
+    [Event("ReleaseTelekinesis")]
+    private void ReleaseTelekinesis()
+    {
+        ReleaseObject();
+    }
+    
     private void GrabObject()
     {
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, maxDistance, layerMask))
+        if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
-
+            hit.collider.TryGetComponent(out IInteractable interactable);
+            
             if (objectForTelekinesis != null)
             {
                 grabbedRigidbody = hit.rigidbody;
                 if (grabbedRigidbody != null)
                 {
+                    audioLifting.Play();
+                    
+                    interactable.Interact();
+                    
                     isGrabbing = true;
                     grabbedRigidbody.freezeRotation = true;
                     grabbedRigidbody.useGravity = false;
@@ -107,6 +122,12 @@ public class Telekinesis : MonoBehaviour
             grabbedRigidbody = null;
             chargeTime = 0f;
             _holdTime = 0f;
+
+            audioRetention.Stop();
+            if (!audioRetention.isPlaying)
+            {
+                audioThrowing.Play();
+            }
         }
     }
 
@@ -114,9 +135,51 @@ public class Telekinesis : MonoBehaviour
     {
         if (grabbedRigidbody == null) return;
         
-        Vector3 targetPosition = grabPoint.position;
-        Vector3 newPosition = Vector3.Lerp(grabbedRigidbody.position, targetPosition, smoothSpeed * Time.deltaTime);
-        grabbedRigidbody.MovePosition(newPosition);
+        Vector3 currentPos = grabbedRigidbody.position;
+        Vector3 targetPos  = grabPoint.position;
+
+        Vector3 dir  = (targetPos - currentPos);
+        float   dist = dir.magnitude;
+        if (dist < 0.001f) return;
+
+        dir /= dist;
+        float maxStep = smoothSpeed * Time.fixedDeltaTime;
+        float step    = Mathf.Min(maxStep, dist);
+
+        if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step))
+        {
+            float allowedMove = hit.distance;
+
+            Vector3 posToWall = currentPos + dir * allowedMove;
+            
+            Vector3 slideDir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
+
+            float slideStep = step - allowedMove;
+            Vector3 finalPos = posToWall + slideDir * slideStep;
+
+            grabbedRigidbody.MovePosition(finalPos);
+        }
+        else
+        {
+            Vector3 finalPos = currentPos + dir * step;
+            grabbedRigidbody.MovePosition(finalPos);
+        }
+
+        if (!audioRetention.isPlaying && !audioLifting.isPlaying)
+        {
+            bool activeAudio = true;
+            if (activeAudio)
+            {
+                audioRetention.Play();
+                activeAudio = false;
+                print("play");
+            }
+
+            if (!audioThrowing.isPlaying)
+            {
+                activeAudio = true;
+            }
+        }
 
         ObjectMonitoring();
     }
@@ -138,10 +201,10 @@ public class Telekinesis : MonoBehaviour
         if (grabbedRigidbody != null)
         {
             float throwForce = Mathf.Clamp01(chargeTime / maxChargeTime) * maxThrowForce;
-            Vector3 throwDirection = Camera.main.transform.forward;
+            Vector3 throwDirection = UnityEngine.Camera.main.transform.forward;
             grabbedRigidbody.AddForce(throwDirection * throwForce, ForceMode.Impulse);
             ReleaseObject();
-            activeCharge = false;
+            activeCharge = false;  
         }
     }
 
@@ -154,7 +217,6 @@ public class Telekinesis : MonoBehaviour
             Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.fixedDeltaTime * turnSmoothness);
         }
-        
     }
 
     private bool ActiveFirstPersonCamera()
@@ -165,6 +227,6 @@ public class Telekinesis : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * maxDistance);
+        Gizmos.DrawRay(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward * maxDistance);
     }
 }

@@ -1,37 +1,26 @@
+using System;
 using Enums;
 using UnityEngine;
 
 public class JumpController : Subscriber
 {
+    [SerializeField] private AudioSource audioJumpStartAlien;
+    [SerializeField] private AudioSource audioJumpEndAlien;
     [SerializeField] private float alienJumpForce;
     [SerializeField] private float humanJumpForce;
-    [Header("Ground")] [SerializeField] private float groundCheckRadius;
-    [SerializeField] private float groundCheckDistance;
-    [SerializeField] private LayerMask groundMask;
     [SerializeField] private bool showGroundChecker;
-    private InputMeneger _inputMeneger;
     private Rigidbody _rb;
 
-    [Request("IsGrounded")] private ObservableField<bool> _isGrounded = new();
+    private AudioSource _whoseJumpEnd;
+    private AudioSource _whoseJumpStart;
 
     private void Start()
     {
-        _inputMeneger = GetComponent<InputMeneger>();
         _rb = GetComponent<Rigidbody>();
     }
 
-    public void Jump()
-    {
-        if (_inputMeneger.Crouch()) return;
-
-        print(CheckGround());
-        if (!_inputMeneger.InputSpace() || !CheckGround()) return;
-        
-        DoJump();
-    }
-
     [Event("DoJump")]
-    public void DoJump()
+    private void DoJump()
     {
         _rb.AddForce(Vector3.up * JumpForce(), ForceMode.Impulse);
     }
@@ -40,21 +29,30 @@ public class JumpController : Subscriber
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
 
-        return characterType == CharacterType.Human ? humanJumpForce : alienJumpForce;
+        if (characterType == CharacterType.Human)
+        {
+            _whoseJumpStart = null;
+            _whoseJumpEnd = null;
+            return humanJumpForce;
+        }
+        else
+        {
+            _whoseJumpStart = audioJumpStartAlien;
+            _whoseJumpEnd = audioJumpEndAlien;
+            return alienJumpForce;
+        }
     }
 
-    private bool CheckGround()
+    [Event("ActiveAudioJumpStart")]
+    private void ActiveAudioJumpStart()
     {
-        _isGrounded.Value = Physics.SphereCast(transform.position + Vector3.up, groundCheckRadius, -transform.up, out _,
-            groundCheckDistance, groundMask);
-        return _isGrounded.Value;
+        _whoseJumpStart?.Play();
     }
 
-    private void OnDrawGizmosSelected()
+
+    [Event("ActiveAudioJumpEnd")] 
+    private void ActiveAudioJumpEnd()
     {
-        if(!showGroundChecker) return;
-        
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position - transform.up * groundCheckDistance, groundCheckRadius);
+        _whoseJumpEnd?.Play();
     }
 }

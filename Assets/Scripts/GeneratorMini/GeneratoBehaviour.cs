@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections;
+using UnityEngine;
+
+public class GeneratorMiniBehaviour : Subscriber
+{
+    [SerializeField] private float firstBatteryStep;
+    [SerializeField] private float secondBatteryStep;
+    [SerializeField] private float brakeBarrierTime;
+
+    [SerializeField] private MeshRenderer generatorBarrierMesh;
+    [SerializeField] private MeshRenderer generatorWireMesh;
+    [SerializeField] private Collider generatorBarrierCollider;
+    
+    [SerializeField] [ColorUsage(false,true)] Color wireEnableColor;
+    [SerializeField] Color wireDisableColor;
+    private Material _generatorBarrierMaterial;
+    private Material _generatorWireMaterial;
+    private float _currentBatteryDissolveValue;
+
+    private void Start()
+    {
+        _generatorBarrierMaterial = new Material(generatorBarrierMesh.material);
+        generatorBarrierMesh.material = _generatorBarrierMaterial;
+        
+        _generatorWireMaterial = new Material(generatorWireMesh.material);
+        generatorWireMesh.material = _generatorWireMaterial;
+        
+        _generatorWireMaterial.SetColor("_Color", wireEnableColor);
+    }
+
+    [Event("RemoveBattery")]
+    private void RemoveBattery()
+    {
+        StartCoroutine(Dissolve(0, secondBatteryStep));
+        
+    }
+
+    private IEnumerator Dissolve(float start, float step)
+    {
+        _generatorWireMaterial.SetColor("_Color", wireDisableColor);
+        float t = start;
+        while (t < step)
+        {
+            t = Mathf.Clamp(t + Time.deltaTime, start, step);
+            _generatorBarrierMaterial.SetFloat("_DissolveValue", t);
+            yield return null;
+        }
+
+        generatorBarrierCollider.enabled = false;
+    }
+}

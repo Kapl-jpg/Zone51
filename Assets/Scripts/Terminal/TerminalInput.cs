@@ -1,16 +1,29 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Terminal
 {
-    public class TerminalInput : MonoBehaviour
+    public class TerminalInput : Subscriber
     {
         private InputSystem_Actions _inputSystem;
 
         private void Start()
         {
             _inputSystem = new InputSystem_Actions();
-            _inputSystem.UI.Enable();
+        }
+
+        [Event("InterfaceController")]
+        private void InterfaceController(bool enabled)
+        {
+            if (enabled)
+            {
+                _inputSystem.UI.Enable();
+            }
+            else
+            {
+                _inputSystem.UI.Disable();
+            }
         }
 
         public bool Click()

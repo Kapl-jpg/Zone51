@@ -1,8 +1,13 @@
+using System;
 using Enums;
 using UnityEngine;
 
 public class PlayerMovement : Subscriber
 {
+    [SerializeField] private AudioSource audioWalkingUsualAlien;
+    [SerializeField] private AudioSource audioWalkingVentilationAlien;
+    [SerializeField] private AudioSource audioRunningUsualAlien;
+    [SerializeField] private AudioSource audioRunningVentilationAlien;
     [SerializeField] private float alienSpeedWalking;
     [SerializeField] private float alienSpeedRunning;
     [SerializeField] private float humanSpeedWalking;
@@ -11,30 +16,28 @@ public class PlayerMovement : Subscriber
     [SerializeField] private float cameraRotationSpeed = 15f;
     [SerializeField] private float movementSmoothing = 0.1f;
     [SerializeField] private float mouseSensitivity = 2f;
-
+    
     private InputMeneger _inputMeneger;
-    private JumpController _jumpController;
     private Rigidbody _rb;
-    private Camera _mainCamera;
-
+    private UnityEngine.Camera _mainCamera;
+    private AudioSource whoseWalking;
+    private AudioSource whoseRunning;
     private bool _moveSide;
+    private bool _isHuman;
+    private bool _activeAudioByGender;
 
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _inputMeneger = GetComponent<InputMeneger>();
-        _jumpController = GetComponent<JumpController>();
-        _mainCamera = Camera.main;
-    }
-
-    private void Update()
-    {
-        _jumpController.Jump();
+        _mainCamera = UnityEngine.Camera.main;
+        _activeAudioByGender = true;
     }
 
     private void FixedUpdate()
     {
         Move();
+        PlayWalkingOrRunningSound(); //Commit
     }
 
     private void Move()
@@ -77,9 +80,74 @@ public class PlayerMovement : Subscriber
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (_inputMeneger.InputShift())
         {
-            return characterType == CharacterType.Human ? humanSpeedRunning : alienSpeedRunning;
+            //return characterType == CharacterType.Human ? humanSpeedRunning : alienSpeedRunning;
+            if (characterType == CharacterType.Human)
+            {
+                _isHuman = true;
+                //whoseRunning =
+                return humanSpeedRunning;
+                
+            }
+            else
+            {
+                _isHuman = false;
+                whoseRunning = audioRunningUsualAlien;
+                return alienSpeedRunning;
+                
+            }
         }
 
-        return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
+        //return characterType == CharacterType.Human ? humanSpeedWalking : alienSpeedWalking;
+
+        if (characterType == CharacterType.Human)
+        {
+            _isHuman = true;
+            //whoseWalking =
+            return humanSpeedWalking;
+        }
+        else
+        {
+            _isHuman = false;
+            whoseWalking = audioWalkingUsualAlien;
+            return alienSpeedWalking;
+        }
+        
+    }
+
+    [Event("PlayWalkingOrRunningSound")]
+    private void PlayWalkingOrRunningSound()
+    {
+        if (!_isHuman && _activeAudioByGender)
+        {
+
+            if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
+            {
+                whoseWalking.Play();
+            }
+            else if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
+            {
+                whoseRunning.Play();
+            }
+            
+        }
+        else if (!_isHuman && !_activeAudioByGender)
+        {
+            if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && !audioRunningVentilationAlien.isPlaying)
+            {
+                audioRunningVentilationAlien.Play();
+            }
+            else if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && !audioWalkingVentilationAlien.isPlaying)
+            {
+                audioWalkingVentilationAlien.Play(); 
+            }
+        }
+        
+    }
+
+    [Event("ActiveAudioInVentilation")]
+
+    private void ActiveAudioInVentilation(bool active)
+    {
+        _activeAudioByGender = active;
     }
 }

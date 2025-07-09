@@ -6,7 +6,6 @@ public class UnifiedTriggerZone : Subscriber
     [Request("ActivateFirstPersonCamera")] 
     private ObservableField<bool> _isActiveFirstPersonCamera = new();
 
-    // Вместо одного общего счётчика — ведём счёт по каждому объекту
     private readonly Dictionary<Collider, int> _colliderCounts = new();
 
     public void NotifyEnter(Collider other)
@@ -18,6 +17,8 @@ public class UnifiedTriggerZone : Subscriber
             if (_colliderCounts.Count == 1)
             {
                 EventManager.Publish("FirstPersonCamera");
+                EventManager.Publish("Ventilation", true);
+                EventManager.Publish("ActiveAudioInVentilation", false);
                 _isActiveFirstPersonCamera.Value = true;
             }
         }
@@ -38,6 +39,8 @@ public class UnifiedTriggerZone : Subscriber
             if (_colliderCounts.Count == 0)
             {
                 EventManager.Publish("ThirdPersonCamera");
+                EventManager.Publish("Ventilation", false);
+                EventManager.Publish("ActiveAudioInVentilation", true);
                 _isActiveFirstPersonCamera.Value = false;
             }
         }

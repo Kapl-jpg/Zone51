@@ -5,12 +5,16 @@ public class InputPinTerminal : MonoBehaviour
 {
     [SerializeField] private TMP_Text pinText;
     [SerializeField] private TerminalInteract terminalInteract;
+    [SerializeField] private AudioSource audioOpen;
+    [SerializeField] private AudioSource audioClose;
+    [SerializeField] private AudioSource audioPress;
     [SerializeField] private string pinCode = "1111";
     [SerializeField] private int maxPinLength = 4;
 
     public void InputKeyForCode(string key)
     {
         pinText.text = (pinText.text + key).Substring(0, Mathf.Min(pinText.text.Length + key.Length, maxPinLength));
+        audioPress.Play();
     }
 
     public void EraseCode()
@@ -29,7 +33,7 @@ public class InputPinTerminal : MonoBehaviour
         
         if (textCode == pinCode)
         {
-            // AudioSource
+            audioClose.Play();
             pinText.text = "OPEN";
             EventManager.Publish("OpenDoorForTerminal");
             terminalInteract.Exit();
@@ -37,7 +41,7 @@ public class InputPinTerminal : MonoBehaviour
         else
         {
             pinText.text = "";
-            // AudioSource
+            audioClose.Play();
         }
     }
 }

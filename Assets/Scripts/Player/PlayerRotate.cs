@@ -7,12 +7,10 @@ namespace Player
         [SerializeField] private InputMeneger inputMeneger;
         [SerializeField] private float thirdPersonRotationSpeed;
         [SerializeField] private float firstPersonRotationHorizontalSpeed = 10f;
-        [SerializeField] private float firstPersonRotationVerticalSpeed = .1f;
-        [SerializeField] private Transform targetPoint;
-        [SerializeField] private Vector2 minMaxTargetPointOffset = new(-.4f, .6f);
         
         private float _angle;
         private float _targetPointOffset;
+        private float _currentSensitivity = 1;
         
         private void Update()
         {
@@ -23,7 +21,7 @@ namespace Player
         {
             if (!FirstPersonCamera())
             {
-                Vector3 moveDirection = Camera.main.transform.forward;
+                Vector3 moveDirection = UnityEngine.Camera.main.transform.forward;
 
                 if (!(moveDirection.sqrMagnitude > 0.001f)) return;
 
@@ -33,19 +31,13 @@ namespace Player
 
                 transform.rotation =
                     Quaternion.RotateTowards(transform.rotation, targetRotation,
-                        thirdPersonRotationSpeed * Time.deltaTime);
+                        thirdPersonRotationSpeed * _currentSensitivity * Time.deltaTime);
                 _angle = transform.rotation.eulerAngles.y;
             }
             else
             {
-                _angle += inputMeneger.InputMouse().x * firstPersonRotationHorizontalSpeed * Time.deltaTime;
+                _angle += inputMeneger.InputMouse().x * firstPersonRotationHorizontalSpeed * _currentSensitivity * Time.deltaTime;
                 
-                _targetPointOffset = Mathf.Clamp(
-                    _targetPointOffset + inputMeneger.InputMouse().y * firstPersonRotationVerticalSpeed * Time.deltaTime,
-                    minMaxTargetPointOffset.x, 
-                    minMaxTargetPointOffset.y);
-                
-                targetPoint.localPosition = new Vector3(targetPoint.localPosition.x, _targetPointOffset, targetPoint.localPosition.z);
                 Quaternion targetRotation = Quaternion.Euler(0, _angle, 0);
                 transform.rotation = targetRotation;
             }
@@ -54,6 +46,11 @@ namespace Player
         private bool FirstPersonCamera()
         {
             return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
+        }
+
+        private void OnMouseSensitivityChanged(float sensitivity)
+        {
+            _currentSensitivity = sensitivity;
         }
     }
 }
