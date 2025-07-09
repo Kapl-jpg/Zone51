@@ -24,7 +24,7 @@ public class PlayerMovement : Subscriber
     private AudioSource whoseRunning;
     private bool _moveSide;
     private bool _isHuman;
-    [SerializeField] private bool _activeAudioByGender;
+    private bool _activeAudioByGender;
 
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class PlayerMovement : Subscriber
     private void FixedUpdate()
     {
         Move();
-        PlayWalkingOrRunningSound();
+        PlayWalkingOrRunningSound(); //Commit
     }
 
     private void Move()
@@ -114,6 +114,7 @@ public class PlayerMovement : Subscriber
         
     }
 
+    [Event("PlayWalkingOrRunningSound")]
     private void PlayWalkingOrRunningSound()
     {
         if (!_isHuman && _activeAudioByGender)
