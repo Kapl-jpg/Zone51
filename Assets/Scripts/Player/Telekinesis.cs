@@ -1,5 +1,6 @@
 using System;
 using Enums;
+using Interfaces;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -88,14 +89,17 @@ public class Telekinesis : Subscriber
         if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
             ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
-
+            hit.collider.TryGetComponent(out IInteractable interactable);
+            
             if (objectForTelekinesis != null)
             {
                 grabbedRigidbody = hit.rigidbody;
                 if (grabbedRigidbody != null)
                 {
                     audioLifting.Play();
-
+                    
+                    interactable.Interact();
+                    
                     isGrabbing = true;
                     grabbedRigidbody.freezeRotation = true;
                     grabbedRigidbody.useGravity = false;
