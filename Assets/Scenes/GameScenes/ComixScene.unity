@@ -1297,7 +1297,7 @@ MonoBehaviour:
   - {fileID: 672601288}
   - {fileID: 887668251}
   - {fileID: 919093850}
-  slideTime: 5
+  slideTime: 3
 --- !u!114 &1879476108
 MonoBehaviour:
   m_ObjectHideFlags: 0
