@@ -6,11 +6,13 @@ public class OpenDoorsForTerminal : Subscriber
 {
     private static readonly int Open = Animator.StringToHash("Open");
     [SerializeField] private Animator doorAnimator;
-
+    [SerializeField] private AudioSource audioOpen;
+ 
     [Event("OpenDoorForTerminal")]
     private void OpenDoorForTerminal()
     {
         doorAnimator.SetTrigger(Open);
+        audioOpen.Play();
     }
 
 }
