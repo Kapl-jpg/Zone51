@@ -98,7 +98,7 @@ public class Telekinesis : Subscriber
                 {
                     audioLifting.Play();
                     
-                    interactable.Interact();
+                    interactable?.Interact();
                     
                     isGrabbing = true;
                     grabbedRigidbody.freezeRotation = true;

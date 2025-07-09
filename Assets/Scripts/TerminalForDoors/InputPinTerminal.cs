@@ -33,7 +33,7 @@ public class InputPinTerminal : MonoBehaviour
         
         if (textCode == pinCode)
         {
-            audioClose.Play();
+            audioOpen.Play();
             pinText.text = "OPEN";
             EventManager.Publish("OpenDoorForTerminal");
             terminalInteract.Exit();

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Interfaces;
 using UnityEngine;
+using static UnityEngine.Windows.WebCam.VideoCapture;
 
 namespace Generator
 {
@@ -22,6 +23,7 @@ namespace Generator
         [SerializeField] private MeshRenderer upMech;
         [SerializeField] private MeshRenderer rightMech;
         [SerializeField] private MeshRenderer downMech;
+        [SerializeField] private AudioSource audioRotate;
         
         private Directions _currentDirection = Directions.Right;
 
@@ -74,7 +76,8 @@ namespace Generator
             _locked = true;
             var angle = mechanism.rotation;
             var targetAngle = Quaternion.Euler(0, 0, TargetAngle());
-            
+            audioRotate.Play();
+            yield return new WaitForSeconds(0.5f);
             DisableWires();
             
             var t = 0f;
