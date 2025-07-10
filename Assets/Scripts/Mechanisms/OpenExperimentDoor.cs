@@ -8,6 +8,8 @@ namespace Mechanisms
         private static readonly int Open = Animator.StringToHash("Open");
         private static readonly int Close = Animator.StringToHash("Close");
         [SerializeField] private Animator doorAnimator;
+        [SerializeField] private AudioSource audioOpen;
+        [SerializeField] private AudioSource audioClose;
 
         [Event("OpenExperimentDoor")]
         private void OpenDoor()
@@ -16,12 +18,14 @@ namespace Mechanisms
             
             if(getPower)
                 doorAnimator.SetTrigger(Open);
+                audioOpen.Play();
         }
 
         [Event("CloseExperimentDoor")]
         private void CloseDoor()
         {
             doorAnimator.SetTrigger(Close);
+            audioClose.Play();
         }
     }
 }
