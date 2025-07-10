@@ -4,6 +4,7 @@ namespace Player
 {
     public class GroundChecker : Subscriber
     {
+        [SerializeField] private Transform mainPlayer;
         [SerializeField] private float groundRadius;
         [SerializeField] private float groundDistance;
         [SerializeField] private LayerMask layerMask;
@@ -14,7 +15,8 @@ namespace Player
 
         private void Update()
         {
-            _isGrounded.Value = Physics.SphereCast(transform.position, groundRadius, -Vector3.up, out _, groundDistance, layerMask);
+            _isGrounded.Value = Physics.SphereCast(transform.position, groundRadius, -Vector3.up, out RaycastHit hit, groundDistance, layerMask);
+            mainPlayer.parent = _isGrounded.Value ? hit.transform : null;
         }
 
         private void OnDrawGizmosSelected()
