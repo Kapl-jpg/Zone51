@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Telekinesis : Subscriber
 {
-    [SerializeField] private InputMeneger inputMeneger;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private Transform grabPoint;
     [SerializeField] private CinemachineCamera thirdPersonCamera;
     [SerializeField] private AudioSource audioLifting;
@@ -42,7 +42,7 @@ public class Telekinesis : Subscriber
         if(!chipDisabled && needGetAbility) return;
         
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        if (inputMeneger.InputMouseLeftButton())
+        if (inputManager.InputMouseLeftButton())
         {
             if (characterType == CharacterType.Alien)
             {
@@ -63,13 +63,13 @@ public class Telekinesis : Subscriber
                 ReleaseObject();
         }
         
-        if (inputMeneger.InputMouseRightButton() && isGrabbing)
+        if (inputManager.InputMouseRightButton() && isGrabbing)
         {
             activeCharge = true;
             ChargeThrow();
         }
 
-        if (activeCharge && inputMeneger.InputMouseRightButton() == false && isGrabbing)
+        if (activeCharge && inputManager.InputMouseRightButton() == false && isGrabbing)
         {
             ThrowObject();
         }

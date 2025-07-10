@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class InputMeneger : Subscriber
+public class InputManager : Subscriber
 {
     private InputSystem_Actions _input;
     private bool _isLock;

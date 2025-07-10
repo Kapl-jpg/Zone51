@@ -4,7 +4,7 @@ namespace Player
 {
     public class PlayerRotate : MonoBehaviour
     {
-        [SerializeField] private InputMeneger inputMeneger;
+        [SerializeField] private InputManager inputManager;
         [SerializeField] private float thirdPersonRotationSpeed;
         [SerializeField] private float firstPersonRotationHorizontalSpeed = 10f;
         
@@ -36,7 +36,7 @@ namespace Player
             }
             else
             {
-                _angle += inputMeneger.InputMouse().x * firstPersonRotationHorizontalSpeed * _currentSensitivity * Time.deltaTime;
+                _angle += inputManager.InputMouse().x * firstPersonRotationHorizontalSpeed * _currentSensitivity * Time.deltaTime;
                 
                 Quaternion targetRotation = Quaternion.Euler(0, _angle, 0);
                 transform.rotation = targetRotation;

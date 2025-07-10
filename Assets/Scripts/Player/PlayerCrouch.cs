@@ -6,7 +6,7 @@ namespace Player
     public class PlayerCrouch : Subscriber
     {
         [SerializeField] private CapsuleCollider alienCollider;
-        [SerializeField] private InputMeneger input;
+        [SerializeField] private InputManager input;
         [Request("IsCrouching")] private readonly ObservableField<bool> _isCrouching =  new();
         private Vector3 _defaultCenter;
         private float _defaultHeight;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    [SerializeField] private InputMeneger inputMeneger;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] public float sphereCastRadius = 1.5f; 
     [SerializeField] public float maxDistance = 5f;
     [SerializeField] private bool needTransform = true;
@@ -36,7 +36,7 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
         
-        if (inputMeneger.InputE())
+        if (inputManager.InputE())
         {
             if (_interactable != null)
             {

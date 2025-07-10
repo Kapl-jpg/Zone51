@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using Enums;
+﻿using Enums;
 using UnityEngine;
 
 namespace Terminal
@@ -19,8 +18,11 @@ namespace Terminal
         public void ChangeForm()
         {
             if (!_canTransform) return;
-            EventManager.Publish("ShowTutorial", TutorialType.Interact);
+            if(_wasTransformed) return;
+            RequestManager.SetValue("ChipDisable", true);
+            EventManager.Publish("ShowTutorial", TutorialType.Transformation);
             _wasTransformed = true;
+            _canTransform = true;
         }
     }
 }

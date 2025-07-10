@@ -6,14 +6,14 @@ namespace Player
     {
         [SerializeField] private GameObject crosshair;
         
-        [Event("ShowInterface")]
-        private void ShowInterface()
+        [Event("ShowCrosshair")]
+        private void ShowCrosshair()
         {
             crosshair.SetActive(true);
         }
 
-        [Event("HideInterface")]
-        private void HideInterface()
+        [Event("HideCrosshair")]
+        private void HideCrosshair()
         {
             crosshair.SetActive(false);
         }

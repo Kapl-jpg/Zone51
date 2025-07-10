@@ -6,7 +6,7 @@ namespace Player
 {
     public class PlayerState : Subscriber
     {
-        [SerializeField] private InputMeneger input;
+        [SerializeField] private InputManager input;
         [SerializeField] private float humanDuration;
         [SerializeField] private bool needGetAbility = true;
         private float _humanDurationTimer;
@@ -89,6 +89,11 @@ namespace Player
                 }
 
                 EventManager.Publish("SwitchForm", CharacterType.Alien);
+            }
+            else
+            {
+                EventManager.Publish("ShowTutorial", TutorialType.Transformation);
+                _chipDisable.Value = true;
             }
         }
 

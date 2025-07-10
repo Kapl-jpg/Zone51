@@ -17,7 +17,7 @@ public class PlayerMovement : Subscriber
     [SerializeField] private float movementSmoothing = 0.1f;
     [SerializeField] private float mouseSensitivity = 2f;
     
-    private InputMeneger _inputMeneger;
+    private InputManager _inputManager;
     private Rigidbody _rb;
     private UnityEngine.Camera _mainCamera;
     private AudioSource whoseWalking;
@@ -29,7 +29,7 @@ public class PlayerMovement : Subscriber
     private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
-        _inputMeneger = GetComponent<InputMeneger>();
+        _inputManager = GetComponent<InputManager>();
         _mainCamera = UnityEngine.Camera.main;
         _activeAudioByGender = true;
     }
@@ -42,9 +42,9 @@ public class PlayerMovement : Subscriber
 
     private void Move()
     {
-        Vector3 moveDirection = _mainCamera.transform.forward * _inputMeneger.GetMove().y + (CheckDirectionMovement()
+        Vector3 moveDirection = _mainCamera.transform.forward * _inputManager.GetMove().y + (CheckDirectionMovement()
             ? transform.forward
-            : _mainCamera.transform.right) * _inputMeneger.GetMove().x;
+            : _mainCamera.transform.right) * _inputManager.GetMove().x;
         
         CalculationsForMovement(moveDirection);
 
@@ -60,7 +60,7 @@ public class PlayerMovement : Subscriber
     [Event("FirstPersonCamera")]
     private void FirstPersonCamera()
     {
-        if (_inputMeneger.GetMove().x != 0)
+        if (_inputManager.GetMove().x != 0)
             _moveSide = true;
     }
 
@@ -68,7 +68,7 @@ public class PlayerMovement : Subscriber
     {
         if (_moveSide)
         {
-            if (_inputMeneger.GetMove().x == 0 || _inputMeneger.GetMove().y != 0)
+            if (_inputManager.GetMove().x == 0 || _inputManager.GetMove().y != 0)
                 _moveSide = false;
         }
 
@@ -78,7 +78,7 @@ public class PlayerMovement : Subscriber
     private float Speed()
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        if (_inputMeneger.InputShift())
+        if (_inputManager.InputShift())
         {
             //return characterType == CharacterType.Human ? humanSpeedRunning : alienSpeedRunning;
             if (characterType == CharacterType.Human)
@@ -120,11 +120,11 @@ public class PlayerMovement : Subscriber
         if (!_isHuman && _activeAudioByGender)
         {
 
-            if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
+            if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
             {
                 whoseWalking.Play();
             }
-            else if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
+            else if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
             {
                 whoseRunning.Play();
             }
@@ -132,11 +132,11 @@ public class PlayerMovement : Subscriber
         }
         else if (!_isHuman && !_activeAudioByGender)
         {
-            if (_inputMeneger.GetMove().magnitude > 0.1f && _inputMeneger.InputShift() && !audioRunningVentilationAlien.isPlaying)
+            if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && !audioRunningVentilationAlien.isPlaying)
             {
                 audioRunningVentilationAlien.Play();
             }
-            else if (_inputMeneger.GetMove().magnitude > 0.1f && !_inputMeneger.InputShift() && !audioWalkingVentilationAlien.isPlaying)
+            else if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && !audioWalkingVentilationAlien.isPlaying)
             {
                 audioWalkingVentilationAlien.Play(); 
             }

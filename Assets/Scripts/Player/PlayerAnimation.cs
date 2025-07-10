@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour
 {
-    [SerializeField] private InputMeneger inputMeneger;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private Animator alienAnimator;
     [SerializeField] private Animator humanAnimator;
     [SerializeField] private float translateTime;
@@ -36,8 +36,8 @@ public class PlayerAnimation : MonoBehaviour
     private void SetJump()
     {
         if (!Grounded()) return;
-        if (inputMeneger.Crouch()) return;
-        if (!inputMeneger.InputSpace()) return;
+        if (inputManager.Crouch()) return;
+        if (!inputManager.InputSpace()) return;
         if (RequestManager.GetValue<bool>("IsCrouching")) return;
 
         if (alienAnimator.gameObject.activeInHierarchy)
@@ -71,21 +71,21 @@ public class PlayerAnimation : MonoBehaviour
 
     private Vector2 Move()
     {
-        if (inputMeneger.GetMove().x > 0)
+        if (inputManager.GetMove().x > 0)
             _horizontal = Mathf.MoveTowards(_horizontal,1,Time.deltaTime / translateTime);
-        else if (inputMeneger.GetMove().x < 0)
+        else if (inputManager.GetMove().x < 0)
             _horizontal = Mathf.MoveTowards(_horizontal,-1,Time.deltaTime / translateTime);
         else
             _horizontal = Mathf.MoveTowards(_horizontal,0,Time.deltaTime / translateTime);
         
-        if (inputMeneger.GetMove().y > 0)
+        if (inputManager.GetMove().y > 0)
             _vertical = Mathf.MoveTowards(_vertical,1,Time.deltaTime / translateTime);
-        else if (inputMeneger.GetMove().y < 0)
+        else if (inputManager.GetMove().y < 0)
             _vertical = Mathf.MoveTowards(_vertical,-1,Time.deltaTime / translateTime);
         else
             _vertical = Mathf.MoveTowards(_vertical,0,Time.deltaTime / translateTime);
         
-        if (inputMeneger.InputShift())
+        if (inputManager.InputShift())
         {
             return new Vector2(_horizontal,_vertical) * 2;
         }
@@ -96,7 +96,7 @@ public class PlayerAnimation : MonoBehaviour
     private void SetCrouching()
     {
         if(alienAnimator.gameObject.activeInHierarchy)
-            alienAnimator?.SetBool(Crouch, inputMeneger.Crouch());
+            alienAnimator?.SetBool(Crouch, inputManager.Crouch());
     }
 
     private bool Grounded()

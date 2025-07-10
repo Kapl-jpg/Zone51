@@ -16,6 +16,9 @@ public class Password : MonoBehaviour
     [SerializeField] private Color defaultColor;
     [SerializeField] private Color winColor;
     [SerializeField] private Color loseColor;
+
+    [SerializeField] private GameObject[] disablePanels;
+    [SerializeField] private GameObject enablePanel;
     
     [SerializeField] private Image authorizationScreenBackground;
     
@@ -116,7 +119,14 @@ public class Password : MonoBehaviour
         fourthWindow.text = String.Empty;
 
         if (_numberAttempts <= 0)
-            print("Lose");
+        {
+            foreach (var disable in disablePanels)
+            {
+                disable.SetActive(false);
+            }
+            enablePanel.SetActive(true);
+            print("Game Over");
+        }
     }
 
     private void ShowAttempts()

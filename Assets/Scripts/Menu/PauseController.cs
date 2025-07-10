@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class PauseController : Subscriber
 {
-    [SerializeField] private InputMeneger inputMeneger;
+    [SerializeField] private InputManager inputManager;
     [SerializeField] private GameObject menuPause;
 
     private bool _activeMenuPause;
 
     private void Update()
     {
-        if (inputMeneger.InputPause())
+        if (inputManager.InputPause())
         {
             PauseMode();
         }
