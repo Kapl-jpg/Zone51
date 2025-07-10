@@ -41,7 +41,7 @@ public class InputPinTerminal : MonoBehaviour
         else
         {
             pinText.text = "";
-            audioClose.Play();
+            audioOpen.Play();
         }
     }
 }
