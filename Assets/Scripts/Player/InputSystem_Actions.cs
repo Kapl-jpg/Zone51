@@ -508,6 +508,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipTutorial"",
+                    ""type"": ""Button"",
+                    ""id"": ""f99e41e4-50f6-4860-8158-855e9cfa9199"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -609,6 +618,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""action"": ""MiddleClick"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d5fd627-5361-4342-b7ac-e0f18ab2968b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""SkipTutorial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -695,6 +715,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_UI_Click = m_UI.FindAction("Click", throwIfNotFound: true);
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_MiddleClick = m_UI.FindAction("MiddleClick", throwIfNotFound: true);
+        m_UI_SkipTutorial = m_UI.FindAction("SkipTutorial", throwIfNotFound: true);
     }
 
     ~@InputSystem_Actions()
@@ -986,6 +1007,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_Click;
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_MiddleClick;
+    private readonly InputAction m_UI_SkipTutorial;
     /// <summary>
     /// Provides access to input actions defined in input action map "UI".
     /// </summary>
@@ -1013,6 +1035,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/MiddleClick".
         /// </summary>
         public InputAction @MiddleClick => m_Wrapper.m_UI_MiddleClick;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/SkipTutorial".
+        /// </summary>
+        public InputAction @SkipTutorial => m_Wrapper.m_UI_SkipTutorial;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1051,6 +1077,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MiddleClick.started += instance.OnMiddleClick;
             @MiddleClick.performed += instance.OnMiddleClick;
             @MiddleClick.canceled += instance.OnMiddleClick;
+            @SkipTutorial.started += instance.OnSkipTutorial;
+            @SkipTutorial.performed += instance.OnSkipTutorial;
+            @SkipTutorial.canceled += instance.OnSkipTutorial;
         }
 
         /// <summary>
@@ -1074,6 +1103,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @MiddleClick.started -= instance.OnMiddleClick;
             @MiddleClick.performed -= instance.OnMiddleClick;
             @MiddleClick.canceled -= instance.OnMiddleClick;
+            @SkipTutorial.started -= instance.OnSkipTutorial;
+            @SkipTutorial.performed -= instance.OnSkipTutorial;
+            @SkipTutorial.canceled -= instance.OnSkipTutorial;
         }
 
         /// <summary>
@@ -1292,5 +1324,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnMiddleClick(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SkipTutorial" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSkipTutorial(InputAction.CallbackContext context);
     }
 }

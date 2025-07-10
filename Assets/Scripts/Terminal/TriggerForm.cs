@@ -18,17 +18,9 @@ namespace Terminal
 
         public void ChangeForm()
         {
-            if (_canTransform)
-            {
-                StartCoroutine(Change());
-                _wasTransformed = true;
-            }
-        }
-
-        private IEnumerator Change()
-        {
-            yield return new WaitForSeconds(cooldown);
-            EventManager.Publish("ForcedTransformation", CharacterType.Alien);
+            if (!_canTransform) return;
+            EventManager.Publish("ShowTutorial", TutorialType.Interact);
+            _wasTransformed = true;
         }
     }
 }
