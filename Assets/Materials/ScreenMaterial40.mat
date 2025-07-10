@@ -130,6 +130,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_ab51a38325764442833b7757dab08454_Out_0_Texture2D:
+        m_Texture: {fileID: 2800000, guid: f744f0d06d9b53d488d9d2c5e7ab8832, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ThicknessMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
