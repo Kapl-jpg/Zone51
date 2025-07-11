@@ -1,6 +1,7 @@
+using Enums;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour
+public class PlayerAnimation : Subscriber
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private Animator alienAnimator;
@@ -13,6 +14,7 @@ public class PlayerAnimation : MonoBehaviour
     private static readonly int Crouch = Animator.StringToHash("Crouch");
     private static readonly int Jump = Animator.StringToHash("Jump");
 
+    private bool _isFalling;
     private float _horizontal;
     private float _vertical;
     
@@ -27,10 +29,15 @@ public class PlayerAnimation : MonoBehaviour
     [Event("ResetJump")]
     private void ResetJump()
     {
-        if(alienAnimator.gameObject.activeInHierarchy)
-            alienAnimator.ResetTrigger(Jump);
-        if(humanAnimator.gameObject.activeInHierarchy)
-            humanAnimator?.ResetTrigger(Jump);
+        if (alienAnimator.gameObject.activeInHierarchy)
+        {
+            alienAnimator.SetBool(Jump, false);
+        }
+
+        if (humanAnimator.gameObject.activeInHierarchy)
+        {
+            humanAnimator?.SetBool(Jump, false);
+        }
     }
 
     private void SetJump()
@@ -39,11 +46,29 @@ public class PlayerAnimation : MonoBehaviour
         if (inputManager.Crouch()) return;
         if (!inputManager.InputSpace()) return;
         if (RequestManager.GetValue<bool>("IsCrouching")) return;
+        if (!RequestManager.GetValue<bool>("Transformation"))
+        {
+            if (alienAnimator.gameObject.activeInHierarchy)
+                alienAnimator?.SetBool(Jump, true);
+            if (humanAnimator.gameObject.activeInHierarchy)
+                humanAnimator?.SetBool(Jump, true);
+        }
+        else
+        {
+            if (RequestManager.GetValue<CharacterType>("CharacterType") == CharacterType.Alien)
+            {
+                alienAnimator?.SetBool(Jump,false);
+                humanAnimator?.SetBool(Jump,true);
+                alienAnimator.Rebind();
+            }
 
-        if (alienAnimator.gameObject.activeInHierarchy)
-            alienAnimator?.SetTrigger(Jump);
-        if (humanAnimator.gameObject.activeInHierarchy)
-            humanAnimator?.SetTrigger(Jump);
+            if (RequestManager.GetValue<CharacterType>("CharacterType") == CharacterType.Human)
+            {
+                alienAnimator?.SetBool(Jump, true);
+                humanAnimator?.SetBool(Jump,false);
+                humanAnimator.Rebind();
+            }
+        }
     }
 
     private void SetGrounded()

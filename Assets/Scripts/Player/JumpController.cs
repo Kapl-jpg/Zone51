@@ -10,7 +10,7 @@ public class JumpController : Subscriber
     [SerializeField] private float humanJumpForce;
     [SerializeField] private bool showGroundChecker;
     private Rigidbody _rb;
-
+    private bool _hasJumped;
     private AudioSource _whoseJumpEnd;
     private AudioSource _whoseJumpStart;
 
@@ -18,11 +18,20 @@ public class JumpController : Subscriber
     {
         _rb = GetComponent<Rigidbody>();
     }
-
+    
     [Event("DoJump")]
     private void DoJump()
     {
+        if (_hasJumped) return;
+        
         _rb.AddForce(Vector3.up * JumpForce(), ForceMode.Impulse);
+        _hasJumped = true;
+    }
+
+    [Event("ResetJump")]
+    private void ResetJump()
+    {
+        _hasJumped = false;
     }
 
     private float JumpForce()
