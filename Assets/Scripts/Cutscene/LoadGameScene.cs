@@ -6,6 +6,6 @@ public class LoadGameScene : Subscriber
     [Event("StartGame")]
     public void LoadScene()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 }

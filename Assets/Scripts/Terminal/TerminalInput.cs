@@ -9,19 +9,7 @@ namespace Terminal
         private void Start()
         {
             _inputSystem = new InputSystem_Actions();
-        }
-
-        [Event("InterfaceController")]
-        private void InterfaceController(bool enabled)
-        {
-            if (enabled)
-            {
-                _inputSystem.UI.Enable();
-            }
-            else
-            {
-                _inputSystem.UI.Disable();
-            }
+            _inputSystem.UI.Enable();
         }
 
         public bool Click()

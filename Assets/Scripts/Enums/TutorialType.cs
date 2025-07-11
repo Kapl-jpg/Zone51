@@ -3,8 +3,11 @@
     public enum TutorialType
     {
         Movement,
-        Interact,
+        Jump,
+        Crouch,
+        Sprint,
         Telekinesis,
-        Transformation
+        Transformation,
+        Interact
     }
 }

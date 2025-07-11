@@ -10,7 +10,7 @@ public class MeshUIInteraction : MonoBehaviour
     [SerializeField] private bool ignoreColor;
     private Collider _meshCollider;
 
-    void Start()
+    private void Start()
     {
         _meshCollider = GetComponent<Collider>();
 
@@ -20,7 +20,7 @@ public class MeshUIInteraction : MonoBehaviour
         }
     }
 
-    void Update()
+    private void Update()
     {
         Ray ray = UnityEngine.Camera.main.ScreenPointToRay(terminalInput.MousePosition());
         RaycastHit hit;

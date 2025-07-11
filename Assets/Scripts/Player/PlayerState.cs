@@ -9,6 +9,7 @@ namespace Player
         [SerializeField] private InputManager input;
         [SerializeField] private float humanDuration;
         [SerializeField] private bool needGetAbility = true;
+        [SerializeField] private bool tutorial;
         private float _humanDurationTimer;
         private bool _ventilationEnabled;
 
@@ -46,20 +47,12 @@ namespace Player
         }
 
         [Event("ForcedTransformation")]
-        private void ForcedTransformation(CharacterType characterType)
+        private void ForcedTransformation()
         {
-            if (_characterType.Value == characterType) return;
-            if (characterType == CharacterType.Alien)
-            {
-                StartCoroutine(StayAlien());
-                _chipDisable.Value = true;
-            }
-            
-            if(characterType == CharacterType.Human)
-            {
                 StartCoroutine(StayHuman(true));
-            }
-            _characterType.Value = characterType;
+            
+            _chipDisable.Value = true;
+            _characterType.Value = CharacterType.Human;
         }
 
         [Event("Transformation")]
@@ -80,20 +73,18 @@ namespace Player
             
             EventManager.Publish("SwitchForm", CharacterType.Human);
 
-            if (!endless)
+            if (!tutorial)
             {
-                while (_humanDurationTimer > 0f)
+                if (!endless)
                 {
-                    _humanDurationTimer -= Time.deltaTime;
-                    yield return null;
-                }
+                    while (_humanDurationTimer > 0f)
+                    {
+                        _humanDurationTimer -= Time.deltaTime;
+                        yield return null;
+                    }
 
-                EventManager.Publish("SwitchForm", CharacterType.Alien);
-            }
-            else
-            {
-                EventManager.Publish("ShowTutorial", TutorialType.Transformation);
-                _chipDisable.Value = true;
+                    EventManager.Publish("SwitchForm", CharacterType.Alien);
+                }
             }
         }
 

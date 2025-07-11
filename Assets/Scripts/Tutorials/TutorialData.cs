@@ -6,5 +6,5 @@ using UnityEngine;
 public class TutorialData
 {
     public TutorialType type;
-    public GameObject[] tutorialUI;
+    public GameObject tutorialUI;
 }

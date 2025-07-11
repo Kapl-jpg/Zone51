@@ -7,7 +7,7 @@ public class TerminalTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
         
-        EventManager.Publish("ForcedTransformation", CharacterType.Human);
+        EventManager.Publish("ForcedTransformation");
         gameObject.SetActive(false);
     }
 }

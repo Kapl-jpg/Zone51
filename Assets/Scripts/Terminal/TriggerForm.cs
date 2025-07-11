@@ -19,8 +19,6 @@ namespace Terminal
         {
             if (!_canTransform) return;
             if(_wasTransformed) return;
-            RequestManager.SetValue("ChipDisable", true);
-            EventManager.Publish("ShowTutorial", TutorialType.Transformation);
             _wasTransformed = true;
             _canTransform = true;
         }

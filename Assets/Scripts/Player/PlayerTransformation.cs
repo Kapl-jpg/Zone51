@@ -13,7 +13,6 @@ public class PlayerTransformation : Subscriber
 
     private Material _alienMaterial;
     private Material _humanMaterial;
-    private bool _firstTransformation = true;
 
     private void Start()
     {
@@ -93,12 +92,7 @@ public class PlayerTransformation : Subscriber
 
             yield return null;
         }
-
-        if (_firstTransformation)
-        {
-            EventManager.Publish("ShowTutorial", TutorialType.Telekinesis);
-            _firstTransformation = false;
-        }
+        
         EventManager.Publish("Transformation", false);
         EventManager.Publish("SetForm", CharacterType.Alien);
         humanForm.SetActive(false);
