@@ -113,7 +113,6 @@ public class PlayerMovement : Subscriber
             whoseWalking = audioWalkingUsualAlien;
             return alienSpeedWalking;
         }
-        
     }
 
     [Event("PlayWalkingOrRunningSound")]
@@ -121,16 +120,7 @@ public class PlayerMovement : Subscriber
     {
         if (!_isHuman && _activeAudioByGender)
         {
-
-            if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
-            {
-                whoseWalking.Play();
-            }
-            else if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
-            {
-                whoseRunning.Play();
-            }
-            
+            PlayAudio();
         }
         else if (!_isHuman && !_activeAudioByGender)
         {
@@ -143,7 +133,10 @@ public class PlayerMovement : Subscriber
                 audioWalkingVentilationAlien.Play(); 
             }
         }
-        
+        else if (_isHuman)
+        {
+            PlayAudio();
+        }
     }
 
     [Event("ActiveAudioInVentilation")]
@@ -151,5 +144,17 @@ public class PlayerMovement : Subscriber
     private void ActiveAudioInVentilation(bool active)
     {
         _activeAudioByGender = active;
+    }
+
+    private void PlayAudio()
+    {
+        if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
+        {
+            whoseWalking.Play();
+        }
+        else if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
+        {
+            whoseRunning.Play();
+        }
     }
 }
