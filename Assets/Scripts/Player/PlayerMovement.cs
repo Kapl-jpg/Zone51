@@ -8,6 +8,8 @@ public class PlayerMovement : Subscriber
     [SerializeField] private AudioSource audioWalkingVentilationAlien;
     [SerializeField] private AudioSource audioRunningUsualAlien;
     [SerializeField] private AudioSource audioRunningVentilationAlien;
+    [SerializeField] private AudioSource audioWalkingUsualHuman;
+    [SerializeField] private AudioSource audioRunningUsualHuman;
     [SerializeField] private float alienSpeedWalking;
     [SerializeField] private float alienSpeedRunning;
     [SerializeField] private float humanSpeedWalking;
@@ -84,7 +86,7 @@ public class PlayerMovement : Subscriber
             if (characterType == CharacterType.Human)
             {
                 _isHuman = true;
-                //whoseRunning =
+                whoseRunning = audioRunningUsualHuman;
                 return humanSpeedRunning;
                 
             }
@@ -102,7 +104,7 @@ public class PlayerMovement : Subscriber
         if (characterType == CharacterType.Human)
         {
             _isHuman = true;
-            //whoseWalking =
+            whoseWalking = audioWalkingUsualHuman;
             return humanSpeedWalking;
         }
         else
