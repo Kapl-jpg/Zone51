@@ -12,9 +12,10 @@ namespace Player
         [SerializeField] private bool tutorial;
         private float _humanDurationTimer;
         private bool _ventilationEnabled;
-
-        private bool _transformation;
         private IEnumerator _humanCoroutine;
+
+        [Request("Transformation")]
+        private readonly ObservableField<bool> _transformation = new();
         
         [Request("CharacterType")] 
         private readonly ObservableField<CharacterType> _characterType = new(CharacterType.Alien);
@@ -27,7 +28,7 @@ namespace Player
             if(_ventilationEnabled) return;
             if(!_chipDisable.Value && needGetAbility) return;
             if (!input.Transformation()) return;
-            if (_transformation) return;
+            if (_transformation.Value) return;
             
             if (_characterType.Value == CharacterType.Alien)
             {
@@ -46,19 +47,24 @@ namespace Player
             _ventilationEnabled = value;
         }
 
+        [Event("DisableChip")]
+        private void DisableChip()
+        {
+            _chipDisable.Value = true;
+        }
+
         [Event("ForcedTransformation")]
         private void ForcedTransformation()
         {
-                StartCoroutine(StayHuman(true));
+            StartCoroutine(StayHuman(true));
             
-            _chipDisable.Value = true;
             _characterType.Value = CharacterType.Human;
         }
 
         [Event("Transformation")]
         private void Transformation(bool transformation)
         {
-            _transformation = transformation;
+            _transformation.Value = transformation;
         }
 
         [Event("SetForm")]

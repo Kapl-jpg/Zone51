@@ -32,6 +32,7 @@ public class PlayerTransformation : Subscriber
 
         if (characterType == CharacterType.Human)
             StartCoroutine(StayHuman());
+        EventManager.Publish("ResetJump");
     }
 
     private IEnumerator StayHuman()

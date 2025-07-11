@@ -1,5 +1,4 @@
-﻿using Enums;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Terminal
 {
@@ -19,6 +18,9 @@ namespace Terminal
         {
             if (!_canTransform) return;
             if(_wasTransformed) return;
+            
+            EventManager.Publish("DisableChip");
+            
             _wasTransformed = true;
             _canTransform = true;
         }
