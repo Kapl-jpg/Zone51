@@ -34,7 +34,7 @@ namespace Classic
 
         private IEnumerator EnablePlate()
         {
-            audioClassic.Play();
+            audioClassic.PlayOneShot(audioClassic.clip);
             while (_t < 1)
             {
                 _t += Time.deltaTime / transitionDuration;
@@ -45,7 +45,7 @@ namespace Classic
 
         private IEnumerator DisablePlate()
         {
-            audioClassic.Play();
+            audioClassic.PlayOneShot(audioClassic.clip);
             while (_t > 0)
             {
                 _t -= Time.deltaTime / transitionDuration;
