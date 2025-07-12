@@ -15,11 +15,6 @@ public class LiftMovement : Subscriber
     private bool _moveUp;
     private bool _pause;
 
-    private void Start()
-    {
-        EventManager.Publish("OpenTopDoor");
-    }
-
     [Event("CloseDoorLift")]
     private void MoveLift()
     {
