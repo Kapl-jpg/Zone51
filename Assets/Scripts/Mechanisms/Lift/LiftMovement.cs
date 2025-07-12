@@ -7,17 +7,18 @@ public class LiftMovement : Subscriber
     [SerializeField] private Transform downPoint;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float pauseTime;
-   
+    [SerializeField] private Collider liftCollider;
+
     private Transform _player;
     private bool _move;
     private bool _moveUp;
     private bool _pause;
-    
-    [Event("MoveLift")]
+
+    [Event("CloseDoorLift")]
     private void MoveLift()
     {
-        if(!_move)
-            StartCoroutine(Move());
+        if (!_move)
+            CloseDoor();
     }
 
     [Event("ResetJump")]
@@ -25,11 +26,24 @@ public class LiftMovement : Subscriber
     {
         _pause = true;
     }
+
+    [Event("MoveLift")]
+    private void Movement()
+    {
+        StartCoroutine(Move());
+    }
+    
+    private void CloseDoor()
+    {
+        liftCollider.enabled = true;
+        _move = true;
+        EventManager.Publish(_moveUp ? "CloseBottomDoor" : "CloseTopDoor");
+    }
     
     private IEnumerator Move()
     {
-        _move = true;
-        var endPoint = _moveUp?upPoint.position: downPoint.position;
+        var endPoint = _moveUp ? upPoint.position : downPoint.position;
+        
         while (transform.position != endPoint)
         {
             if (!_pause)
@@ -40,10 +54,13 @@ public class LiftMovement : Subscriber
             }
             else
             {
-                yield return new  WaitForSeconds(pauseTime);
+                yield return new WaitForSeconds(pauseTime);
                 _pause = false;
             }
         }
+
+        liftCollider.enabled = false;
+        EventManager.Publish(_moveUp ? "OpenTopDoor" : "OpenBottomDoor");
         
         _moveUp = !_moveUp;
         _move = false;

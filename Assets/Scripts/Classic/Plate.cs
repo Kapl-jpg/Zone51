@@ -58,6 +58,6 @@ public class Plate : Subscriber
 
     private void FinalEvent()
     {
-        EventManager.Publish("OpenHangarDoor");
+        EventManager.Publish("OpenLiftDoor");
     }
 }

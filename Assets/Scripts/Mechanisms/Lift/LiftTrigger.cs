@@ -7,7 +7,7 @@ namespace Lift
     {
         public void Interact()
         {
-            EventManager.Publish("MoveLift");
+            EventManager.Publish("CloseDoorLift");
         }
     }
 }
