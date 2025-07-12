@@ -19,6 +19,7 @@ public class Observer : MonoBehaviour
             if (characterType == CharacterType.Alien)
             {
                 print("GAME OVER");
+                //Звук тревоги
             }
         }
     }

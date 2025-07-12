@@ -4376,6 +4376,7 @@ GameObject:
   - component: {fileID: 4241174244921791534}
   - component: {fileID: 5769945099702008239}
   - component: {fileID: 2572953721575152060}
+  - component: {fileID: 5384498472680653390}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -4693,6 +4694,14 @@ MonoBehaviour:
   firstPersonRotationVerticalSpeed: 0.1
   inputManager: {fileID: 1723095142000130376}
   camera: {fileID: 0}
+--- !u!81 &5384498472680653390
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
 --- !u!1 &7101370705892617936
 GameObject:
   m_ObjectHideFlags: 0
