@@ -4,16 +4,18 @@ using UnityEngine;
 namespace Classic
 {
     public class PlateAnimation : Subscriber
-    {
+    { 
         [SerializeField] private Vector3 offset;
         [SerializeField] private float transitionDuration;
-        
+
+        private AudioSource audioClassic;
         private Vector3 _startPoint;
         private Vector3 _endPoint;
         
         private float _t;
         private void Start()
         {
+            audioClassic = GetComponent<AudioSource>();
             _startPoint = transform.position;
             _endPoint = transform.position + offset;
         }
@@ -32,6 +34,7 @@ namespace Classic
 
         private IEnumerator EnablePlate()
         {
+            audioClassic.Play();
             while (_t < 1)
             {
                 _t += Time.deltaTime / transitionDuration;
@@ -42,6 +45,7 @@ namespace Classic
 
         private IEnumerator DisablePlate()
         {
+            audioClassic.Play();
             while (_t > 0)
             {
                 _t -= Time.deltaTime / transitionDuration;
