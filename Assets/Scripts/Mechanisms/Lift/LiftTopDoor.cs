@@ -3,12 +3,14 @@
 public class LiftTopDoor : Subscriber
 {
     private static readonly int Open = Animator.StringToHash("Open");
+    [SerializeField] private Animator innerDoorAnimator;
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private AudioSource audioOpen;
     
     [Event("OpenTopDoor")]
     private void OpenDoor()
     {
+        innerDoorAnimator.SetBool(Open, true);
         doorAnimator.SetBool(Open, true);
         audioOpen.Play();
     }
@@ -16,6 +18,7 @@ public class LiftTopDoor : Subscriber
     [Event("CloseTopDoor")]
     private void CloseDoor()
     {
+        innerDoorAnimator.SetBool(Open, false);
         doorAnimator.SetBool(Open, false);
         audioOpen.Stop();
     }

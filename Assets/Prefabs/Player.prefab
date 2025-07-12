@@ -4481,8 +4481,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioJumpStartAlien: {fileID: 4917654800451245673}
   audioJumpEndAlien: {fileID: 1591465610302876577}
-  audoJumpStartHuman: {fileID: 0}
-  ausioJumpEndHuman: {fileID: 0}
+  audoJumpStartHuman: {fileID: 3868781320195083696}
+  ausioJumpEndHuman: {fileID: 9092288108556949555}
   alienJumpForce: 6
   humanJumpForce: 6
   showGroundChecker: 0

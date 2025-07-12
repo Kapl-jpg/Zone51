@@ -9,6 +9,7 @@ namespace Player
         [SerializeField] private float groundDistance;
         [SerializeField] private LayerMask layerMask;
         [SerializeField] private bool draw;
+        private bool _landing;
         
         [Request("IsGrounded")]
         private ObservableField<bool> _isGrounded = new();
@@ -16,6 +17,18 @@ namespace Player
         private void Update()
         {
             _isGrounded.Value = Physics.SphereCast(transform.position, groundRadius, -Vector3.up, out RaycastHit hit, groundDistance, layerMask);
+            if (!_isGrounded.Value)
+            {
+                _landing = true;
+            }
+            else
+            {
+                if (_landing)
+                {
+                    EventManager.Publish("Landing");
+                    _landing = false;
+                }
+            }
             mainPlayer.parent = _isGrounded.Value ? hit.transform : null;
         }
 
