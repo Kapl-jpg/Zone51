@@ -22,6 +22,7 @@ namespace Generator
         [SerializeField] private MeshRenderer upMech;
         [SerializeField] private MeshRenderer rightMech;
         [SerializeField] private MeshRenderer downMech;
+        [SerializeField] private AudioSource audioRotateMechanisn;
         
         private Directions _currentDirection = Directions.Right;
 

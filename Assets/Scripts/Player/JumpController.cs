@@ -6,6 +6,8 @@ public class JumpController : Subscriber
 {
     [SerializeField] private AudioSource audioJumpStartAlien;
     [SerializeField] private AudioSource audioJumpEndAlien;
+    [SerializeField] private AudioSource audoJumpStartHuman;
+    [SerializeField] private AudioSource ausioJumpEndHuman;
     [SerializeField] private float alienJumpForce;
     [SerializeField] private float humanJumpForce;
     [SerializeField] private bool showGroundChecker;
@@ -40,8 +42,8 @@ public class JumpController : Subscriber
 
         if (characterType == CharacterType.Human)
         {
-            _whoseJumpStart = null;
-            _whoseJumpEnd = null;
+            _whoseJumpStart = audoJumpStartHuman;
+            _whoseJumpEnd = ausioJumpEndHuman;
             return humanJumpForce;
         }
         else
