@@ -75,7 +75,9 @@ namespace Generator
             _locked = true;
             var angle = mechanism.rotation;
             var targetAngle = Quaternion.Euler(0, 0, TargetAngle());
-            
+
+            audioRotateMechanisn.Play();
+            yield return new WaitForSeconds(0.5f);
             DisableWires();
             
             var t = 0f;
