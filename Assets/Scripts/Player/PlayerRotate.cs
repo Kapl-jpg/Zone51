@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using Settings;
+using UnityEngine;
 
 namespace Player
 {
     public class PlayerRotate : MonoBehaviour
     {
         [SerializeField] private InputManager inputManager;
+        [SerializeField] private MouseManager mouseManager;
         [SerializeField] private float thirdPersonRotationSpeed;
         [SerializeField] private float firstPersonRotationHorizontalSpeed = 10f;
         
         private float _angle;
         private float _targetPointOffset;
-        private float _currentSensitivity = 1;
         
         private void Update()
         {
@@ -31,12 +32,12 @@ namespace Player
 
                 transform.rotation =
                     Quaternion.RotateTowards(transform.rotation, targetRotation,
-                        thirdPersonRotationSpeed * _currentSensitivity * Time.deltaTime);
+                        thirdPersonRotationSpeed * Time.deltaTime);
                 _angle = transform.rotation.eulerAngles.y;
             }
             else
             {
-                _angle += inputManager.InputMouse().x * firstPersonRotationHorizontalSpeed * _currentSensitivity * Time.deltaTime;
+                _angle += inputManager.InputMouse().x * firstPersonRotationHorizontalSpeed * mouseManager.MouseSensitivity * Time.deltaTime;
                 
                 Quaternion targetRotation = Quaternion.Euler(0, _angle, 0);
                 transform.rotation = targetRotation;
@@ -46,11 +47,6 @@ namespace Player
         private bool FirstPersonCamera()
         {
             return RequestManager.GetValue<bool>("ActivateFirstPersonCamera");
-        }
-
-        private void OnMouseSensitivityChanged(float sensitivity)
-        {
-            _currentSensitivity = sensitivity;
         }
     }
 }

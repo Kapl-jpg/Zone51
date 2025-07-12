@@ -2917,7 +2917,7 @@ MonoBehaviour:
     Controllers:
     - Name: Look Orbit X
       Owner: {fileID: 74262761456896299}
-      Enabled: 1
+      Enabled: 0
       Input:
         InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
         Gain: 1
@@ -2930,7 +2930,7 @@ MonoBehaviour:
         DecelTime: 0.2
     - Name: Look Orbit Y
       Owner: {fileID: 74262761456896299}
-      Enabled: 1
+      Enabled: 0
       Input:
         InputAction: {fileID: -5630151704836100654, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
         Gain: -1
@@ -4376,7 +4376,7 @@ GameObject:
   - component: {fileID: 4241174244921791534}
   - component: {fileID: 5769945099702008239}
   - component: {fileID: 2572953721575152060}
-  - component: {fileID: 5384498472680653390}
+  - component: {fileID: 1314460472554322174}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -4455,10 +4455,6 @@ MonoBehaviour:
   alienSpeedRunning: 5
   humanSpeedWalking: 4
   humanSpeedRunning: 7
-  rotationSpeed: 10
-  cameraRotationSpeed: 15
-  movementSmoothing: 0.1
-  mouseSensitivity: 2
 --- !u!114 &1723095142000130376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4648,6 +4644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1723095142000130376}
+  mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
   thirdPersonRotationSpeed: 800
   firstPersonRotationHorizontalSpeed: 10
 --- !u!114 &4241174244921791534
@@ -4674,7 +4671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e764cbfcedf83444a953a087d0fa8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputManager: {fileID: 0}
+  inputManager: {fileID: 1723095142000130376}
   menuPause: {fileID: 0}
 --- !u!114 &2572953721575152060
 MonoBehaviour:
@@ -4694,14 +4691,21 @@ MonoBehaviour:
   firstPersonRotationVerticalSpeed: 0.1
   inputManager: {fileID: 1723095142000130376}
   camera: {fileID: 0}
---- !u!81 &5384498472680653390
-AudioListener:
+--- !u!114 &1314460472554322174
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7045314489859830242}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 368b8e13b6144e12a34ef9500486286b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orbitalFollow: {fileID: 74262761456896299}
+  inputManager: {fileID: 1723095142000130376}
+  mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
 --- !u!1 &7101370705892617936
 GameObject:
   m_ObjectHideFlags: 0
