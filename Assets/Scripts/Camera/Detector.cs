@@ -1,28 +1,20 @@
+using Enums;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Detector : MonoBehaviour
 {
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
-    [SerializeField] private GameObject odjectText;
-    [SerializeField] private TMP_Text textTimer;
     [SerializeField] private AudioSource audioAlarm;
     [SerializeField] private LayerMask detectionLayer;
+    [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private float sphereRadius = 5f;
-    [SerializeField] private float maxDetectionTime = 5f;
 
     private Transform detectedPlayer;
-    private float currentDetectionTime;
     private bool isDetecting = false;
-    private bool activeTimer;
-    
+    private bool activeAydio = true;
 
-    private void Start()
-    {
-        currentDetectionTime = maxDetectionTime;
-    }
 
     private void Update()
     {
@@ -49,7 +41,6 @@ public class Detector : MonoBehaviour
             }
         }
 
-        // Если игрок вышел из зоны или исчез - сброс
         if (!playerInZone && isDetecting)
         {
             ResetDetection();
@@ -60,25 +51,23 @@ public class Detector : MonoBehaviour
     {
         if (!isDetecting || detectedPlayer == null) return;
 
-        activeTimer = true;
-        if (CheckLineOfSight() && activeTimer)
+        if (CheckLineOfSight())
         {
-            //audioAlarm.Play();
-            currentDetectionTime -= Time.deltaTime;
-            odjectText.SetActive(true);
-            textTimer.text = currentDetectionTime.ToString("0:00");
-            //Debug.Log($"Обнаружение: {currentDetectionTime}");
+            if (!audioAlarm.isPlaying && activeAydio)
+            {
+                audioAlarm.Play();
+                activeAydio = false;
+            }
+            
 
-            if (currentDetectionTime <= 0)
+            if (!audioAlarm.isPlaying)
             {
                 PlayerFullyDetected();
             }
         }
         else
         {
-            //currentDetectionTime = Mathf.Max(0, currentDetectionTime - Time.deltaTime * 0.5f); // Медленный сброс
             ResetDetection();
-            //odjectText.SetActive(false);
         }
     }
 
@@ -88,33 +77,40 @@ public class Detector : MonoBehaviour
 
         Vector3 direction = (detectedPlayer.position - rayOrigin.position).normalized;
         float distance = Vector3.Distance(rayOrigin.position, detectedPlayer.position);
-        Debug.DrawRay(rayOrigin.position, direction * distance, Color.red, 0.1f);
-        // Проверяем, нет ли препятствий на пути луча
-        RaycastHit hit;
-        if (Physics.Raycast(rayOrigin.position, direction, out hit, distance, detectionLayer))
+
+        if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit obstacleHit, distance, obstacleLayerMask))
         {
-            return hit.collider.transform == detectedPlayer;
+            Debug.DrawRay(rayOrigin.position, direction * obstacleHit.distance, Color.yellow, 0.1f);
+            print(obstacleHit.collider.gameObject.name);
+            return false; 
+        }
+
+        if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit playerHit, distance, detectionLayer))
+        {
+            var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+            if (characterType == CharacterType.Alien)
+            {
+                bool isPlayer = playerHit.collider.CompareTag("Player");
+                Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, isPlayer ? Color.green : Color.red, 0.1f);
+                return isPlayer;
+            }
         }
 
         return false;
     }
 
-    private void PlayerFullyDetected()
+    private void PlayerFullyDetected() //
     {
-        //audioAlarm.Pause();
+        audioAlarm.Stop();
+        activeAydio = true;
         Debug.Log("Игрок полностью обнаружен!");
-        odjectText.SetActive(false);
-        activeTimer = false;
         ResetDetection();
-        Time.timeScale = 0;
-        // Здесь можно вызвать события (например, тревогу)
+        //Time.timeScale = 0;
     }
 
     private void ResetDetection()
     {
-        //audioAlarm.Pause();
-        odjectText.SetActive(false);
-        currentDetectionTime = maxDetectionTime;
+        audioAlarm.Stop();
         isDetecting = false;
         detectedPlayer = null;
     }
