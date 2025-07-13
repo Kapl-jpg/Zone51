@@ -1,73 +1,130 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
-using static Unity.Burst.Intrinsics.X86.Avx;
+using UnityEngine.UI;
 
 public class Detector : MonoBehaviour
 {
-    public Transform targetTransform;
+    [SerializeField] private Transform rayOrigin;
+    [SerializeField] private Transform sphereCenter;
+    [SerializeField] private GameObject odjectText;
+    [SerializeField] private TMP_Text textTimer;
+    [SerializeField] private AudioSource audioAlarm;
+    [SerializeField] private LayerMask detectionLayer;
+    [SerializeField] private float sphereRadius = 5f;
+    [SerializeField] private float maxDetectionTime = 5f;
 
-    public float detectionDistance = 15f;
+    private Transform detectedPlayer;
+    private float currentDetectionTime;
+    private bool isDetecting = false;
+    private bool activeTimer;
+    
 
-    public float sphereRadius = 0.5f; 
-
-    public LayerMask detectionLayerMask;
-
-    void Start()
+    private void Start()
     {
-        if (targetTransform == null)
-        {
-            Debug.LogError("Целевой персонаж не назначен! Пожалуйста, перетащите Transform персонажа в поле Inspector.", this);
-            enabled = false; 
-            return;
-        }
-
+        currentDetectionTime = maxDetectionTime;
     }
 
-    void Update()
+    private void Update()
     {
+        CheckSphereCast();
+        UpdateDetection(); 
+    }
 
-        if (targetTransform == null)
+    private void CheckSphereCast()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(sphereCenter.position, sphereRadius, detectionLayer);
+        bool playerInZone = false;
+
+        foreach (var hitCollider in hitColliders)
         {
-            return;
-        }
-
-        Vector3 cameraEyePosition = this.transform.position;
-
-        float distanceToTarget = Vector3.Distance(cameraEyePosition, targetTransform.position);
-
-        if (distanceToTarget > detectionDistance)
-        {
-            return;
-        }
-
-        Vector3 directionToTarget = (targetTransform.position - cameraEyePosition).normalized;
-
-        RaycastHit hit;
-        if (Physics.SphereCast(cameraEyePosition, sphereRadius, directionToTarget, out hit, detectionDistance, detectionLayerMask))
-        {
-
-            if (hit.collider.transform == targetTransform)
+            if (hitCollider.CompareTag("Player"))
             {
-                //if (Physics.Raycast())
+                playerInZone = true;
+                if (!isDetecting)
+                {
+                    detectedPlayer = hitCollider.transform;
+                    isDetecting = true;
+                }
+                break;
             }
         }
+
+        // Если игрок вышел из зоны или исчез - сброс
+        if (!playerInZone && isDetecting)
+        {
+            ResetDetection();
+        }
     }
 
-    void OnDrawGizmos()
+    private void UpdateDetection()
     {
-        if (Application.isPlaying && targetTransform != null)
+        if (!isDetecting || detectedPlayer == null) return;
+
+        activeTimer = true;
+        if (CheckLineOfSight() && activeTimer)
         {
-            Gizmos.color = Color.red;
+            //audioAlarm.Play();
+            currentDetectionTime -= Time.deltaTime;
+            odjectText.SetActive(true);
+            textTimer.text = currentDetectionTime.ToString("0:00");
+            //Debug.Log($"Обнаружение: {currentDetectionTime}");
 
-            Vector3 cameraEyePosition = this.transform.position;
-            Vector3 directionToTarget = (targetTransform.position - cameraEyePosition).normalized;
+            if (currentDetectionTime <= 0)
+            {
+                PlayerFullyDetected();
+            }
+        }
+        else
+        {
+            //currentDetectionTime = Mathf.Max(0, currentDetectionTime - Time.deltaTime * 0.5f); // Медленный сброс
+            ResetDetection();
+            //odjectText.SetActive(false);
+        }
+    }
 
-            Gizmos.DrawWireSphere(cameraEyePosition, sphereRadius);
+    private bool CheckLineOfSight()
+    {
+        if (rayOrigin == null || detectedPlayer == null) return false;
 
-            Gizmos.DrawLine(cameraEyePosition, cameraEyePosition + directionToTarget * detectionDistance);
+        Vector3 direction = (detectedPlayer.position - rayOrigin.position).normalized;
+        float distance = Vector3.Distance(rayOrigin.position, detectedPlayer.position);
+        Debug.DrawRay(rayOrigin.position, direction * distance, Color.red, 0.1f);
+        // Проверяем, нет ли препятствий на пути луча
+        RaycastHit hit;
+        if (Physics.Raycast(rayOrigin.position, direction, out hit, distance, detectionLayer))
+        {
+            return hit.collider.transform == detectedPlayer;
+        }
 
-            Gizmos.DrawWireSphere(cameraEyePosition + directionToTarget * detectionDistance, sphereRadius);
+        return false;
+    }
+
+    private void PlayerFullyDetected()
+    {
+        //audioAlarm.Pause();
+        Debug.Log("Игрок полностью обнаружен!");
+        odjectText.SetActive(false);
+        activeTimer = false;
+        ResetDetection();
+        Time.timeScale = 0;
+        // Здесь можно вызвать события (например, тревогу)
+    }
+
+    private void ResetDetection()
+    {
+        //audioAlarm.Pause();
+        odjectText.SetActive(false);
+        currentDetectionTime = maxDetectionTime;
+        isDetecting = false;
+        detectedPlayer = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (sphereCenter != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(sphereCenter.position, sphereRadius);
         }
     }
 }
