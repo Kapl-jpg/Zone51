@@ -21,6 +21,7 @@ public class Telekinesis : Subscriber
     [SerializeField] private float turnSmoothness = 5f;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private bool needGetAbility = true;
+    private IITelekinesisVisible _telekinesisVisible;
     private Rigidbody grabbedRigidbody;
 
     private bool isGrabbing = false;
@@ -38,13 +39,14 @@ public class Telekinesis : Subscriber
 
     private void Update()
     {
+        DetectObject();
         var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
         if(!chipDisabled && needGetAbility) return;
         
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        if (inputManager.InputMouseLeftButton())
+        if (characterType == CharacterType.Alien)
         {
-            if (characterType == CharacterType.Alien)
+            if (inputManager.InputMouseLeftButton())
             {
                 if (isGrabbing == false)
                 {
@@ -88,7 +90,7 @@ public class Telekinesis : Subscriber
         RaycastHit hit;
         if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
-            ObjectForTelekinesis objectForTelekinesis = hit.collider.GetComponent<ObjectForTelekinesis>();
+            hit.collider.TryGetComponent(out ObjectForTelekinesis objectForTelekinesis);
             hit.collider.TryGetComponent(out IInteractable interactable);
             
             if (objectForTelekinesis != null)
@@ -112,6 +114,47 @@ public class Telekinesis : Subscriber
         }
     }
 
+    private void DetectObject()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
+        {
+            if (hit.collider.TryGetComponent(out IITelekinesisVisible telekinesisVisible))
+            {
+                if (_telekinesisVisible == null)
+                {
+                    _telekinesisVisible = telekinesisVisible;
+                    _telekinesisVisible.Show();
+                }
+                else
+                {
+                    if (_telekinesisVisible != telekinesisVisible)
+                    {
+                        _telekinesisVisible?.Hide();
+                        _telekinesisVisible = telekinesisVisible;
+                        _telekinesisVisible.Show();
+                    }
+                }
+            }
+            else
+            {
+                if (_telekinesisVisible != null)
+                {
+                    _telekinesisVisible.Hide();
+                    _telekinesisVisible = null;
+                }
+            }
+        }
+        else
+        {
+            if (_telekinesisVisible != null)
+            {
+                _telekinesisVisible.Hide();
+                _telekinesisVisible = null;
+            }
+        }
+    }
+    
     private void ReleaseObject()
     {
         if (isGrabbing)
