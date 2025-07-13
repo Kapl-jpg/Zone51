@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Settings
@@ -18,7 +19,8 @@ namespace Settings
 
         public void ChangeSensitivity()
         {
-            mouseManager.SetMouseSensitivity(Mathf.Lerp(minSensitivity, maxSensitivity, mouseSlider.value));
+            var sensitivity = Mathf.Lerp(minSensitivity, maxSensitivity, mouseSlider.value);
+            mouseManager.SetMouseSensitivity(sensitivity);
         }
     }
 }
