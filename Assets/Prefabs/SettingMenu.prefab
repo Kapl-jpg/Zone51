@@ -259,10 +259,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SettingInterface, Assembly-CSharp
-        m_MethodName: ButtonBack
-        m_Mode: 1
+      - m_Target: {fileID: 7644488483089672504}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -270,6 +270,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!1 &3641746301987976044
 GameObject:
@@ -364,11 +376,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 12.9
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 10
   m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 4
@@ -516,7 +528,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_SizeDelta: {x: 10, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &700201794393149613
 CanvasRenderer:
@@ -1043,11 +1055,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 13.95
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 10
   m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 4
@@ -1479,8 +1491,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 36.333332}
+  m_AnchoredPosition: {x: -5, y: 0}
+  m_SizeDelta: {x: 10, y: 36.000004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1128175563409122326
 CanvasRenderer:
@@ -1914,7 +1926,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: 10, y: 36.333332}
+  m_SizeDelta: {x: 10, y: 36.000004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7527097450110158886
 CanvasRenderer:
@@ -2165,7 +2177,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.5}
   m_AnchorMin: {x: 0.34032276, y: 0.65}
   m_AnchorMax: {x: 0.4746614, y: 0.7}
-  m_AnchoredPosition: {x: -30.200012, y: 4.5}
+  m_AnchoredPosition: {x: -30.200195, y: 4.5}
   m_SizeDelta: {x: 61, y: -7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5483279840671735001
@@ -2223,11 +2235,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
+  m_fontSize: 13.4
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 10
   m_fontSizeMax: 20
   m_fontStyle: 0
   m_HorizontalAlignment: 4
