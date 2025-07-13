@@ -21,5 +21,10 @@ namespace Terminal
         {
             return _inputSystem.UI.Point.ReadValue<Vector2>();
         }
+
+        public bool ExitButton()
+        {
+            return _inputSystem.UI.Exit.triggered; 
+        }
     }
 }
