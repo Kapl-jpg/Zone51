@@ -36,7 +36,7 @@ AudioMixerController:
   m_UpdateMode: 0
   m_ExposedParameters:
   - guid: bf0a3b30052b22a47999df95749fa1e7
-    name: BuckgroundMusicVolume
+    name: MusicVolume
   - guid: 4517792a7f6482c4d82135ac21c4f114
     name: EffectsVolume
   m_AudioMixerGroupViews:

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7321465333780890176}
   - component: {fileID: 3635879784885658015}
-  - component: {fileID: 3281793808607529767}
   m_Layer: 5
   m_Name: SliderBackgroundMusic
   m_TagString: Untagged
@@ -87,14 +86,14 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.508
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3281793808607529767}
-        m_TargetAssemblyTypeName: AudioMixerSlider, Assembly-CSharp
-        m_MethodName: UpdateMixerVoluem
-        m_Mode: 0
+      - m_Target: {fileID: 8858120448799076694}
+        m_TargetAssemblyTypeName: Settings.AudioSettings, Assembly-CSharp
+        m_MethodName: ChangeMusic
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -103,22 +102,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &3281793808607529767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1198154377275060056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ddae35ba0bca31428c575d56e725583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeSlider: {fileID: 0}
-  mixerParameter: BuckgroundMusicVolume
-  minVolumeDb: 0
-  maxVolumeDb: 0
 --- !u!1 &1564401519943750388
 GameObject:
   m_ObjectHideFlags: 0
@@ -1242,7 +1225,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4174343184336135596}
   - component: {fileID: 7097314523210642431}
-  - component: {fileID: 8029599504639706800}
   m_Layer: 5
   m_Name: SliderSoundEffects
   m_TagString: Untagged
@@ -1319,14 +1301,14 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.508
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8029599504639706800}
-        m_TargetAssemblyTypeName: AudioMixerSlider, Assembly-CSharp
-        m_MethodName: UpdateMixerVoluem
-        m_Mode: 0
+      - m_Target: {fileID: 8858120448799076694}
+        m_TargetAssemblyTypeName: Settings.AudioSettings, Assembly-CSharp
+        m_MethodName: ChangeEffects
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1335,22 +1317,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8029599504639706800
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5700329344633902361}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ddae35ba0bca31428c575d56e725583, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeSlider: {fileID: 0}
-  mixerParameter: EffectsVolume
-  minVolumeDb: 0
-  maxVolumeDb: 0
 --- !u!1 &5756748386059168705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1870,6 +1836,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8567676588002022254}
+  - component: {fileID: 8858120448799076694}
+  - component: {fileID: 2629833321995191493}
   m_Layer: 5
   m_Name: SettingMenu
   m_TagString: Untagged
@@ -1899,6 +1867,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -1820, y: -980}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8858120448799076694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7644488483089672504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03634f8d8de4a029c80e143ba2ab808, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioManager: {fileID: 11400000, guid: 9487b13b36a42884997df96e99309af5, type: 2}
+  musicSlider: {fileID: 3635879784885658015}
+  effectsSlider: {fileID: 7097314523210642431}
+--- !u!114 &2629833321995191493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7644488483089672504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3251419050449b9b23bf30642663be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
+  mouseSlider: {fileID: 7457338908099922085}
+  minSensitivity: 0.1
+  maxSensitivity: 3
 --- !u!1 &7813412588752761048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,7 +1933,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 22, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7527097450110158886
 CanvasRenderer:
@@ -2060,10 +2059,22 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.508
+  m_Value: 0.2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2629833321995191493}
+        m_TargetAssemblyTypeName: Settings.MouseSettings, Assembly-CSharp
+        m_MethodName: ChangeSensitivity
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8882820532558438588
 GameObject:
   m_ObjectHideFlags: 0

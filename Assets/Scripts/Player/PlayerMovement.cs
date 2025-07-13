@@ -1,6 +1,6 @@
-using System;
 using Enums;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerMovement : Subscriber
 {
@@ -14,10 +14,6 @@ public class PlayerMovement : Subscriber
     [SerializeField] private float alienSpeedRunning;
     [SerializeField] private float humanSpeedWalking;
     [SerializeField] private float humanSpeedRunning;
-    [SerializeField] private float rotationSpeed = 10f;
-    [SerializeField] private float cameraRotationSpeed = 15f;
-    [SerializeField] private float movementSmoothing = 0.1f;
-    [SerializeField] private float mouseSensitivity = 2f;
     
     private InputManager _inputManager;
     private Rigidbody _rb;

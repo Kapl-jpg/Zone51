@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,7 +9,7 @@ public class LiftMovement : Subscriber
     [SerializeField] private float moveSpeed;
     [SerializeField] private float pauseTime;
     [SerializeField] private Collider liftCollider;
-
+    
     private Transform _player;
     private bool _move;
     private bool _moveUp;
@@ -21,7 +22,7 @@ public class LiftMovement : Subscriber
             CloseDoor();
     }
 
-    [Event("ResetJump")]
+    [Event("Landing")]
     private void ResetJump()
     {
         _pause = true;
