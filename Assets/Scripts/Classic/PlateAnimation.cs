@@ -4,7 +4,8 @@ using UnityEngine;
 namespace Classic
 {
     public class PlateAnimation : Subscriber
-    { 
+    {
+        [SerializeField] private AudioSource audioUpdate;
         [SerializeField] private Vector3 offset;
         [SerializeField] private float transitionDuration;
 
@@ -45,7 +46,7 @@ namespace Classic
 
         private IEnumerator DisablePlate()
         {
-            audioClassic.PlayOneShot(audioClassic.clip);
+            audioUpdate.Play();
             while (_t > 0)
             {
                 _t -= Time.deltaTime / transitionDuration;

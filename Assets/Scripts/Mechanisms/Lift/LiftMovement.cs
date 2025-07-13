@@ -6,6 +6,7 @@ public class LiftMovement : Subscriber
 {
     [SerializeField] private Transform upPoint;
     [SerializeField] private Transform downPoint;
+    [SerializeField] private AudioSource audioElevator;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float pauseTime;
     [SerializeField] private Collider liftCollider;
@@ -18,6 +19,7 @@ public class LiftMovement : Subscriber
     [Event("CloseDoorLift")]
     private void MoveLift()
     {
+        audioElevator.Play();
         if (!_move)
             CloseDoor();
     }
@@ -49,6 +51,7 @@ public class LiftMovement : Subscriber
         {
             if (!_pause)
             {
+                
                 transform.position =
                     Vector3.MoveTowards(transform.position, endPoint, moveSpeed * Time.fixedDeltaTime);
                 yield return null;
