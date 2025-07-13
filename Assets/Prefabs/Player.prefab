@@ -3834,6 +3834,7 @@ MonoBehaviour:
   orbitalFollow: {fileID: 74262761456896299}
   inputManager: {fileID: 1723095142000130376}
   mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
+  verticalBorders: {x: -50, y: 50}
 --- !u!1 &7101370705892617936
 GameObject:
   m_ObjectHideFlags: 0
