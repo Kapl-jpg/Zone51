@@ -2,7 +2,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class ThirdPersonCameraSensitivity : MonoBehaviour
+public class ThirdPersonCameraMovement : MonoBehaviour
 {
     [SerializeField] private CinemachineOrbitalFollow orbitalFollow;
     [SerializeField] private InputManager inputManager;

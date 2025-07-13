@@ -3775,7 +3775,6 @@ MonoBehaviour:
   inputManager: {fileID: 1723095142000130376}
   mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
   thirdPersonRotationSpeed: 800
-  firstPersonRotationHorizontalSpeed: 10
 --- !u!114 &4241174244921791534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3817,7 +3816,7 @@ MonoBehaviour:
   thirdPersonTarget: {fileID: 1942456633044495170}
   firstPersonTarget: {fileID: 7034655976800356423}
   minMaxTargetPointOffset: {x: 0.9, y: 1.9}
-  firstPersonRotationVerticalSpeed: 0.1
+  firstPersonRotationVerticalSpeed: 0.05
   inputManager: {fileID: 1723095142000130376}
   camera: {fileID: 0}
 --- !u!114 &1314460472554322174
