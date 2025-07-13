@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Settings
@@ -9,10 +10,12 @@ namespace Settings
         [SerializeField] private Slider musicSlider;
         [SerializeField] private Slider effectsSlider;
 
-        private void Awake()
+        private void Start()
         {
-            audioManager.SetMusicVolume(audioManager.MusicVolume);
-            audioManager.SetEffectsVolume(audioManager.EffectsVolume);
+            var music = ES3.Load<float>("MusicVolume");
+            var effects = ES3.Load<float>("EffectsVolume");
+            musicSlider.value = music;
+            effectsSlider.value = effects;
         }
 
         public void ChangeMusic()
