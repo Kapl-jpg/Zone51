@@ -3706,9 +3706,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1723095142000130376}
-  sphereCastRadius: 0.4
+  sphereCastRadius: 0.5
   maxDistance: 1
   needTransform: 0
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  checkOffset: {x: 0, y: 0.5, z: 0}
 --- !u!114 &6560668320725495028
 MonoBehaviour:
   m_ObjectHideFlags: 0
