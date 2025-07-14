@@ -145,4 +145,4 @@ MonoBehaviour:
   mainMenuMusic: {fileID: 8300000, guid: 7c7b6622cd5fd8d40a684c6fe8491576, type: 3}
   tutorialMusic: {fileID: 8300000, guid: 217797a7ed71d72459be5bf1b0fe5c60, type: 3}
   comicsMusic: {fileID: 8300000, guid: 7c7b6622cd5fd8d40a684c6fe8491576, type: 3}
-  gameMusic: {fileID: 8300000, guid: 217797a7ed71d72459be5bf1b0fe5c60, type: 3}
+  gameMusic: {fileID: 8300000, guid: 1637031c66d4f1a4598f73337c7b3b8c, type: 3}
