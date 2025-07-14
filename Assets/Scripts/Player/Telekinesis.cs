@@ -123,6 +123,7 @@ public class Telekinesis : Subscriber
             {
                 if (_telekinesisVisible == null)
                 {
+                    EventManager.Publish("ShowTip",TipType.Telekinesis);
                     _telekinesisVisible = telekinesisVisible;
                     _telekinesisVisible.Show();
                 }
@@ -140,6 +141,7 @@ public class Telekinesis : Subscriber
             {
                 if (_telekinesisVisible != null)
                 {
+                    EventManager.Publish("HideTip");
                     _telekinesisVisible.Hide();
                     _telekinesisVisible = null;
                 }
@@ -149,6 +151,7 @@ public class Telekinesis : Subscriber
         {
             if (_telekinesisVisible != null)
             {
+                EventManager.Publish("HideTip");
                 _telekinesisVisible.Hide();
                 _telekinesisVisible = null;
             }
