@@ -6,7 +6,10 @@ public class LiftMovement : Subscriber
 {
     [SerializeField] private Transform upPoint;
     [SerializeField] private Transform downPoint;
-    [SerializeField] private AudioSource audioElevator;
+    [SerializeField] private AudioSource audioMovementElevator;
+    [SerializeField] private AudioSource audioStartElevator;
+    [SerializeField] private AudioSource audioFinishElevator;
+    [SerializeField] private AudioSource audioStorElevator; // ???
     [SerializeField] private float moveSpeed;
     [SerializeField] private float pauseTime;
     [SerializeField] private Collider liftCollider;
@@ -19,7 +22,7 @@ public class LiftMovement : Subscriber
     [Event("CloseDoorLift")]
     private void MoveLift()
     {
-        audioElevator.Play();
+        audioMovementElevator.Play();
         if (!_move)
             CloseDoor();
     }
@@ -27,6 +30,7 @@ public class LiftMovement : Subscriber
     [Event("Landing")]
     private void ResetJump()
     {
+        //audioStorElevator.Play();
         _pause = true;
     }
 
@@ -51,13 +55,14 @@ public class LiftMovement : Subscriber
         {
             if (!_pause)
             {
-                
+                //audioFinishElevator.Play();
                 transform.position =
                     Vector3.MoveTowards(transform.position, endPoint, moveSpeed * Time.fixedDeltaTime);
                 yield return null;
             }
             else
             {
+                //audioStartElevator.Play();
                 yield return new WaitForSeconds(pauseTime);
                 _pause = false;
             }
