@@ -35,7 +35,7 @@ public class PlayerMovement : Subscriber
     private void FixedUpdate()
     {
         Move();
-        PlayWalkingOrRunningSound(); //Commit
+        //PlayWalkingOrRunningSound(); //Commit
     }
 
     private void Move()
