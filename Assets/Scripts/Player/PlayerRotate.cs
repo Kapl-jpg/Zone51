@@ -8,7 +8,6 @@ namespace Player
         [SerializeField] private InputManager inputManager;
         [SerializeField] private MouseManager mouseManager;
         [SerializeField] private float thirdPersonRotationSpeed;
-        [SerializeField] private float firstPersonRotationHorizontalSpeed = 10f;
         
         private float _angle;
         private float _targetPointOffset;
@@ -37,7 +36,9 @@ namespace Player
             }
             else
             {
-                _angle += inputManager.InputMouse().x * firstPersonRotationHorizontalSpeed * mouseManager.MouseSensitivity * Time.deltaTime;
+                _angle += inputManager.InputMouse().x * 
+                          mouseManager.MouseSensitivity * 
+                          Time.deltaTime;
                 
                 Quaternion targetRotation = Quaternion.Euler(0, _angle, 0);
                 transform.rotation = targetRotation;

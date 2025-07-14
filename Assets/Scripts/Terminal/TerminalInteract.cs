@@ -1,25 +1,27 @@
 ﻿using Enums;
 using Interfaces;
+using Terminal;
 using Unity.Cinemachine;
 using UnityEngine;
 
-public class TerminalInteract : MonoBehaviour, IInteractable
+public class TerminalInteract : Subscriber, IInteractable
 {
     [SerializeField] private CinemachineCamera cinemachine;
-    [SerializeField] private Collider collider;
-    [SerializeField] private bool canUseOneTime;
+    [SerializeField] private new Collider collider;
+    [SerializeField] private TerminalInput terminalInput;
+    private bool _canInteract = true;
     private bool _interact;
     
     private void Update()
     {
         if(!_interact) return;
-        
-        
-        if (RequestManager.GetValue<CharacterType>("CharacterType") == CharacterType.Alien)
+
+        if (RequestManager.GetValue<CharacterType>("CharacterType") == CharacterType.Alien || terminalInput.ExitButton())
         {
             Exit();
         }
     }
+    
 
     public void Interact()
     {
@@ -38,13 +40,17 @@ public class TerminalInteract : MonoBehaviour, IInteractable
     public void Exit()
     {
         cinemachine.Priority = 0;
-        if(!canUseOneTime)
-            collider.enabled = true;
+        collider.enabled = _canInteract;
         EventManager.Publish("InterfaceController", false);
         EventManager.Publish("PlayerController", true);
         EventManager.Publish("OnOffCursor", false);
         EventManager.Publish("ShowCrosshair");
         EventManager.Publish("ShowPlayerVisible");
         _interact = false;
+    }
+
+    public void DisableTerminal()
+    {
+        _canInteract = false;
     }
 }

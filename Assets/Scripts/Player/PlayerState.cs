@@ -32,7 +32,7 @@ namespace Player
             
             if (_characterType.Value == CharacterType.Alien)
             {
-                StartCoroutine(StayHuman(false));
+                StartCoroutine(StayHuman(/*false*/));
             }
             
             if(_characterType.Value == CharacterType.Human)
@@ -56,7 +56,7 @@ namespace Player
         [Event("ForcedTransformation")]
         private void ForcedTransformation()
         {
-            StartCoroutine(StayHuman(true));
+            StartCoroutine(StayHuman(/*true*/));
             
             _characterType.Value = CharacterType.Human;
         }
@@ -73,31 +73,32 @@ namespace Player
             _characterType.Value = characterType;
         }
 
-        private IEnumerator StayHuman(bool endless)
+        private IEnumerator StayHuman(/*bool endless*/)
         {
             _humanDurationTimer = humanDuration;
-            
+            StopCoroutine(StayAlien());
             EventManager.Publish("SwitchForm", CharacterType.Human);
-
-            if (!tutorial)
-            {
-                if (!endless)
-                {
-                    while (_humanDurationTimer > 0f)
-                    {
-                        _humanDurationTimer -= Time.deltaTime;
-                        yield return null;
-                    }
-
-                    EventManager.Publish("SwitchForm", CharacterType.Alien);
-                }
-            }
+            yield return null;
+            
+            // if (!tutorial)
+            // {
+            //     if (!endless)
+            //     {
+            //         while (_humanDurationTimer > 0f)
+            //         {
+            //             _humanDurationTimer -= Time.deltaTime;
+            //             yield return null;
+            //         }
+            //
+            //         EventManager.Publish("SwitchForm", CharacterType.Alien);
+            //     }
+            // }
         }
 
         private IEnumerator StayAlien()
         {
-            StopCoroutine(StayHuman(true));
-            StopCoroutine(StayHuman(false));
+            StopCoroutine(StayHuman(/*true*/));
+            //StopCoroutine(StayHuman(false));
             
             _humanDurationTimer = 0f;
             
