@@ -16,7 +16,6 @@ public class PauseController : Subscriber
     }
 
     [Event("PauseMode")]
-
     private void PauseMode()
     {
         _activeMenuPause = !_activeMenuPause;

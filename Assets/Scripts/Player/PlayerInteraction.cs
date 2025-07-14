@@ -14,8 +14,9 @@ public class PlayerInteraction : MonoBehaviour
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (characterType == CharacterType.Alien && needTransform) return;
-        
-        if (Physics.SphereCast(UnityEngine.Camera.main.transform.position, sphereCastRadius, UnityEngine.Camera.main.transform.forward, out var hit, maxDistance))
+
+        if (Physics.SphereCast(transform.position - UnityEngine.Camera.main.transform.forward, sphereCastRadius,
+                UnityEngine.Camera.main.transform.forward, out var hit, maxDistance))
         {
             hit.collider.TryGetComponent(out IInteractable interactable);
             if (interactable != null)
@@ -23,6 +24,7 @@ public class PlayerInteraction : MonoBehaviour
                 if (_interactable == null)
                 {
                     _interactable = interactable;
+                    EventManager.Publish("ShowTip", TipType.Interact);
                     _interactable.EnableIndicator();
                 }
             }
@@ -31,6 +33,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             if (_interactable != null)
             {
+                EventManager.Publish("HideTip");
                 _interactable.DisableIndicator();
                 _interactable = null;
             }

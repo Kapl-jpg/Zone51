@@ -5,7 +5,9 @@ namespace Camera
     public class CameraVisibility : Subscriber
     {
         [SerializeField] private UnityEngine.Camera mainCamera;
+        [SerializeField] private int uiLayer = 5;
         [SerializeField] private int playerLayer = 7;
+        private int _uiMasks;
         
         [Request("PlayerIsVisible")] 
         private ObservableField<bool> _playerIsVisible = new(true);
