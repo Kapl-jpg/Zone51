@@ -81,7 +81,6 @@ public class Detector : MonoBehaviour
         if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit obstacleHit, distance, obstacleLayerMask))
         {
             Debug.DrawRay(rayOrigin.position, direction * obstacleHit.distance, Color.yellow, 0.1f);
-            print(obstacleHit.collider.gameObject.name);
             return false; 
         }
 
@@ -103,7 +102,7 @@ public class Detector : MonoBehaviour
     {
         audioAlarm.Stop();
         activeAydio = true;
-        Debug.Log("Игрок полностью обнаружен!");
+        Debug.Log("пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
         ResetDetection();
         //Time.timeScale = 0;
     }

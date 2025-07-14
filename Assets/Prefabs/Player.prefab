@@ -2403,8 +2403,8 @@ MonoBehaviour:
     Strategy: 0
     MaximumEffort: 4
     SmoothingTime: 0
-    Damping: 0.4
-    DampingWhenOccluded: 0.2
+    Damping: 0
+    DampingWhenOccluded: 0
   ShotQualityEvaluation:
     Enabled: 0
     OptimalDistance: 10
@@ -3506,6 +3506,7 @@ GameObject:
   - component: {fileID: 5769945099702008239}
   - component: {fileID: 2572953721575152060}
   - component: {fileID: 1314460472554322174}
+  - component: {fileID: 1289288478686561505}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -3835,6 +3836,22 @@ MonoBehaviour:
   inputManager: {fileID: 1723095142000130376}
   mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
   verticalBorders: {x: -50, y: 50}
+--- !u!114 &1289288478686561505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7045314489859830242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a9b1099a9154434841666189fc66e4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 0}
+  borders: {x: 1.4, y: 2.5}
+  alienMeshRenderer: {fileID: 3407007414582308713}
+  humanMeshRenderer: {fileID: 5741852306710327128}
 --- !u!1 &7101370705892617936
 GameObject:
   m_ObjectHideFlags: 0
