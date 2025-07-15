@@ -1,17 +1,18 @@
 using Enums;
-using TMPro;
 using UnityEngine;
 
 public class Detector : MonoBehaviour
 {
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
-    [SerializeField] private AudioSource audioAlarm;
+    [SerializeField] private AudioSource[] audioAlarms;
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private float sphereRadius = 5f;
 
     private Transform detectedPlayer;
+    private AudioSource soundReproducing;
+
     private bool isDetecting = false;
     private bool activeAydio = true;
 
@@ -53,14 +54,16 @@ public class Detector : MonoBehaviour
 
         if (CheckLineOfSight())
         {
-            if (!audioAlarm.isPlaying && activeAydio)
-            {
-                audioAlarm.Play();
-                activeAydio = false;
-            }
-            
+            int countSound = Random.Range(1, audioAlarms.Length);
+            soundReproducing = audioAlarms[countSound];
 
-            if (!audioAlarm.isPlaying)
+            if (!soundReproducing.isPlaying && activeAydio)
+            {
+                soundReproducing.Play();
+                activeAydio = false;
+            } 
+
+            if (!soundReproducing.isPlaying)
             {
                 PlayerFullyDetected();
             }
@@ -98,9 +101,9 @@ public class Detector : MonoBehaviour
         return false;
     }
 
-    private void PlayerFullyDetected() //
+    private void PlayerFullyDetected() // GameOver
     {
-        audioAlarm.Stop();
+        soundReproducing.Stop();
         activeAydio = true;
         Debug.Log("����� ��������� ���������!");
         ResetDetection();
@@ -109,7 +112,7 @@ public class Detector : MonoBehaviour
 
     private void ResetDetection()
     {
-        audioAlarm.Stop();
+        soundReproducing.Stop();
         isDetecting = false;
         detectedPlayer = null;
     }
