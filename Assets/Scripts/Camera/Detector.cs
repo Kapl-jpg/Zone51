@@ -16,6 +16,10 @@ public class Detector : MonoBehaviour
     private bool isDetecting = false;
     private bool activeAydio = true;
 
+    private void Start()
+    {
+        AppointmentAudio();
+    }
 
     private void Update()
     {
@@ -54,8 +58,7 @@ public class Detector : MonoBehaviour
 
         if (CheckLineOfSight())
         {
-            int countSound = Random.Range(1, audioAlarms.Length);
-            soundReproducing = audioAlarms[countSound];
+            AppointmentAudio();
 
             if (!soundReproducing.isPlaying && activeAydio)
             {
@@ -103,7 +106,11 @@ public class Detector : MonoBehaviour
 
     private void PlayerFullyDetected() // GameOver
     {
-        soundReproducing.Stop();
+        if (soundReproducing.isPlaying)
+        {
+            soundReproducing.Stop();
+        }
+        
         activeAydio = true;
         Debug.Log("����� ��������� ���������!");
         ResetDetection();
@@ -112,9 +119,19 @@ public class Detector : MonoBehaviour
 
     private void ResetDetection()
     {
-        soundReproducing.Stop();
+        if (soundReproducing.isPlaying)
+        {
+            soundReproducing.Stop();
+        }
+
         isDetecting = false;
         detectedPlayer = null;
+    }
+
+    private void AppointmentAudio()
+    {
+        int countSound = Random.Range(1, audioAlarms.Length);
+        soundReproducing = audioAlarms[countSound];
     }
 
     private void OnDrawGizmosSelected()
