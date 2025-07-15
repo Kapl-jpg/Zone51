@@ -1891,7 +1891,7 @@ MonoBehaviour:
   mouseManager: {fileID: 11400000, guid: 74fce6b3448f03943a2debe11f16e1a6, type: 2}
   mouseSlider: {fileID: 7457338908099922085}
   minSensitivity: 0.1
-  maxSensitivity: 3
+  maxSensitivity: 10
 --- !u!1 &7813412588752761048
 GameObject:
   m_ObjectHideFlags: 0

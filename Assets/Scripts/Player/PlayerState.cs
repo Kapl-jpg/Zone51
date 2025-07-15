@@ -7,10 +7,11 @@ namespace Player
     public class PlayerState : Subscriber
     {
         [SerializeField] private InputManager input;
-        [SerializeField] private float humanDuration;
+        [SerializeField] private ParticleSystem chipParticles;
+        //[SerializeField] private float humanDuration;
         [SerializeField] private bool needGetAbility = true;
         [SerializeField] private bool tutorial;
-        private float _humanDurationTimer;
+        //private float _humanDurationTimer;
         private bool _ventilationEnabled;
         private IEnumerator _humanCoroutine;
 
@@ -26,8 +27,12 @@ namespace Player
         private void Update()
         {
             if(_ventilationEnabled) return;
-            if(!_chipDisable.Value && needGetAbility) return;
             if (!input.Transformation()) return;
+            if (!_chipDisable.Value && needGetAbility)
+            {
+                EventManager.Publish("ShowTip", TipType.NeedDisableChip);
+                return;
+            }
             if (_transformation.Value) return;
             
             if (_characterType.Value == CharacterType.Alien)
@@ -56,9 +61,10 @@ namespace Player
         [Event("ForcedTransformation")]
         private void ForcedTransformation()
         {
-            StartCoroutine(StayHuman(/*true*/));
             
-            _characterType.Value = CharacterType.Human;
+            //StartCoroutine(StayHuman(/*true*/));
+            StartCoroutine(ForcedStayHuman());
+            
         }
 
         [Event("Transformation")]
@@ -73,9 +79,18 @@ namespace Player
             _characterType.Value = characterType;
         }
 
+        private IEnumerator ForcedStayHuman()
+        {
+            chipParticles.Play();
+            yield return new WaitForSeconds(1f);
+            EventManager.Publish("SwitchForm", CharacterType.Human);
+            _characterType.Value = CharacterType.Human;
+            yield return null;
+        }
+        
         private IEnumerator StayHuman(/*bool endless*/)
         {
-            _humanDurationTimer = humanDuration;
+            //_humanDurationTimer = humanDuration;
             StopCoroutine(StayAlien());
             EventManager.Publish("SwitchForm", CharacterType.Human);
             yield return null;
@@ -100,7 +115,7 @@ namespace Player
             StopCoroutine(StayHuman(/*true*/));
             //StopCoroutine(StayHuman(false));
             
-            _humanDurationTimer = 0f;
+            //_humanDurationTimer = 0f;
             
             EventManager.Publish("SwitchForm", CharacterType.Alien);
             yield return null;

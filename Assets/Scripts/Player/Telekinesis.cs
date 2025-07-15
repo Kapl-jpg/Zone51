@@ -241,7 +241,7 @@ public class Telekinesis : Subscriber
             {
                 audioRetention.Play();
                 activeAudio = false;
-                print("play");
+                //print("play");
             }
 
             if (!audioThrowing.isPlaying)

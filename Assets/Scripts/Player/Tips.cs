@@ -1,18 +1,21 @@
 ﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
 namespace Player
 {
-    public class InterfaceController : Subscriber
+    public class Tips : Subscriber
     {
         [SerializeField] private GameObject crosshair;
+        [SerializeField] private TMP_Text chipText;
+        [SerializeField] private float chipTipTimer;
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private string interactTipText;
         [SerializeField] private string telekinesisTipText;
-        [SerializeField] private string needDisableChipTipText;
-        [SerializeField] private string needChangeFormTipText;
 
+        private bool _showChip;
+        
         [Event("ShowCrosshair")]
         private void ShowCrosshair()
         {
@@ -41,9 +44,24 @@ namespace Player
 
             if (tipType == TipType.NeedDisableChip)
             {
-                tipText.text = needDisableChipTipText;
+                if (!_showChip)
+                    StartCoroutine(NeedDisableChip());
+            }
+        }
+
+        private IEnumerator NeedDisableChip()
+        {
+            _showChip = true;
+            chipText.gameObject.SetActive(true);
+            var t = 1f;
+            while (t > 0f)
+            {
+                t -= Time.deltaTime / chipTipTimer;
+                yield return null;
             }
 
+            chipText.gameObject.SetActive(false);
+            _showChip = false;
         }
 
         [Event("HideTip")]

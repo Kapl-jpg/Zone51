@@ -25,7 +25,7 @@ public class Detector : MonoBehaviour
 
     private void Update()
     {
-        print(soundReproducing);
+        //print(soundReproducing);
         CheckSphereCast();
         UpdateDetection(); 
     }
@@ -118,7 +118,7 @@ public class Detector : MonoBehaviour
 
         isOver = true;
         isSwitch = true;
-        Debug.Log("GameOver");
+        //Debug.Log("GameOver");
         ResetDetection();
         //Time.timeScale = 0;
     }
@@ -143,9 +143,8 @@ public class Detector : MonoBehaviour
             //int countSound = 1;
             soundReproducing = audioAlarms[countSound];
             isSwitch = false;
-            print("Swith");
+            //print("Swith");
         }
-        
     }
 
     private void OnDrawGizmosSelected()
