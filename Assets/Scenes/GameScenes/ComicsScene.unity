@@ -379,7 +379,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec8354010f1f8345a4b7519bb135245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  holdTimer: 3
+  holdTimer: 2
   skipText: {fileID: 403476673}
 --- !u!114 &1879476109
 MonoBehaviour:
