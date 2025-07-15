@@ -1,3 +1,4 @@
+using System;
 using Enums;
 using Interfaces;
 using UnityEngine;
@@ -5,53 +6,45 @@ using UnityEngine;
 public class PlayerInteraction : MonoBehaviour
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] public float sphereCastRadius = 1.5f; 
-    [SerializeField] public float maxDistance = 5f;
     [SerializeField] private bool needTransform = true;
     private IInteractable _interactable;
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         if (characterType == CharacterType.Alien && needTransform) return;
 
-        if (Physics.SphereCast(transform.position - UnityEngine.Camera.main.transform.forward, sphereCastRadius,
-                UnityEngine.Camera.main.transform.forward, out var hit, maxDistance))
+        if (other.CompareTag("Interactable"))
         {
-            hit.collider.TryGetComponent(out IInteractable interactable);
-            if (interactable != null)
+            if (other.gameObject.TryGetComponent(out IInteractable interactable))
             {
-                if (_interactable == null)
-                {
-                    _interactable = interactable;
-                    EventManager.Publish("ShowTip", TipType.Interact);
-                    _interactable.EnableIndicator();
-                }
-            }
-        }
-        else
-        {
-            if (_interactable != null)
-            {
-                EventManager.Publish("HideTip");
-                _interactable.DisableIndicator();
-                _interactable = null;
-            }
-        }
-        
-        if (inputManager.InputE())
-        {
-            if (_interactable != null)
-            {
-                _interactable.Interact();
+                _interactable = interactable;
+                _interactable.EnableIndicator();
+                EventManager.Publish("ShowTip", TipType.Interact);
             }
         }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnTriggerExit(Collider other)
     {
-        Gizmos.color = Color.blue;
-        
-        Gizmos.DrawWireSphere(UnityEngine.Camera.main.transform.position + UnityEngine.Camera.main.transform.forward * maxDistance, sphereCastRadius);
+        if (other.CompareTag("Interactable"))
+        {
+            _interactable.DisableIndicator();
+            EventManager.Publish("HideTip");
+            
+            _interactable = null;
+        }
+    }
+
+    private void Update()
+    {
+        if (inputManager.InputE())
+        {
+            if (_interactable != null)
+            {
+                EventManager.Publish("HideTip");
+                _interactable.Interact();
+            }
+        }
     }
 }

@@ -34,6 +34,7 @@ public class TerminalInteract : Subscriber, IInteractable
         EventManager.Publish("OnOffCursor", true);
         EventManager.Publish("HideCrosshair");
         EventManager.Publish("HidePlayerVisible");
+        EventManager.Publish("HideTip");
         _interact = true;
     }
 

@@ -6,15 +6,25 @@ public class Plate : Subscriber
 {
     [SerializeField] private Plate nextPlate;
     [SerializeField] private PlateAnimation plateAnimation;
+    [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private CharacterType plateType;
     [SerializeField] private bool active;
     [SerializeField] private bool final;
     
+    private Material _plateMaterial;
     private bool _canUse;
     
     private void Start()
     {
         _canUse = active;
+        _plateMaterial = new Material(meshRenderer.material);
+        meshRenderer.material = _plateMaterial;
+        _plateMaterial.SetFloat("_Enable", active ? 1f : 0f);
+    }
+
+    private void EnablePlate()
+    {
+        _plateMaterial.SetFloat("_Enable", 1);
     }
     
     private void OnCollisionEnter(Collision other)
@@ -33,6 +43,7 @@ public class Plate : Subscriber
                 {
                     plateAnimation.Enable();
                     nextPlate._canUse = true;
+                    EnablePlate();
                 }
 
                 _canUse = false;
@@ -54,10 +65,12 @@ public class Plate : Subscriber
     {
         _canUse = active;
         plateAnimation.Disable();
+        _plateMaterial.SetFloat("_Enable", active? 1f : 0f);
     }
 
     private void FinalEvent()
     {
+        plateAnimation.Enable();
         EventManager.Publish("OpenTopDoor");
     }
 }
