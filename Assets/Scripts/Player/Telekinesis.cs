@@ -21,9 +21,10 @@ public class Telekinesis : Subscriber
     [SerializeField] private float turnSmoothness = 5f;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private bool needGetAbility = true;
+    private const float wallEpsilon = 0.02f;
+    private const float slideThreshold = 0.01f;
     private IITelekinesisVisible _telekinesisVisible;
     private Rigidbody grabbedRigidbody;
-    private const float skinWidth = 0.05f;
 
     private bool isGrabbing = false;
     private bool activeCharge = false;
@@ -118,6 +119,16 @@ public class Telekinesis : Subscriber
     private void DetectObject()
     {
         RaycastHit hit;
+        var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
+        var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+        
+        if(characterType == CharacterType.Alien) return;
+
+        if (chipDisabled)
+        {
+            
+        }
+        
         if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
             if (hit.collider.TryGetComponent(out IITelekinesisVisible telekinesisVisible))
@@ -180,38 +191,64 @@ public class Telekinesis : Subscriber
 
     private void PullObject()
     {
-        if (grabbedRigidbody == null) return;
+        if (!grabbedRigidbody) return;
 
         Vector3 currentPos = grabbedRigidbody.position;
         Vector3 targetPos  = grabPoint.position;
-        Vector3 moveVec    = targetPos - currentPos;
 
-        float dist = moveVec.magnitude;
+        Vector3 dir = targetPos - currentPos;
+        float dist  = dir.magnitude;
         if (dist < 0.001f) return;
 
+        dir.Normalize();
         float maxStep = smoothSpeed * Time.fixedDeltaTime;
-        if (dist > maxStep)
-            moveVec = moveVec.normalized * maxStep;
+        float step    = Mathf.Min(maxStep, dist);
 
-        if (Physics.Raycast(currentPos, moveVec.normalized, out RaycastHit hit, moveVec.magnitude + skinWidth, layerMask))
+        if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step + wallEpsilon))
         {
-            float allowed = hit.distance - skinWidth;
-            if (allowed > 0f)
+            float allowedMove = hit.distance;
+
+            if (allowedMove < wallEpsilon)
+                return;
+
+            Vector3 posToWall = currentPos + dir * allowedMove;
+
+            float slideStep = step - allowedMove;
+
+            if (slideStep > slideThreshold)
             {
-                Vector3 posToWall = currentPos + moveVec.normalized * allowed;
-                Vector3 remainder = moveVec - moveVec.normalized * allowed;
-                Vector3 slideDir = Vector3.ProjectOnPlane(remainder, hit.normal);
-                Vector3 finalPos = posToWall + slideDir;
+                Vector3 slideDir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
+                Vector3 slideMove = slideDir * slideStep;
+                Vector3 finalPos = posToWall + slideMove;
+
                 grabbedRigidbody.MovePosition(finalPos);
+            }
+            else
+            {
+                grabbedRigidbody.MovePosition(posToWall);
             }
         }
         else
         {
-            grabbedRigidbody.MovePosition(currentPos + moveVec);
+            Vector3 finalPos = currentPos + dir * step;
+            grabbedRigidbody.MovePosition(finalPos);
         }
 
         if (!audioRetention.isPlaying && !audioLifting.isPlaying)
-            audioRetention.Play();
+        {
+            bool activeAudio = true;
+            if (activeAudio)
+            {
+                audioRetention.Play();
+                activeAudio = false;
+                print("play");
+            }
+
+            if (!audioThrowing.isPlaying)
+            {
+                activeAudio = true;
+            }
+        }
 
         ObjectMonitoring();
     }

@@ -21,6 +21,8 @@ namespace Player
         {
             if (!FirstPersonCamera())
             {
+                if (inputManager.GetMove() == Vector2.zero) return;
+                
                 Vector3 moveDirection = UnityEngine.Camera.main.transform.forward;
 
                 if (!(moveDirection.sqrMagnitude > 0.001f)) return;

@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class UnifiedTriggerZone : Subscriber
 {
+    [SerializeField] private bool isVentilation = true;
     [Request("ActivateFirstPersonCamera")] 
     private ObservableField<bool> _isActiveFirstPersonCamera = new();
 
@@ -18,7 +19,8 @@ public class UnifiedTriggerZone : Subscriber
             {
                 EventManager.Publish("FirstPersonCamera");
                 EventManager.Publish("Ventilation", true);
-                EventManager.Publish("ActiveAudioInVentilation", false);
+                if(isVentilation)
+                    EventManager.Publish("ActiveAudioInVentilation", false);
                 _isActiveFirstPersonCamera.Value = true;
             }
         }
@@ -40,7 +42,8 @@ public class UnifiedTriggerZone : Subscriber
             {
                 EventManager.Publish("ThirdPersonCamera");
                 EventManager.Publish("Ventilation", false);
-                EventManager.Publish("ActiveAudioInVentilation", true);
+                if(isVentilation)
+                    EventManager.Publish("ActiveAudioInVentilation", true);
                 _isActiveFirstPersonCamera.Value = false;
             }
         }

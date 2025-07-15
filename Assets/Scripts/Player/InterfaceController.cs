@@ -10,6 +10,8 @@ namespace Player
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private string interactTipText;
         [SerializeField] private string telekinesisTipText;
+        [SerializeField] private string needDisableChipTipText;
+        [SerializeField] private string needChangeFormTipText;
 
         [Event("ShowCrosshair")]
         private void ShowCrosshair()
@@ -36,6 +38,12 @@ namespace Player
             {
                 tipText.text = telekinesisTipText;
             }
+
+            if (tipType == TipType.NeedDisableChip)
+            {
+                tipText.text = needDisableChipTipText;
+            }
+
         }
 
         [Event("HideTip")]

@@ -1,5 +1,6 @@
 ﻿public enum TipType
 {
     Interact,
-    Telekinesis
+    Telekinesis,
+    NeedDisableChip
 }

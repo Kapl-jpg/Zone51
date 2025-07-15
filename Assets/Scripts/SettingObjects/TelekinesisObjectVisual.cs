@@ -3,20 +3,22 @@ using UnityEngine;
 
 public class TelekinesisObjectVisual : MonoBehaviour, IITelekinesisVisible
 {
-    [SerializeField] private MeshRenderer currentRenderer;
+    private MeshRenderer _currentRenderer;
 
     private void Start()
     {
-        currentRenderer.materials[^1] = new Material(currentRenderer.materials[^1]);
+        TryGetComponent(out MeshRenderer renderer);
+        _currentRenderer = renderer;
+        _currentRenderer.materials[^1] = new Material(_currentRenderer.materials[^1]);
     }
 
     public void Show()
     {
-        currentRenderer.materials[^1].SetFloat("_Telekinesis", 1);
+        _currentRenderer.materials[^1].SetFloat("_Telekinesis", 1);
     }
 
     public void Hide()
     {
-        currentRenderer.materials[^1].SetFloat("_Telekinesis", 0);
+        _currentRenderer.materials[^1].SetFloat("_Telekinesis", 0);
     }
 }
