@@ -14,7 +14,9 @@ public class Detector : MonoBehaviour
     private AudioSource soundReproducing;
 
     private bool isDetecting = false;
-    private bool activeAydio = true;
+    private bool activeAudio = true;
+    private bool isSwitch = true;
+    private bool isOver = false;
 
     private void Start()
     {
@@ -23,6 +25,7 @@ public class Detector : MonoBehaviour
 
     private void Update()
     {
+        print(soundReproducing);
         CheckSphereCast();
         UpdateDetection(); 
     }
@@ -60,13 +63,12 @@ public class Detector : MonoBehaviour
         {
             AppointmentAudio();
 
-            if (!soundReproducing.isPlaying && activeAydio)
+            if (!soundReproducing.isPlaying && activeAudio)
             {
                 soundReproducing.Play();
-                activeAydio = false;
+                activeAudio = false;
             } 
-
-            if (!soundReproducing.isPlaying)
+            else if (!soundReproducing.isPlaying)
             {
                 PlayerFullyDetected();
             }
@@ -74,6 +76,7 @@ public class Detector : MonoBehaviour
         else
         {
             ResetDetection();
+            
         }
     }
 
@@ -106,22 +109,26 @@ public class Detector : MonoBehaviour
 
     private void PlayerFullyDetected() // GameOver
     {
-        if (soundReproducing.isPlaying)
-        {
-            soundReproducing.Stop();
-        }
-        
-        activeAydio = true;
-        Debug.Log("����� ��������� ���������!");
+        //if (soundReproducing.isPlaying)
+        //{
+        //    soundReproducing.Stop();
+        //}
+
+        //activeAudio = true; // Commit
+
+        isOver = true;
+        isSwitch = true;
+        Debug.Log("GameOver");
         ResetDetection();
         //Time.timeScale = 0;
     }
 
     private void ResetDetection()
     {
-        if (soundReproducing.isPlaying)
+        if (soundReproducing.isPlaying && !isOver)
         {
             soundReproducing.Stop();
+            activeAudio = true;
         }
 
         isDetecting = false;
@@ -130,8 +137,15 @@ public class Detector : MonoBehaviour
 
     private void AppointmentAudio()
     {
-        int countSound = Random.Range(1, audioAlarms.Length);
-        soundReproducing = audioAlarms[countSound];
+        if (isSwitch)
+        {
+            int countSound = Random.Range(0, audioAlarms.Length);
+            //int countSound = 1;
+            soundReproducing = audioAlarms[countSound];
+            isSwitch = false;
+            print("Swith");
+        }
+        
     }
 
     private void OnDrawGizmosSelected()

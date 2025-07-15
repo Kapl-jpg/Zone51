@@ -33,7 +33,6 @@ public class LiftMovement : Subscriber
     [Event("Landing")]
     private void ResetJump()
     {
-        //audioStopElevator.Play();
         _pause = true;
     }
 
@@ -53,6 +52,7 @@ public class LiftMovement : Subscriber
     
     private IEnumerator Move()
     {
+        _pause = false;
         var endPoint = _moveUp ? upPoint.position : downPoint.position;
         if (!audioStartElevator.isPlaying && activeAudioStart)
         {
@@ -76,9 +76,12 @@ public class LiftMovement : Subscriber
             }
             else
             {
-                
-                //audioStartElevator.Play();
-                
+                if (!audioStopElevator.isPlaying)
+                {
+                    audioStopElevator.Play();
+                }
+
+
                 yield return new WaitForSeconds(pauseTime);
                 _pause = false;
                 activeAudioFinish = true;
