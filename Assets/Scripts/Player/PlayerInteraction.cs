@@ -7,19 +7,33 @@ public class PlayerInteraction : Subscriber
     [SerializeField] private InputManager inputManager;
     [SerializeField] private bool needTransform = true;
     private IInteractable _interactable;
+    private IFinishable _finishable;
 
     private void OnTriggerEnter(Collider other)
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        if (characterType == CharacterType.Alien && needTransform) return;
-
-        if (other.CompareTag("Interactable"))
+        if (characterType != CharacterType.Alien || !needTransform)
         {
-            if (other.gameObject.TryGetComponent(out IInteractable interactable))
+            if (other.CompareTag("Interactable"))
             {
-                _interactable = interactable;
-                _interactable.EnableIndicator();
-                EventManager.Publish("ShowTip", TipType.Interact);
+                if (other.gameObject.TryGetComponent(out IInteractable interactable))
+                {
+                    _interactable = interactable;
+                    _interactable.EnableIndicator();
+                    EventManager.Publish("ShowTip", TipType.Interact);
+                }
+            }
+        }
+        
+        if(characterType == CharacterType.Alien)
+        {
+            if (other.CompareTag("Interactable"))
+            {
+                if (other.gameObject.TryGetComponent(out IFinishable finishable))
+                {
+                    _finishable = finishable;
+                    EventManager.Publish("ShowTip", TipType.Interact);
+                }
             }
         }
     }
@@ -31,6 +45,7 @@ public class PlayerInteraction : Subscriber
             if(_interactable != null)
                 _interactable.DisableIndicator();
             EventManager.Publish("HideTip");
+            _finishable = null;
             _interactable = null;
         }
     }
@@ -51,7 +66,12 @@ public class PlayerInteraction : Subscriber
             {
                 EventManager.Publish("HideTip");
                 _interactable.Interact();
-                print(_interactable.GetType());
+            }
+
+            if (_finishable != null)
+            {
+                EventManager.Publish("HideTip");
+                _finishable.Finish();
             }
         }
     }

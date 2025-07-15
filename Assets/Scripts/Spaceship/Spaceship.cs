@@ -1,11 +1,11 @@
-using Interfaces;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Spaceship : MonoBehaviour, IInteractable
+public class Spaceship : MonoBehaviour, IFinishable
 {
     [SerializeField] private int nextSceneIndex;
-    public void Interact()
+    
+    public void Finish()
     {
         SceneManager.LoadScene(nextSceneIndex);
     }

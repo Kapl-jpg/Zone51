@@ -21,6 +21,10 @@ public class MusicBackground : Singleton<MusicBackground>
         if (!audioSource.clip.Equals(GetAudioClip(next)))
         {
             audioSource.clip = GetAudioClip(next);
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
         }
     }
 
