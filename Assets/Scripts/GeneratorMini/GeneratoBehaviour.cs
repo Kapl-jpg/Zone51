@@ -18,6 +18,8 @@ public class GeneratorMiniBehaviour : Subscriber
     private Material _generatorWireMaterial;
     private float _currentBatteryDissolveValue;
 
+    private bool _disabled;
+    
     private void Start()
     {
         _generatorBarrierMaterial = new Material(generatorBarrierMesh.material);
@@ -32,7 +34,8 @@ public class GeneratorMiniBehaviour : Subscriber
     [Event("RemoveBattery")]
     private void RemoveBattery()
     {
-        StartCoroutine(Dissolve(0, secondBatteryStep));
+        if(!_disabled)
+            StartCoroutine(Dissolve(0, secondBatteryStep));
         
     }
 
@@ -46,7 +49,8 @@ public class GeneratorMiniBehaviour : Subscriber
             _generatorBarrierMaterial.SetFloat("_DissolveValue", t);
             yield return null;
         }
-
+        
+        _disabled = true;
         generatorBarrierCollider.enabled = false;
     }
 }

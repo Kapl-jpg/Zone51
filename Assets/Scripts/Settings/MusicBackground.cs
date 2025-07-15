@@ -18,8 +18,10 @@ public class MusicBackground : Singleton<MusicBackground>
 
     private void ChangedActiveScene(Scene current, Scene next)
     {
-        if(!audioSource.clip.Equals(GetAudioClip(next)))
+        if (!audioSource.clip.Equals(GetAudioClip(next)))
+        {
             audioSource.clip = GetAudioClip(next);
+        }
     }
 
     private AudioClip GetAudioClip(Scene scene)

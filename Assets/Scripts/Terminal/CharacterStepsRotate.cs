@@ -16,7 +16,7 @@ public class CharacterStepsRotate : MonoBehaviour
         {
             yield return new WaitForSeconds(rotateDelay);
             _angle += angleStep;
-            transform.eulerAngles = new Vector3(0, _angle, 0);
+            transform.eulerAngles = new Vector3(-90, _angle, 0);
         }
     }
 }

@@ -21,11 +21,6 @@ public class Plate : Subscriber
         meshRenderer.material = _plateMaterial;
         _plateMaterial.SetFloat("_Enable", active ? 1f : 0f);
     }
-
-    private void EnablePlate()
-    {
-        _plateMaterial.SetFloat("_Enable", 1);
-    }
     
     private void OnCollisionEnter(Collision other)
     {
@@ -50,7 +45,6 @@ public class Plate : Subscriber
             }
             else
             {
-                print(gameObject.name);
                 EventManager.Publish("ResetPlate");
             }
         }
@@ -67,10 +61,17 @@ public class Plate : Subscriber
         plateAnimation.Disable();
         _plateMaterial.SetFloat("_Enable", active? 1f : 0f);
     }
+    
+    private void EnablePlate()
+    {
+        _plateMaterial.SetFloat("_Enable", 1f);
+    }
 
     private void FinalEvent()
     {
         plateAnimation.Enable();
+        EnablePlate();
+        _canUse = false;
         EventManager.Publish("OpenTopDoor");
     }
 }

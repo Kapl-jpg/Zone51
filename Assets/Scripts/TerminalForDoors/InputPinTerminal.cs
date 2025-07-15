@@ -10,7 +10,7 @@ public class InputPinTerminal : MonoBehaviour
     [SerializeField] private AudioSource audioPress;
     [SerializeField] private string pinCode = "1111";
     [SerializeField] private int maxPinLength = 4;
-    [SerializeField] private TerminalInteract terminal;
+    [SerializeField] private GameObject terminal40;
 
     public void InputKeyForCode(string key)
     {
@@ -37,7 +37,9 @@ public class InputPinTerminal : MonoBehaviour
             audioOpen.Play();
             pinText.text = "OPEN";
             EventManager.Publish("OpenDoorForTerminal");
-            terminal.DisableTerminal();
+            EventManager.Publish("DropInteraction");
+            terminal40.SetActive(true);
+            terminalInteract.DisableTerminal();
             terminalInteract.Exit();
         }
         else

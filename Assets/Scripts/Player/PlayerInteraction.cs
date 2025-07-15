@@ -1,9 +1,8 @@
-using System;
 using Enums;
 using Interfaces;
 using UnityEngine;
 
-public class PlayerInteraction : MonoBehaviour
+public class PlayerInteraction : Subscriber
 {
     [SerializeField] private InputManager inputManager;
     [SerializeField] private bool needTransform = true;
@@ -29,11 +28,19 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (other.CompareTag("Interactable"))
         {
-            _interactable.DisableIndicator();
+            if(_interactable != null)
+                _interactable.DisableIndicator();
             EventManager.Publish("HideTip");
-            
             _interactable = null;
         }
+    }
+
+    [Event("DropInteraction")]
+    private void DropInteraction()
+    {
+        _interactable.DisableIndicator();
+        EventManager.Publish("HideTip");
+        _interactable = null;
     }
 
     private void Update()
@@ -44,6 +51,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 EventManager.Publish("HideTip");
                 _interactable.Interact();
+                print(_interactable.GetType());
             }
         }
     }

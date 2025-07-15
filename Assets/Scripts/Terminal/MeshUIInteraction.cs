@@ -52,6 +52,10 @@ public class MeshUIInteraction : MonoBehaviour
 
         foreach (RectTransform rect in rectTransforms)
         {
+            Canvas parentCanvas = rect.GetComponentInParent<Canvas>();
+
+            if (parentCanvas != uiCanvas) continue;
+
             if (!rect.gameObject.activeInHierarchy) continue;
 
             objectCount++;
