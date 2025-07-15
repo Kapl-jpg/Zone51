@@ -9,7 +9,7 @@ public class LiftMovement : Subscriber
     [SerializeField] private AudioSource audioMovementElevator;
     [SerializeField] private AudioSource audioStartElevator;
     [SerializeField] private AudioSource audioFinishElevator;
-    [SerializeField] private AudioSource audioStorElevator; // ???
+    [SerializeField] private AudioSource audioStopElevator; // ???
     [SerializeField] private float moveSpeed;
     [SerializeField] private float pauseTime;
     [SerializeField] private Collider liftCollider;
@@ -18,11 +18,14 @@ public class LiftMovement : Subscriber
     private bool _move;
     private bool _moveUp;
     private bool _pause;
+    private bool activeAudioFinish = true;
+    private bool activeAudioStart = true;
 
     [Event("CloseDoorLift")]
     private void MoveLift()
     {
-        audioMovementElevator.Play();
+        
+        //print("Move");
         if (!_move)
             CloseDoor();
     }
@@ -30,13 +33,14 @@ public class LiftMovement : Subscriber
     [Event("Landing")]
     private void ResetJump()
     {
-        //audioStorElevator.Play();
+        //audioStopElevator.Play();
         _pause = true;
     }
 
     [Event("MoveLift")]
     private void Movement()
     {
+        //print("Move");
         StartCoroutine(Move());
     }
     
@@ -50,22 +54,41 @@ public class LiftMovement : Subscriber
     private IEnumerator Move()
     {
         var endPoint = _moveUp ? upPoint.position : downPoint.position;
-        
+        if (!audioStartElevator.isPlaying && activeAudioStart)
+        {
+            audioStartElevator.Play();
+            activeAudioStart = false;
+        }
+
         while (transform.position != endPoint)
         {
             if (!_pause)
             {
-                //audioFinishElevator.Play();
+                if (!audioMovementElevator.isPlaying)
+                {
+                    audioMovementElevator.Play();
+                }
+                
+                activeAudioFinish = true;
                 transform.position =
                     Vector3.MoveTowards(transform.position, endPoint, moveSpeed * Time.fixedDeltaTime);
                 yield return null;
             }
             else
             {
+                
                 //audioStartElevator.Play();
+                
                 yield return new WaitForSeconds(pauseTime);
                 _pause = false;
+                activeAudioFinish = true;
             }
+        }
+
+        if (!audioFinishElevator.isPlaying && activeAudioFinish)
+        {
+            audioFinishElevator.Play();
+            activeAudioFinish = false;
         }
 
         liftCollider.enabled = false;

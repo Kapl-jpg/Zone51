@@ -6,6 +6,7 @@ public class LiftBottomDoor : Subscriber
     [SerializeField] private Animator innerDoorAnimator;
     [SerializeField] private Animator doorAnimator;
     [SerializeField] private AudioSource audioOpen;
+    [SerializeField] private AudioSource audioClose;
     
     [Event("OpenBottomDoor")]
     private void OpenDoor()
@@ -20,7 +21,7 @@ public class LiftBottomDoor : Subscriber
     {
         doorAnimator.SetBool(Open, false);
         innerDoorAnimator.SetBool(Open, false);
-        audioOpen.Stop();
+        audioClose.Play();
     }
     
     public void Ready()
