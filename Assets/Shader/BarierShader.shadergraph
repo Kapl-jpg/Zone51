@@ -327,9 +327,37 @@
             },
             "m_InputSlot": {
                 "m_Node": {
+                    "m_Id": "039d452ffd404d5b9968eea1eee828bb"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "576dc9a4e3644d1e87ea94a6c6152944"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
                     "m_Id": "dc32d2d364ad42e0b4bf5d799fd28c01"
                 },
                 "m_SlotId": 1
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
+                    "m_Id": "576dc9a4e3644d1e87ea94a6c6152944"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "e3aa28493c88442eb1906303ec09add8"
+                },
+                "m_SlotId": 0
             }
         },
         {
@@ -470,34 +498,6 @@
                     "m_Id": "958ba2da4c9a450fae393d8506fc2023"
                 },
                 "m_SlotId": 2
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "dc32d2d364ad42e0b4bf5d799fd28c01"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "039d452ffd404d5b9968eea1eee828bb"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "dc32d2d364ad42e0b4bf5d799fd28c01"
-                },
-                "m_SlotId": 2
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "e3aa28493c88442eb1906303ec09add8"
-                },
-                "m_SlotId": 0
             }
         },
         {
@@ -2882,7 +2882,7 @@
     "m_ShaderOutputName": "In",
     "m_StageCapability": 3,
     "m_Value": {
-        "x": 1.0,
+        "x": 0.20000000298023225,
         "y": 0.0,
         "z": 0.0,
         "w": 0.0

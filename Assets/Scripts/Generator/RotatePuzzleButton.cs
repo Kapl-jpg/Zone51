@@ -16,9 +16,9 @@ namespace Generator
         [Request("GetPower")] private ObservableField<bool> _getPower = new();
         [Header("Materials")] 
         [SerializeField] private MeshRenderer mainWire;
-        [SerializeField] private MeshRenderer upWire;
-        [SerializeField] private MeshRenderer leftWire;
-        [SerializeField] private MeshRenderer rightWire;
+        [SerializeField] private MeshRenderer[] upWire;
+        [SerializeField] private MeshRenderer[] leftWire;
+        [SerializeField] private MeshRenderer[] rightWire;
         [SerializeField] private MeshRenderer upMech;
         [SerializeField] private MeshRenderer rightMech;
         [SerializeField] private MeshRenderer downMech;
@@ -32,17 +32,25 @@ namespace Generator
         private void Start()
         {
             var mW = mainWire.material;
-            var uW = upWire.material;
-            var lW = leftWire.material;
-            var rW = rightWire.material;
             var uM =  upMech.material;
             var lM = rightMech.material;
             var dM = downMech.material;
 
             mainWire.material = new Material(mW);
-            upWire.material = new Material(uW);
-            leftWire.material = new Material(lW);
-            rightWire.material = new Material(rW);
+            foreach (var mesh in upWire)
+            {
+                mesh.material = new Material(mesh.material);
+            }
+
+            foreach (var mesh in leftWire)
+            {
+                mesh.material = new Material(mesh.material);
+            }
+
+            foreach (var mesh in rightWire)
+            {
+                mesh.material = new Material(mesh.material);
+            }
             upMech.material = new Material(uM);
             rightMech.material = new Material(lM);
             downMech.material = new Material(dM);
@@ -52,8 +60,14 @@ namespace Generator
         private void EnableRotate()
         {
             mainWire.material.SetColor("_Color", lightColor);
-            upWire.material.SetColor("_Color", lightColor);
-            rightWire.material.SetColor("_Color", lightColor);
+            foreach (var mesh in upWire)
+            {
+                mesh.material.SetColor("_Color", lightColor);
+            }
+            foreach (var mesh in rightWire)
+            {
+                mesh.material.SetColor("_Color", lightColor);
+            }
             
             upMech.material.SetColor("_Color", lightColor);
             rightMech.material.SetColor("_Color", lightColor);
@@ -101,9 +115,18 @@ namespace Generator
 
         private void DisableWires()
         {
-            upWire.material.SetColor("_Color", _defaultColor);
-            leftWire.material.SetColor("_Color", _defaultColor);
-            rightWire.material.SetColor("_Color", _defaultColor);
+            foreach (var mesh in upWire)
+            {
+                mesh.material.SetColor("_Color", _defaultColor);
+            }
+            foreach (var mesh in leftWire)
+            {
+                mesh.material.SetColor("_Color", _defaultColor);
+            }
+            foreach (var mesh in rightWire)
+            {
+                mesh.material.SetColor("_Color", _defaultColor);
+            }
             
             upMech.material.SetColor("_Color", _defaultColor);
             rightMech.material.SetColor("_Color", _defaultColor);
@@ -118,20 +141,46 @@ namespace Generator
             switch (_currentDirection)
             {
                 case Directions.Up:
-                    upWire.material.SetColor("_Color", lightColor);
-                    rightWire.material.SetColor("_Color", lightColor);
+                    
+                    foreach (var mesh in upWire)
+                    {
+                        mesh.material.SetColor("_Color", lightColor);
+                    }
+                    
+                    foreach (var mesh in rightWire)
+                    {
+                        mesh.material.SetColor("_Color", lightColor);
+                    }
+                    
                     EnableInnerParts();
                     break;
                 case Directions.Right:
-                    leftWire.material.SetColor("_Color", lightColor);
-                    rightWire.material.SetColor("_Color", lightColor);
+                    
+                    foreach (var mesh in leftWire)
+                    {
+                        mesh.material.SetColor("_Color", lightColor);
+                    }
+                    
+                    foreach (var mesh in rightWire)
+                    {
+                        mesh.material.SetColor("_Color", lightColor);
+                    }
+
                     EventManager.Publish("EnablePowerScreen");
                     _getPower.Value = true;
                     EnableInnerParts();
                     break;
                 case Directions.Down:
-                    upWire.material.SetColor("_Color", lightColor);
-                    leftWire.material.SetColor("_Color", lightColor);
+                    
+                    foreach (var mesh in upWire)
+                    {
+                        mesh.material.SetColor("_Color", lightColor);
+                    }
+                    foreach (var mesh in leftWire)
+                    {
+                        mesh.material.SetColor("_Color", lightColor);
+                    }
+
                     EventManager.Publish("EnablePowerScreen");
                     EnableInnerParts();
                     break;

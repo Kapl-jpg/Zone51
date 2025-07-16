@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PauseController : Subscriber
 {
     [SerializeField] private InputManager inputManager;
+    [SerializeField] private GameObject settingsWindow;
     [SerializeField] private GameObject menuPause;
 
     private bool _activeMenuPause;
@@ -18,8 +20,16 @@ public class PauseController : Subscriber
     [Event("PauseMode")]
     private void PauseMode()
     {
+        EventSystem.current.SetSelectedGameObject(null);
+        if (settingsWindow.activeInHierarchy)
+        {
+            settingsWindow.SetActive(false);
+            menuPause.SetActive(true);
+            return;
+        }
+        
         _activeMenuPause = !_activeMenuPause;
-
+        
         if (_activeMenuPause)
         {
             menuPause.SetActive(true);

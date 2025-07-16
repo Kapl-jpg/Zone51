@@ -122,13 +122,8 @@ public class Telekinesis : Subscriber
         var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         
-        if(characterType == CharacterType.Alien) return;
+        if(characterType != CharacterType.Alien && (!chipDisabled || needGetAbility)) return;
 
-        if (chipDisabled)
-        {
-            
-        }
-        
         if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
             if (hit.collider.TryGetComponent(out IITelekinesisVisible telekinesisVisible))
