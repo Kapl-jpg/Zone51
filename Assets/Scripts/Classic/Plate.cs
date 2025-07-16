@@ -13,6 +13,7 @@ public class Plate : Subscriber
 
     private AudioSource _audioClassic;
     private Material _plateMaterial;
+    private bool _active;
     private bool _canUse;
     
     private void Start()
@@ -39,19 +40,18 @@ public class Plate : Subscriber
                 if (nextPlate)
                 {
                     print("AudioJump");
-                    //_audioClassic.PlayOneShot(_audioClassic.clip);
                     _audioClassic.Play();
                     plateAnimation.Enable();
                     nextPlate._canUse = true;
                     EnablePlate();
                 }
 
+                _active = true;
                 _canUse = false;
             }
             else
             {
                 EventManager.Publish("ResetPlate");
-                EventManager.Publish("OnAudioUpdate");
             }
         }
         else
@@ -63,9 +63,15 @@ public class Plate : Subscriber
     [Event("ResetPlate")]
     private void OnResetPlate()
     {
-        _canUse = active;
-        plateAnimation.Disable();
+        if (_active)
+        {
+            _audioClassic.Play();
+            plateAnimation.Disable();
+            _active = false;
+        }
+
         _plateMaterial.SetFloat("_Enable", active? 1f : 0f);
+        _canUse = active;
     }
     
     private void EnablePlate()
