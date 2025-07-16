@@ -5,7 +5,6 @@ namespace Classic
 {
     public class PlateAnimation : Subscriber
     {
-        [SerializeField] private AudioSource audioUpdate;
         [SerializeField] private Vector3 offset;
         [SerializeField] private float transitionDuration;
 
@@ -14,6 +13,7 @@ namespace Classic
         private Vector3 _endPoint;
         
         private float _t;
+
         private void Start()
         {
             audioClassic = GetComponent<AudioSource>();
@@ -35,7 +35,9 @@ namespace Classic
 
         private IEnumerator EnablePlate()
         {
-            audioClassic.PlayOneShot(audioClassic.clip);
+            //audioClassic.PlayOneShot(audioClassic.clip);
+            //print("AudioJump");
+
             while (_t < 1)
             {
                 _t += Time.deltaTime / transitionDuration;
@@ -46,7 +48,6 @@ namespace Classic
 
         private IEnumerator DisablePlate()
         {
-            audioUpdate.Play();
             while (_t > 0)
             {
                 _t -= Time.deltaTime / transitionDuration;

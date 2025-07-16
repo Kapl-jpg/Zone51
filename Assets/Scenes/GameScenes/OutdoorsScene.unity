@@ -10958,7 +10958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348805055649461048, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3431486937249618621, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11370,7 +11370,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.9
+      value: 62.6
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.y
@@ -11378,7 +11378,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.8
+      value: 38
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28819,8 +28819,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 3.88
+  MaxDistance: 14.57
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -28904,7 +28904,7 @@ Transform:
   m_GameObject: {fileID: 717883234}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -2.85, y: 0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76947,7 +76947,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5485316, y: 0}
   m_AnchorMax: {x: 0.72476584, y: 1}
-  m_AnchoredPosition: {x: 271.60443, y: 0}
+  m_AnchoredPosition: {x: 271.6049, y: 0}
   m_SizeDelta: {x: 82.86153, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650719509
@@ -98740,7 +98740,7 @@ Transform:
   m_GameObject: {fileID: 2055636177}
   serializedVersion: 2
   m_LocalRotation: {x: 0.09445911, y: 0.10062677, z: -0.009597407, w: 0.9903836}
-  m_LocalPosition: {x: -12.900172, y: 0.57969964, z: -14.615222}
+  m_LocalPosition: {x: 62.599827, y: 0.57969964, z: 34.184776}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -107340,7 +107340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &6503297603189401657
@@ -107531,7 +107530,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &6540169291532846164
@@ -108242,7 +108240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &7306243253459084688
@@ -108457,7 +108454,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &7360843133917560142
@@ -109015,7 +109011,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &7587276209101346081
@@ -109474,7 +109469,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &7953692356855104437
@@ -109679,7 +109673,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &8015060508637354043
@@ -109916,7 +109909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &8081193486374933790
@@ -110183,7 +110175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &8196021396296433187
@@ -111174,7 +111165,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &8714192297049204398
@@ -111460,7 +111450,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b8aa7b8ed3442bac0b807f4299d71b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  audioUpdate: {fileID: 717883235}
   offset: {x: 0, y: -0.1, z: 0}
   transitionDuration: 0.5
 --- !u!82 &8796408580607986333

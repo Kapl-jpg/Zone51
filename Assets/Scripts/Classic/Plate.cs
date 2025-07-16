@@ -10,12 +10,14 @@ public class Plate : Subscriber
     [SerializeField] private CharacterType plateType;
     [SerializeField] private bool active;
     [SerializeField] private bool final;
-    
+
+    private AudioSource _audioClassic;
     private Material _plateMaterial;
     private bool _canUse;
     
     private void Start()
     {
+        _audioClassic = GetComponent<AudioSource>();
         _canUse = active;
         _plateMaterial = new Material(meshRenderer.material);
         meshRenderer.material = _plateMaterial;
@@ -36,6 +38,9 @@ public class Plate : Subscriber
             {
                 if (nextPlate)
                 {
+                    print("AudioJump");
+                    //_audioClassic.PlayOneShot(_audioClassic.clip);
+                    _audioClassic.Play();
                     plateAnimation.Enable();
                     nextPlate._canUse = true;
                     EnablePlate();
@@ -46,6 +51,7 @@ public class Plate : Subscriber
             else
             {
                 EventManager.Publish("ResetPlate");
+                EventManager.Publish("OnAudioUpdate");
             }
         }
         else
