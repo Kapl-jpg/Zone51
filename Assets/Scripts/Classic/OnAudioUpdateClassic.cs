@@ -15,6 +15,7 @@ public class OnAudioUpdateClassic : MonoBehaviour
     {
         if (_isPlayingAudio && !_audioUpdate.isPlaying)
         {
+            print("Play");
             _audioUpdate.Play();
             _isPlayingAudio = false;
         }
