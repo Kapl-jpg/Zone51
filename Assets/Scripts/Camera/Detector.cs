@@ -15,7 +15,7 @@ public class Detector : MonoBehaviour
 
     private bool isDetecting = false;
     private bool activeAudio = true;
-    private bool isSwitch = true;
+    [SerializeField] private bool isSwitch = true;
     private bool isOver = false;
 
     private void Start()
@@ -62,11 +62,13 @@ public class Detector : MonoBehaviour
         if (CheckLineOfSight())
         {
             AppointmentAudio();
+            
 
             if (!soundReproducing.isPlaying && activeAudio)
             {
                 soundReproducing.Play();
                 activeAudio = false;
+                print("Worked");
             } 
             else if (!soundReproducing.isPlaying)
             {
@@ -109,10 +111,6 @@ public class Detector : MonoBehaviour
 
     private void PlayerFullyDetected() // GameOver
     {
-        //if (soundReproducing.isPlaying)
-        //{
-        //    soundReproducing.Stop();
-        //}
 
         //activeAudio = true; // Commit
 
@@ -129,6 +127,7 @@ public class Detector : MonoBehaviour
         {
             soundReproducing.Stop();
             activeAudio = true;
+            isSwitch = true;
         }
 
         isDetecting = false;
@@ -143,7 +142,7 @@ public class Detector : MonoBehaviour
             //int countSound = 1;
             soundReproducing = audioAlarms[countSound];
             isSwitch = false;
-            //print("Swith");
+            print("Swith");
         }
     }
 
