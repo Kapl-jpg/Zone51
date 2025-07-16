@@ -12,6 +12,12 @@ namespace Terminal
             _inputSystem.UI.Enable();
         }
 
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            _inputSystem.UI.Disable();
+        }
+
         public bool Click()
         {
             return _inputSystem.UI.Click.triggered;

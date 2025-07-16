@@ -16,6 +16,11 @@ public class CutsceneInput : MonoBehaviour
         _inputSystem.UI.Enable();
     }
 
+    private void OnDestroy()
+    {
+        _inputSystem?.UI.Disable();
+    }
+
     private void Update()
     {
         var holdLbm = _inputSystem.UI.Click.inProgress;
@@ -29,10 +34,5 @@ public class CutsceneInput : MonoBehaviour
         {
             EventManager.Publish("StartGame");
         }
-    }
-
-    private void OnDestroy()
-    {
-        _inputSystem.UI.Disable();
     }
 }

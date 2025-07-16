@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class InputManager : Subscriber
@@ -18,6 +19,11 @@ public class InputManager : Subscriber
     {
         _input = new InputSystem_Actions();
         _input.Player.Enable();
+    }
+
+    private void OnDestroy()
+    {
+        _input?.Player.Disable();
     }
 
     public bool InputShift()

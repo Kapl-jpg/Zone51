@@ -76,7 +76,6 @@ public class Detector : MonoBehaviour
         else
         {
             ResetDetection();
-            
         }
     }
 
@@ -114,13 +113,15 @@ public class Detector : MonoBehaviour
         //    soundReproducing.Stop();
         //}
 
-        //activeAudio = true; // Commit
+        activeAudio = true; // Commit
 
         isOver = true;
         isSwitch = true;
         //Debug.Log("GameOver");
+        EventManager.Publish("Lose");
         ResetDetection();
         //Time.timeScale = 0;
+        
     }
 
     private void ResetDetection()

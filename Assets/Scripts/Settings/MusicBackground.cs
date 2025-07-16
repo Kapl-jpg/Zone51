@@ -9,6 +9,8 @@ public class MusicBackground : Singleton<MusicBackground>
     [SerializeField] private AudioClip tutorialMusic;
     [SerializeField] private AudioClip comicsMusic;
     [SerializeField] private AudioClip gameMusic;
+    [SerializeField] private AudioClip finishMusic;
+    [SerializeField] private AudioClip loseMusic;
 
     private void Start()
     {
@@ -40,6 +42,10 @@ public class MusicBackground : Singleton<MusicBackground>
                 return comicsMusic;
             case 3:
                 return gameMusic;
+            case 4:
+                return finishMusic;
+            case 5:
+                return loseMusic;
         }
         return null;
     }

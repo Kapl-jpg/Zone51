@@ -125,7 +125,7 @@ public class Password : MonoBehaviour
                 disable.SetActive(false);
             }
             enablePanel.SetActive(true);
-            print("Game Over");
+            EventManager.Publish("Lose");
         }
     }
 
