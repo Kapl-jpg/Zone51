@@ -24,6 +24,5 @@ namespace Cutscene
             yield return new WaitForSeconds(delay);
             SceneManager.LoadScene(loseSceneIndex);
         }
-            
     }
 }
