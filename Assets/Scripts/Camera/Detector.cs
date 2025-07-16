@@ -14,20 +14,35 @@ public class Detector : MonoBehaviour
     private AudioSource soundReproducing;
 
     private bool isDetecting = false;
-    private bool activeAudio = true;
+    private bool isSoundPlaying = false;
+    private bool isSoundCompleted = false;
     [SerializeField] private bool isSwitch = true;
     private bool isOver = false;
 
-    private void Start()
-    {
-        AppointmentAudio();
-    }
-
     private void Update()
     {
-        //print(soundReproducing);
+        if (isOver) return;
+
         CheckSphereCast();
-        UpdateDetection(); 
+
+        if (!isSoundCompleted)
+        {
+            UpdateDetection();
+        }
+
+        if (isSoundPlaying && !soundReproducing.isPlaying)
+        {
+            if (isDetecting)
+            {
+                PlayerFullyDetected();
+            }
+            else
+            {
+                isSoundPlaying = false;
+                isSoundCompleted = false;
+                isSwitch = true;
+            }
+        }
     }
 
     private void CheckSphereCast()
@@ -40,7 +55,7 @@ public class Detector : MonoBehaviour
             if (hitCollider.CompareTag("Player"))
             {
                 playerInZone = true;
-                if (!isDetecting)
+                if (!isDetecting && !isSoundCompleted)
                 {
                     detectedPlayer = hitCollider.transform;
                     isDetecting = true;
@@ -61,18 +76,17 @@ public class Detector : MonoBehaviour
 
         if (CheckLineOfSight())
         {
-            AppointmentAudio();
-            
+            if (isSwitch)
+            {
+                AppointmentAudio();
+            }
 
-            if (!soundReproducing.isPlaying && activeAudio)
+            if (!isSoundPlaying && soundReproducing != null)
             {
                 soundReproducing.Play();
-                activeAudio = false;
-                print("Worked");
-            } 
-            else if (!soundReproducing.isPlaying)
-            {
-                PlayerFullyDetected();
+                isSoundPlaying = true;
+                isSoundCompleted = false;
+                isSwitch = false;
             }
         }
         else
@@ -91,7 +105,7 @@ public class Detector : MonoBehaviour
         if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit obstacleHit, distance, obstacleLayerMask))
         {
             Debug.DrawRay(rayOrigin.position, direction * obstacleHit.distance, Color.yellow, 0.1f);
-            return false; 
+            return false;
         }
 
         if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit playerHit, distance, detectionLayer))
@@ -99,52 +113,43 @@ public class Detector : MonoBehaviour
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
             if (characterType == CharacterType.Alien)
             {
-                bool isPlayer = playerHit.collider.CompareTag("Player");
-                Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, isPlayer ? Color.green : Color.red, 0.1f);
-                return isPlayer;
+                Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, Color.green, 0.1f);
+                return playerHit.collider.CompareTag("Player");
             }
         }
 
         return false;
     }
 
-    private void PlayerFullyDetected() // GameOver
+    private void PlayerFullyDetected()
     {
-
-        activeAudio = true; // Commit
-
         isOver = true;
-        isSwitch = true;
-        //Debug.Log("GameOver");
+        isSoundCompleted = true;
         EventManager.Publish("Lose");
-        ResetDetection();
-        //Time.timeScale = 0;
-        
+        // ƒополнительные действи€ при проигрыше
     }
 
     private void ResetDetection()
     {
-        if (soundReproducing.isPlaying && !isOver)
+        if (isSoundPlaying && soundReproducing != null)
         {
             soundReproducing.Stop();
-            activeAudio = true;
-            isSwitch = true;
+            isSoundPlaying = false;
         }
 
         isDetecting = false;
         detectedPlayer = null;
+
+        if (!isSoundCompleted)
+        {
+            isSwitch = true;
+        }
     }
 
     private void AppointmentAudio()
     {
-        if (isSwitch)
-        {
-            int countSound = Random.Range(0, audioAlarms.Length);
-            //int countSound = 1;
-            soundReproducing = audioAlarms[countSound];
-            isSwitch = false;
-            print("Swith");
-        }
+        int countSound = Random.Range(0, audioAlarms.Length);
+        soundReproducing = audioAlarms[countSound];
     }
 
     private void OnDrawGizmosSelected()
