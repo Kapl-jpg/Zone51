@@ -7,8 +7,12 @@ public class MeshUIInteraction : MonoBehaviour
     [SerializeField] private TerminalInput terminalInput;
     [SerializeField] private UnityEngine.Camera uiCamera;
     [SerializeField] private Canvas uiCanvas;
+    [SerializeField] private AudioForTerminal audioForTerminal;
     [SerializeField] private bool ignoreColor;
     private Collider _meshCollider;
+
+    private bool activeAudioGuidance = true;
+    private Button activeButton;
 
     private void Start()
     {
@@ -68,10 +72,24 @@ public class MeshUIInteraction : MonoBehaviour
                     if (IsInRect(rect, canvasScreenPos, canvasMax))
                     {
                         if(!ignoreColor)
-                            button.image.color = new Color(color.r, color.g, color.b, 1f);;
-                        
+                        {                      
+                            if (activeButton == null)
+                            {
+                                activeButton = button;
+
+                                //if (activeAudioGuidance)
+                                //{
+                                //    audioForTerminal.GuidanceOnButtons();
+                                //    activeAudioGuidance = false;
+                                //}
+                            }
+
+                            button.image.color = new Color(color.r, color.g, color.b, 1f);
+                        }
+
                         if (terminalInput.Click())
                         {
+                            audioForTerminal.ClickForTerminal();
                             button.onClick.Invoke();
                             return;
                         }
@@ -79,7 +97,17 @@ public class MeshUIInteraction : MonoBehaviour
                     else
                     {
                         if(!ignoreColor)
+                        {
+                            if (activeButton != null)
+                            {
+                                activeAudioGuidance = true;
+                                activeButton = null;
+                                
+                            }
+
                             button.image.color = new Color(color.r, color.g, color.b, 0);
+                        }
+                            
                     }
 
                 }

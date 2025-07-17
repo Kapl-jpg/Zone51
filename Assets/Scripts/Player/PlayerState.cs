@@ -8,6 +8,7 @@ namespace Player
     {
         [SerializeField] private InputManager input;
         [SerializeField] private ParticleSystem chipParticles;
+        [SerializeField] private AudioSource audioChip;
         //[SerializeField] private float humanDuration;
         [SerializeField] private bool needGetAbility = true;
         [SerializeField] private bool tutorial;
@@ -82,6 +83,7 @@ namespace Player
         private IEnumerator ForcedStayHuman()
         {
             chipParticles.Play();
+            //audioChip.Play();                     //Audio for chip!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             yield return new WaitForSeconds(1f);
             EventManager.Publish("SwitchForm", CharacterType.Human);
             _characterType.Value = CharacterType.Human;

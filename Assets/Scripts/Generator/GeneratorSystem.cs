@@ -5,6 +5,7 @@ using UnityEngine;
 public class GeneratorSystem : MonoBehaviour
 {
     [SerializeField] private List<GeneratorData> points;
+    [SerializeField] private AudioSource audioOnWires;
     [SerializeField] private float moveTime;
     [SerializeField] private float endMoveTime;
     
@@ -75,12 +76,15 @@ public class GeneratorSystem : MonoBehaviour
         {
             case 0:
                 firstWirePart.material.SetColor("_Color", lightColor);
+                audioOnWires.Play();
                 break;
             case 1:
                 secondWirePart.material.SetColor("_Color", lightColor);
+                audioOnWires.Play();
                 break;
             case 2:
                 thirdWirePart.material.SetColor("_Color", lightColor);
+                audioOnWires.Play();
                 EventManager.Publish("EnableRotateMechanism");
                 break;
         }
