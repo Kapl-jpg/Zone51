@@ -23,7 +23,9 @@ namespace Generator
         [SerializeField] private MeshRenderer rightMech;
         [SerializeField] private MeshRenderer downMech;
         [SerializeField] private AudioSource audioRotateMechanisn;
-        
+        [SerializeField] private AudioSource audioOnWires;
+
+
         private Directions _currentDirection = Directions.Right;
 
         private bool _canUse;
@@ -91,7 +93,7 @@ namespace Generator
             var targetAngle = Quaternion.Euler(0, 0, TargetAngle());
 
             audioRotateMechanisn.Play();
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.1f);
             DisableWires();
             
             var t = 0f;
@@ -144,11 +146,13 @@ namespace Generator
                     
                     foreach (var mesh in upWire)
                     {
+                        audioOnWires.Play();
                         mesh.material.SetColor("_Color", lightColor);
                     }
                     
                     foreach (var mesh in rightWire)
                     {
+                        audioOnWires.Play();
                         mesh.material.SetColor("_Color", lightColor);
                     }
                     
@@ -158,11 +162,13 @@ namespace Generator
                     
                     foreach (var mesh in leftWire)
                     {
+                        audioOnWires.Play();
                         mesh.material.SetColor("_Color", lightColor);
                     }
                     
                     foreach (var mesh in rightWire)
                     {
+                        audioOnWires.Play();
                         mesh.material.SetColor("_Color", lightColor);
                     }
 
@@ -173,10 +179,12 @@ namespace Generator
                     
                     foreach (var mesh in upWire)
                     {
+                        audioOnWires.Play();
                         mesh.material.SetColor("_Color", lightColor);
                     }
                     foreach (var mesh in leftWire)
                     {
+                        audioOnWires.Play();
                         mesh.material.SetColor("_Color", lightColor);
                     }
 
