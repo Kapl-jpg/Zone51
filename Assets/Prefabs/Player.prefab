@@ -3828,6 +3828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   input: {fileID: 1723095142000130376}
   chipParticles: {fileID: 4800355896874084009}
+  audioChip: {fileID: 6077032791081873789}
   needGetAbility: 0
   tutorial: 0
 --- !u!114 &6463737275786635421
@@ -10608,6 +10609,11 @@ AudioSource:
 --- !u!82 &5599154204610079291 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 44719096686258824, guid: 4a9c4a2687c341843af074468d93c08b, type: 3}
+  m_PrefabInstance: {fileID: 5560519324789244083}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &6077032791081873789 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1837217947238003150, guid: 4a9c4a2687c341843af074468d93c08b, type: 3}
   m_PrefabInstance: {fileID: 5560519324789244083}
   m_PrefabAsset: {fileID: 0}
 --- !u!82 &6365990591085480132 stripped

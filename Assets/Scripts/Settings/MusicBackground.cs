@@ -1,9 +1,8 @@
 using System.Collections;
-using Patterns.Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MusicBackground : Singleton<MusicBackground>
+public class MusicBackground : Subscriber
 {
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip mainMenuMusic;
@@ -16,6 +15,39 @@ public class MusicBackground : Singleton<MusicBackground>
     [SerializeField] private float enableTime;
     [SerializeField] private float volumeValue;
     
+    private static MusicBackground _instance;
+    
+    public static MusicBackground Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<MusicBackground>();
+                if (_instance == null)
+                {
+                    var singletonObject = new GameObject(typeof(MusicBackground).Name);
+                    _instance = singletonObject.AddComponent<MusicBackground>();
+                    DontDestroyOnLoad(singletonObject);
+                }
+            }
+            return _instance;
+        }
+    }
+
+    protected virtual void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this as MusicBackground;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    
     private void Start()
     {
         SceneManager.activeSceneChanged += ChangedActiveScene;
@@ -25,22 +57,28 @@ public class MusicBackground : Singleton<MusicBackground>
             audioSource.Play();
     }
 
-    public void EnableMusic()
+    [Event("EnableMusic")]
+    private void EnableMusic()
     {
+        Debug.LogError("EnableMusic");
+        //audioSource.volume = volumeValue;
         StartCoroutine(Enable());
     }
     
-    public void DisableMusic()
+    [Event("DisableMusic")]
+    private void DisableMusic()
     {
+        Debug.LogError("DisableMusic");
+        //audioSource.volume = volumeValue;
         StartCoroutine(Disable());
     }
 
     private IEnumerator Enable()
     {
-        var volume = audioSource.volume;
+        var volume = 0f;
         while (volume < volumeValue)
         {
-            volume += Time.deltaTime/ enableTime;
+            volume = Mathf.Clamp(volume + Time.deltaTime/ enableTime, 0f, volumeValue);
             audioSource.volume = volume;
             yield return null;
         }
@@ -51,13 +89,14 @@ public class MusicBackground : Singleton<MusicBackground>
         var volume = audioSource.volume;
         while (volume > 0f)
         {
-            volume -= Time.deltaTime/ enableTime;
+            volume = Mathf.Clamp(volume - Time.deltaTime/ enableTime, 0f, volumeValue);
             audioSource.volume = volume;
             yield return null;
         }
     }
 
-    public void EnableGameMusic()
+    [Event("EnableGameMusic")]
+    private void EnableGameMusic()
     {
         audioSource.clip = gameMusic[Random.Range(0, gameMusic.Length)];
         if (!audioSource.isPlaying)
@@ -66,7 +105,8 @@ public class MusicBackground : Singleton<MusicBackground>
         }
     }
     
-    public void EnableHangarMusic()
+    [Event("EnableHangarMusic")]
+    private void EnableHangarMusic()
     {
         audioSource.clip = hangarMusic[Random.Range(0, hangarMusic.Length)];
         if (!audioSource.isPlaying)

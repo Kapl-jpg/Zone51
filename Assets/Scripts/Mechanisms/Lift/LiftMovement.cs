@@ -12,7 +12,6 @@ public class LiftMovement : Subscriber
     [SerializeField] private float moveTime;
     [SerializeField] private float pauseTime;
     [SerializeField] private Collider liftCollider;
-    [SerializeField] private MusicBackground musicBackground;
     private Transform _player;
     private bool _move;
     private bool _moveUp;
@@ -38,6 +37,7 @@ public class LiftMovement : Subscriber
     private void Movement()
     {
         //print("Move");
+        Debug.LogError("LiftMovement: Movement()");
         StartCoroutine(Move());
     }
     
@@ -59,7 +59,7 @@ public class LiftMovement : Subscriber
             activeAudioStart = false;
         }
         
-        musicBackground.DisableMusic();
+        EventManager.Publish("DisableMusic");
 
         var t = 0f;
         while (t < 1f)
@@ -91,11 +91,11 @@ public class LiftMovement : Subscriber
         }
 
         if(_moveUp)
-            musicBackground.EnableGameMusic();
+            EventManager.Publish("EnableGameMusic");
         else
-            musicBackground.EnableHangarMusic();
+            EventManager.Publish("EnableHangarMusic");
         
-        musicBackground.EnableMusic();
+        EventManager.Publish("EnableMusic");
 
         if (!audioFinishElevator.isPlaying && activeAudioFinish)
         {

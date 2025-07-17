@@ -20709,6 +20709,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRenderer: {fileID: 571244982}
+--- !u!1001 &572962884
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 699577609}
+    m_Modifications:
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.060001373
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.003000021
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7459474923705970388, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+      propertyPath: m_Name
+      value: AudioForTerminal
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+--- !u!4 &572962885 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1724331469827961051, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+  m_PrefabInstance: {fileID: 572962884}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &572962886 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3625914245313054299, guid: c6cb52aac08762047b8c2616cea0d5fd, type: 3}
+  m_PrefabInstance: {fileID: 572962884}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bdc5592b04eb7c4f99d6b8769c93ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &576587670
 GameObject:
   m_ObjectHideFlags: 0
@@ -22996,6 +23069,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e6b0d3b3c06e068458861a58e8a73676, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1024720082}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: e6b0d3b3c06e068458861a58e8a73676, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 572962885}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b0d3b3c06e068458861a58e8a73676, type: 3}
       insertIndex: -1
@@ -68870,6 +68946,7 @@ MonoBehaviour:
   terminalInput: {fileID: 1805280659}
   uiCamera: {fileID: 732603193}
   uiCanvas: {fileID: 1178598284}
+  audioForTerminal: {fileID: 572962886}
   ignoreColor: 0
 --- !u!64 &1805280661
 MeshCollider:
