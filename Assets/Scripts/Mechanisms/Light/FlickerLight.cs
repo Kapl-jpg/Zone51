@@ -4,30 +4,39 @@ using UnityEngine;
 
 public class FlickerLight : MonoBehaviour
 {
-    [SerializeField] private float flickerDelay = 0.5f;  // Задержка между переключениями (сек)
-    [SerializeField] private float lightIntensity = 1f; // Фиксированная яркость (когда свет включен)
+    [SerializeField] private float flickerDelay = 0.1f;
 
     private Light lightSource;
-    private float nextToggleTime;
-    private bool isLightOn = true;
+
+    private float timerFlicker;
+    private float lightIntensity;
 
     private void Start()
     {
         lightSource = GetComponent<Light>();
 
-        nextToggleTime = Time.time + flickerDelay;
-        lightSource.intensity = lightIntensity; // Начальная яркость
+        lightIntensity = lightSource.intensity;
+        timerFlicker = flickerDelay;
     }
 
-    [Event("FlashingLights")]
-    private void FlashingLights()
+    public void FlashingLights(bool active)
     {
-        if (Time.time >= nextToggleTime)
+        if (active)
         {
-            isLightOn = !isLightOn; // Переключаем состояние
-            lightSource.intensity = isLightOn ? lightIntensity : 0f; // Вкл/Выкл
-
-            nextToggleTime = Time.time + flickerDelay; // Обновляем время следующего переключения
+            timerFlicker -= Time.deltaTime;
+            if (timerFlicker <= 0)
+            {
+                lightSource.intensity = 0;
+                timerFlicker = flickerDelay;
+            }
+            else
+            {
+                lightSource.intensity = lightIntensity;
+            }
+        }
+        else
+        {
+            lightSource.intensity = lightIntensity;
         }
     }
 }
