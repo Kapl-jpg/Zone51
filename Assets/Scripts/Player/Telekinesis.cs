@@ -22,7 +22,7 @@ public class Telekinesis : Subscriber
     [SerializeField] private bool needGetAbility = true;
     private const float wallEpsilon = 0.02f;
     private const float slideThreshold = 0.01f;
-    private IITelekinesisVisible _telekinesisVisible;
+    private ITelekinesisVisible _telekinesisVisible;
     private Rigidbody grabbedRigidbody;
 
     private bool isGrabbing = false;
@@ -121,25 +121,37 @@ public class Telekinesis : Subscriber
         var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
         
-        if(characterType != CharacterType.Alien && (!chipDisabled || needGetAbility)) return;
+        if(!chipDisabled && needGetAbility) return;
 
         if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
         {
-            if (hit.collider.TryGetComponent(out IITelekinesisVisible telekinesisVisible))
+            if (hit.collider.TryGetComponent(out ITelekinesisVisible telekinesisVisible))
             {
-                if (_telekinesisVisible == null)
+                if (characterType == CharacterType.Alien)
                 {
-                    EventManager.Publish("ShowTip",TipType.Telekinesis);
-                    _telekinesisVisible = telekinesisVisible;
-                    _telekinesisVisible.Show();
+                    if (_telekinesisVisible == null)
+                    {
+                        _telekinesisVisible = telekinesisVisible;
+                        _telekinesisVisible.Show();
+                        EventManager.Publish("ShowTip", TipType.Telekinesis);
+                    }
+                    else
+                    {
+                        if (_telekinesisVisible != telekinesisVisible)
+                        {
+                            _telekinesisVisible?.Hide();
+                            _telekinesisVisible = telekinesisVisible;
+                            _telekinesisVisible.Show();
+                        }
+                    }
                 }
                 else
                 {
-                    if (_telekinesisVisible != telekinesisVisible)
+                    if (_telekinesisVisible != null)
                     {
-                        _telekinesisVisible?.Hide();
-                        _telekinesisVisible = telekinesisVisible;
-                        _telekinesisVisible.Show();
+                        EventManager.Publish("HideTip");
+                        _telekinesisVisible.Hide();
+                        _telekinesisVisible = null;
                     }
                 }
             }

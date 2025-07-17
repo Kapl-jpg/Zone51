@@ -418,7 +418,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1723095142000130376}
-  needTransform: 1
 --- !u!1 &995084999397970493
 GameObject:
   m_ObjectHideFlags: 0
@@ -2582,7 +2581,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CollideAgainst:
     serializedVersion: 2
-    m_Bits: 1025
+    m_Bits: 3073
   IgnoreTag: Player
   TransparentLayers:
     serializedVersion: 2
@@ -3882,7 +3881,6 @@ MonoBehaviour:
   audioThrowing: {fileID: 267542400649232286}
   audioRetention: {fileID: 8667851860059306448}
   smoothSpeed: 5
-  grabForce: 10
   maxDistance: 10
   maxChargeTime: 5
   maxHoldTime: 10

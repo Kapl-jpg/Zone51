@@ -1,6 +1,6 @@
 ﻿namespace Interfaces
 {
-    public interface IITelekinesisVisible
+    public interface ITelekinesisVisible
     {
         void Show();
         void Hide();

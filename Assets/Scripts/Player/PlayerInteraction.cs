@@ -26,8 +26,6 @@ public class PlayerInteraction : Subscriber
                 if (inputManager.InputE())
                 {
                     _interactable.Interact();
-                    _interactable = null;
-                    _showTip = false;
                 }
             }
             else
@@ -50,8 +48,6 @@ public class PlayerInteraction : Subscriber
                     if (inputManager.InputE())
                     {
                         _finishable.Finish();
-                        _finishable = null;
-                        _showTip = false;
                     }
                 }
                 else

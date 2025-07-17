@@ -167,7 +167,6 @@ namespace Generator
                     }
 
                     EventManager.Publish("EnablePowerScreen");
-                    _getPower.Value = true;
                     EnableInnerParts();
                     break;
                 case Directions.Down:
@@ -181,6 +180,7 @@ namespace Generator
                         mesh.material.SetColor("_Color", lightColor);
                     }
 
+                    _getPower.Value = true;
                     EventManager.Publish("EnablePowerScreen");
                     EnableInnerParts();
                     break;
