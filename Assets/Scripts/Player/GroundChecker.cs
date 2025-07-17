@@ -26,6 +26,7 @@ namespace Player
                 if (_landing)
                 {
                     EventManager.Publish("Landing");
+                    EventManager.Publish("ActiveAudioJumpEnd");
                     _landing = false;
                 }
             }

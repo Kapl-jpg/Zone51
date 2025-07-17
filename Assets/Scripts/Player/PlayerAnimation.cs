@@ -22,7 +22,6 @@ public class PlayerAnimation : Subscriber
     {
         SetGrounded();
         SetMovement();
-        SetCrouching();
         SetJump();
     }
 
@@ -43,7 +42,6 @@ public class PlayerAnimation : Subscriber
     private void SetJump()
     {
         if (!Grounded()) return;
-        if (inputManager.Crouch()) return;
         if (!inputManager.InputSpace()) return;
         if (RequestManager.GetValue<bool>("IsCrouching")) return;
         if (!RequestManager.GetValue<bool>("Transformation"))
@@ -116,12 +114,6 @@ public class PlayerAnimation : Subscriber
         }
 
         return new Vector2(_horizontal,_vertical);
-    }
-
-    private void SetCrouching()
-    {
-        if(alienAnimator.gameObject.activeInHierarchy)
-            alienAnimator?.SetBool(Crouch, inputManager.Crouch());
     }
 
     private bool Grounded()

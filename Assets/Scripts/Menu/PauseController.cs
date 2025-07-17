@@ -33,6 +33,7 @@ public class PauseController : Subscriber
         if (_activeMenuPause)
         {
             menuPause.SetActive(true);
+            EventManager.Publish("DisableTip");
             EventManager.Publish("OnOffCursor", true);
             EventManager.Publish("HideCrosshair");
             Time.timeScale = 0;
@@ -40,6 +41,7 @@ public class PauseController : Subscriber
         else
         {
             menuPause.SetActive(false);
+            EventManager.Publish("EnableTip");
             EventManager.Publish("OnOffCursor", false);
             EventManager.Publish("ShowCrosshair");
             Time.timeScale = 1;

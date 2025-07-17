@@ -15,6 +15,18 @@ namespace Player
         [SerializeField] private string telekinesisTipText;
 
         private bool _showChip;
+
+        [Event("EnableTip")]
+        private void EnableTip()
+        {
+            tipText.gameObject.SetActive(true);
+        }
+        
+        [Event("DisableTip")]
+        private void DisableTip()
+        {
+            tipText.gameObject.SetActive(false);
+        }
         
         [Event("ShowCrosshair")]
         private void ShowCrosshair()
@@ -31,7 +43,6 @@ namespace Player
         [Event("ShowTip")]
         private void ShowTip(TipType tipType)
         {
-            tipText.gameObject.SetActive(true);
             if (tipType == TipType.Interact)
             {
                 tipText.text = interactTipText;
@@ -68,7 +79,6 @@ namespace Player
         private void HideTip()
         {
             tipText.text = String.Empty;
-            tipText.gameObject.SetActive(false);
         }
     }
 }

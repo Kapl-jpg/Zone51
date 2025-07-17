@@ -8,6 +8,6 @@ public class TutorialStart : MonoBehaviour
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(tutorialDelay);
-        EventManager.Publish("ShowTutorial" , TutorialType.Movement);
+        EventManager.Publish("ShowTutorial" , TutorialType.Mouse);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Interfaces;
 using UnityEngine;
 
-public class TelekinesisObjectVisual : MonoBehaviour, IITelekinesisVisible
+public class TelekinesisObjectVisual : MonoBehaviour, ITelekinesisVisible
 {
     [SerializeField] private MeshRenderer currentRenderer;
 

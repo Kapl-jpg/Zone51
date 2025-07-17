@@ -13,12 +13,10 @@ public class SettingInterface : MonoBehaviour
     [SerializeField] private GameObject pauseMenu;
 
     //private AudioSource audioSource;
-    private bool activebTools;
 
     private void Start()
     {
        // audioSource = GetComponent<AudioSource>();
-        activebTools = false;
     }
 
     public void ButtonPlay()

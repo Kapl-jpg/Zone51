@@ -9,7 +9,6 @@ public class Tutorials : Subscriber
     [SerializeField] private List<TutorialData> tutorials;
     [SerializeField] private GameObject closeTip;
     [SerializeField] private TutorialInput input;
-    [SerializeField] private float startDelayTutorial;
     private TutorialType _currentTutorial;
 
     private void Update()
@@ -38,7 +37,14 @@ public class Tutorials : Subscriber
         
         var data = tutorials.FirstOrDefault(x => x.type == _currentTutorial);
         data?.tutorialUI.SetActive(false);
-        
-        Time.timeScale = 1;
+
+        if (_currentTutorial == TutorialType.Mouse)
+        {
+            ShowTutorial(TutorialType.Movement);
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
     }
 }

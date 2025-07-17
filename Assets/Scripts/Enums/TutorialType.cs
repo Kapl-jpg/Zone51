@@ -2,6 +2,7 @@
 {
     public enum TutorialType
     {
+        Mouse,
         Movement,
         Jump,
         Crouch,
