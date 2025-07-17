@@ -11707,6 +11707,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.60117346
       objectReference: {fileID: 0}
+    - target: {fileID: 1962113366444514972, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef856dea4779aad4686ec19f81f35869, type: 3}
     - target: {fileID: 2324650141818903020, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0010654661
@@ -11983,6 +11987,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.012435079
       objectReference: {fileID: 0}
+    - target: {fileID: 4242383851010447389, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ef856dea4779aad4686ec19f81f35869, type: 3}
     - target: {fileID: 4605348173523424831, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000000046566124
