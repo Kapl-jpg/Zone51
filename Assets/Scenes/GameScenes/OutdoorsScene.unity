@@ -1390,6 +1390,7 @@ GameObject:
   - component: {fileID: 38401709}
   - component: {fileID: 38401711}
   - component: {fileID: 38401710}
+  - component: {fileID: 38401712}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -1596,6 +1597,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &38401712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38401708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerDelay: 0.1
 --- !u!1001 &46874304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11703,7 +11717,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3348805055649461048, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3407007414582308713, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Mesh
@@ -18913,6 +18927,7 @@ GameObject:
   - component: {fileID: 420585665}
   - component: {fileID: 420585667}
   - component: {fileID: 420585666}
+  - component: {fileID: 420585668}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -19119,6 +19134,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &420585668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 420585664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerDelay: 0.1
 --- !u!1001 &423374244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36265,6 +36293,134 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2023564798}
   m_SourcePrefab: {fileID: 100100000, guid: 254a07c0faa91634894ef65f326a6e00, type: 3}
+--- !u!1 &855737681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 855737682}
+  - component: {fileID: 855737683}
+  m_Layer: 0
+  m_Name: AudioForDoctor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &855737682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855737681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1637615990}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &855737683
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 855737681}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -691657196122679706, guid: 2bc88c4f1ba6392458866dd10985202d, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 59ddae3a36c84e3439f128d02ea1ca1f, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &856609713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39531,6 +39687,7 @@ GameObject:
   - component: {fileID: 955895223}
   - component: {fileID: 955895225}
   - component: {fileID: 955895224}
+  - component: {fileID: 955895226}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -39737,6 +39894,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &955895226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 955895222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerDelay: 0.1
 --- !u!4 &956032725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 20b0c93cf159ea2458225f604bbd0cf1, type: 3}
@@ -41456,14 +41626,16 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 0}
+  audioForDoctor: {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  flickerLight: {fileID: 420585668}
   sphereRadius: 18.39
+  activeAudioForPlayer: 0
 --- !u!1001 &1002838051
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76747,14 +76919,16 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 0}
+  audioForDoctor: {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  flickerLight: {fileID: 38401712}
   sphereRadius: 15.1
+  activeAudioForPlayer: 0
 --- !u!4 &1580891969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bcae1f0ed16bbad4c9af96f047855b6a, type: 3}
@@ -80727,6 +80901,7 @@ Transform:
   - {fileID: 669284792}
   - {fileID: 1387754579}
   - {fileID: 1432708084}
+  - {fileID: 855737682}
   m_Father: {fileID: 255348175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645805571
@@ -80975,7 +81150,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5485316, y: 0}
   m_AnchorMax: {x: 0.72476584, y: 1}
-  m_AnchoredPosition: {x: 271.60773, y: 0}
+  m_AnchoredPosition: {x: 271.6084, y: 0}
   m_SizeDelta: {x: 82.86153, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1650719509
@@ -83070,6 +83245,7 @@ GameObject:
   - component: {fileID: 1691173407}
   - component: {fileID: 1691173409}
   - component: {fileID: 1691173408}
+  - component: {fileID: 1691173410}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -83276,6 +83452,19 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &1691173410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1691173406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flickerDelay: 0.1
 --- !u!1 &1693642236
 GameObject:
   m_ObjectHideFlags: 0
@@ -89094,14 +89283,16 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 0}
+  audioForDoctor: {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  flickerLight: {fileID: 1691173410}
   sphereRadius: 12.3
+  activeAudioForPlayer: 0
 --- !u!1 &1798284170
 GameObject:
   m_ObjectHideFlags: 0
@@ -89430,14 +89621,16 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 0}
+  audioForDoctor: {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
   obstacleLayerMask:
     serializedVersion: 2
     m_Bits: 1
+  flickerLight: {fileID: 955895226}
   sphereRadius: 16.2
+  activeAudioForPlayer: 0
 --- !u!1 &1812109522
 GameObject:
   m_ObjectHideFlags: 0
