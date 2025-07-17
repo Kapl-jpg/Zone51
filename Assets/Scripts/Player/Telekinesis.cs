@@ -13,7 +13,6 @@ public class Telekinesis : Subscriber
     [SerializeField] private AudioSource audioThrowing;
     [SerializeField] private AudioSource audioRetention;
     [SerializeField] private float smoothSpeed = 5f;
-    [SerializeField] private float grabForce = 10;
     [SerializeField] private float maxDistance = 10;
     [SerializeField] private float maxChargeTime = 5;
     [SerializeField] private float maxHoldTime = 10;

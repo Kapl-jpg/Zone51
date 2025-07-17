@@ -33,6 +33,7 @@ public class LiftMovement : Subscriber
     [Event("Landing")]
     private void ResetJump()
     {
+        EventManager.Publish("ActiveAudioJumpEnd");
         _pause = true;
     }
 

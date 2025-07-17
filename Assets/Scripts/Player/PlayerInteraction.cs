@@ -5,7 +5,6 @@ using UnityEngine;
 public class PlayerInteraction : Subscriber
 {
     [SerializeField] private InputManager inputManager;
-    [SerializeField] private bool needTransform = true;
     private IInteractable _interactable;
     private IFinishable _finishable;
     private bool _showTip;

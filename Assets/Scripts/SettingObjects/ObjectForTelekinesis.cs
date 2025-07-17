@@ -3,7 +3,7 @@ using UnityEngine;
 public class ObjectForTelekinesis : MonoBehaviour
 {
     private Rigidbody rb;
-    private Renderer renderer;
+    private new Renderer renderer;
     private Color originalColor;
 
     private bool activeCheckingMovement = false;

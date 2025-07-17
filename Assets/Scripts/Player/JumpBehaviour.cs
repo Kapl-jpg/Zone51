@@ -11,6 +11,5 @@ public class JumpBehaviour : MonoBehaviour
     public void StopJump()
     {
         EventManager.Publish("ResetJump");
-        EventManager.Publish("ActiveAudioJumpEnd");
     }
 }
