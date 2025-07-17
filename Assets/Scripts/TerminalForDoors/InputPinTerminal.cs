@@ -7,7 +7,6 @@ public class InputPinTerminal : MonoBehaviour
     [SerializeField] private TerminalInteract terminalInteract;
     [SerializeField] private AudioSource audioOpen;
     [SerializeField] private AudioSource audioClose;
-    [SerializeField] private AudioSource audioPress;
     [SerializeField] private string pinCode = "1111";
     [SerializeField] private int maxPinLength = 4;
     [SerializeField] private GameObject terminal40;
@@ -15,7 +14,6 @@ public class InputPinTerminal : MonoBehaviour
     public void InputKeyForCode(string key)
     {
         pinText.text = (pinText.text + key).Substring(0, Mathf.Min(pinText.text.Length + key.Length, maxPinLength));
-        audioPress.Play();
     }
 
     public void EraseCode()
