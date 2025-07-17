@@ -2551,7 +2551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Composition:
-    ScreenPosition: {x: -0.1, y: 0.1}
+    ScreenPosition: {x: -0.08, y: 0.1}
     DeadZone:
       Enabled: 0
       Size: {x: 0.2, y: 0.2}
@@ -2561,7 +2561,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
+  Damping: {x: 0.1, y: 0.1}
   Lookahead:
     Enabled: 0
     Time: 0
@@ -3882,7 +3882,7 @@ MonoBehaviour:
   audioRetention: {fileID: 8667851860059306448}
   smoothSpeed: 5
   maxDistance: 10
-  maxChargeTime: 5
+  maxChargeTime: 2
   maxHoldTime: 10
   maxThrowForce: 40
   turnSmoothness: 5
