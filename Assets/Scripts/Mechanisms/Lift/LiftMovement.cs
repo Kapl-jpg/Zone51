@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -10,10 +9,10 @@ public class LiftMovement : Subscriber
     [SerializeField] private AudioSource audioStartElevator;
     [SerializeField] private AudioSource audioFinishElevator;
     [SerializeField] private AudioSource audioStopElevator; // ???
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveTime;
     [SerializeField] private float pauseTime;
     [SerializeField] private Collider liftCollider;
-    
+    [SerializeField] private MusicBackground musicBackground;
     private Transform _player;
     private bool _move;
     private bool _moveUp;
@@ -24,8 +23,6 @@ public class LiftMovement : Subscriber
     [Event("CloseDoorLift")]
     private void MoveLift()
     {
-        
-        //print("Move");
         if (!_move)
             CloseDoor();
     }
@@ -54,14 +51,18 @@ public class LiftMovement : Subscriber
     private IEnumerator Move()
     {
         _pause = false;
+        var startPoint = _moveUp ? downPoint.position : upPoint.position;
         var endPoint = _moveUp ? upPoint.position : downPoint.position;
         if (!audioStartElevator.isPlaying && activeAudioStart)
         {
             audioStartElevator.Play();
             activeAudioStart = false;
         }
+        
+        musicBackground.DisableMusic();
 
-        while (transform.position != endPoint)
+        var t = 0f;
+        while (t < 1f)
         {
             if (!_pause)
             {
@@ -69,10 +70,11 @@ public class LiftMovement : Subscriber
                 {
                     audioMovementElevator.Play();
                 }
-                
+
+                t += Time.deltaTime / moveTime;
                 activeAudioFinish = true;
                 transform.position =
-                    Vector3.MoveTowards(transform.position, endPoint, moveSpeed * Time.fixedDeltaTime);
+                    Vector3.Lerp(startPoint, endPoint, t);
                 yield return null;
             }
             else
@@ -82,12 +84,18 @@ public class LiftMovement : Subscriber
                     audioStopElevator.Play();
                 }
 
-
                 yield return new WaitForSeconds(pauseTime);
                 _pause = false;
                 activeAudioFinish = true;
             }
         }
+
+        if(_moveUp)
+            musicBackground.EnableGameMusic();
+        else
+            musicBackground.EnableHangarMusic();
+        
+        musicBackground.EnableMusic();
 
         if (!audioFinishElevator.isPlaying && activeAudioFinish)
         {
@@ -96,6 +104,7 @@ public class LiftMovement : Subscriber
         }
 
         liftCollider.enabled = false;
+        
         EventManager.Publish(_moveUp ? "OpenTopDoor" : "OpenBottomDoor");
         
         _moveUp = !_moveUp;

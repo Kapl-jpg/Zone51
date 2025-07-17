@@ -33,28 +33,28 @@ public class PlayerInteraction : Subscriber
                 _showTip = false;
                 EventManager.Publish("HideTip");
             }
+        }
 
-            if (_finishable != null)
+        if (_finishable != null)
+        {
+            if (characterType == CharacterType.Alien)
             {
-                if (characterType == CharacterType.Alien)
+                if (!_showTip)
                 {
-                    if (!_showTip)
-                    {
-                        EventManager.Publish("EnableTip");
-                        EventManager.Publish("ShowTip", TipType.Interact);
-                        _showTip = true;
-                    }
-                    
-                    if (inputManager.InputE())
-                    {
-                        _finishable.Finish();
-                    }
+                    EventManager.Publish("EnableTip");
+                    EventManager.Publish("ShowTip", TipType.Interact);
+                    _showTip = true;
                 }
-                else
+
+                if (inputManager.InputE())
                 {
-                    _showTip = false;
-                    EventManager.Publish("HideTip");
+                    _finishable.Finish();
                 }
+            }
+            else
+            {
+                _showTip = false;
+                EventManager.Publish("HideTip");
             }
         }
     }
