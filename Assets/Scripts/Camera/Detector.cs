@@ -6,6 +6,7 @@ public class Detector : MonoBehaviour
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
     [SerializeField] private AudioSource[] audioAlarms;
+    [SerializeField] private AudioSource audioForDoctor;
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private float sphereRadius = 5f;
@@ -13,11 +14,15 @@ public class Detector : MonoBehaviour
     private Transform detectedPlayer;
     private AudioSource soundReproducing;
 
+    //private Vector3 direction;
+    //private float distance;
+
     private bool isDetecting = false;
     private bool isSoundPlaying = false;
     private bool isSoundCompleted = false;
-    [SerializeField] private bool isSwitch = true;
+    private bool isSwitch = true;
     private bool isOver = false;
+    private bool activeAudioForPlayer = false;
 
     private void Update()
     {
@@ -87,6 +92,25 @@ public class Detector : MonoBehaviour
                 isSoundPlaying = true;
                 isSoundCompleted = false;
                 isSwitch = false;
+
+                //Vector3 direction = (detectedPlayer.position - rayOrigin.position).normalized;
+                //float distance = Vector3.Distance(rayOrigin.position, detectedPlayer.position);
+
+                //if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit playerHit, distance, detectionLayer))
+                //{
+                //    var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+                //    if (characterType == CharacterType.Human)
+                //    {
+                //        ResetDetection();
+                //        activeAudioForPlayer = true;
+                //    }
+                //}
+            }
+
+            if (!activeAudioForPlayer && !audioForDoctor.isPlaying)
+            {
+                audioForDoctor.Play();
+                activeAudioForPlayer = false;
             }
         }
         else
@@ -113,6 +137,8 @@ public class Detector : MonoBehaviour
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
             if (characterType == CharacterType.Alien)
             {
+                activeAudioForPlayer = true;// Added new
+
                 Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, Color.green, 0.1f);
                 return playerHit.collider.CompareTag("Player");
             }
