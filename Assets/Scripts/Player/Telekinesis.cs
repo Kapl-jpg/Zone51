@@ -1,4 +1,3 @@
-using System;
 using Enums;
 using Interfaces;
 using Unity.Cinemachine;
@@ -117,31 +116,44 @@ public class Telekinesis : Subscriber
 
     private void DetectObject()
     {
-        RaycastHit hit;
-        var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
-        var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        
-        if(!chipDisabled && needGetAbility) return;
-
-        if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward, out hit, maxDistance, layerMask))
+        if (!isGrabbing)
         {
-            if (hit.collider.TryGetComponent(out ITelekinesisVisible telekinesisVisible))
+            RaycastHit hit;
+            var chipDisabled = RequestManager.GetValue<bool>("ChipDisable");
+            var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+
+            if (!chipDisabled && needGetAbility) return;
+
+            if (Physics.Raycast(UnityEngine.Camera.main.transform.position, UnityEngine.Camera.main.transform.forward,
+                    out hit, maxDistance, layerMask))
             {
-                if (characterType == CharacterType.Alien)
+                if (hit.collider.TryGetComponent(out ITelekinesisVisible telekinesisVisible))
                 {
-                    if (_telekinesisVisible == null)
+                    if (characterType == CharacterType.Alien)
                     {
-                        _telekinesisVisible = telekinesisVisible;
-                        _telekinesisVisible.Show();
-                        EventManager.Publish("ShowTip", TipType.Telekinesis);
+                        if (_telekinesisVisible == null)
+                        {
+                            _telekinesisVisible = telekinesisVisible;
+                            _telekinesisVisible.Show();
+                            EventManager.Publish("ShowTip", TipType.Telekinesis);
+                        }
+                        else
+                        {
+                            if (_telekinesisVisible != telekinesisVisible)
+                            {
+                                _telekinesisVisible?.Hide();
+                                _telekinesisVisible = telekinesisVisible;
+                                _telekinesisVisible.Show();
+                            }
+                        }
                     }
                     else
                     {
-                        if (_telekinesisVisible != telekinesisVisible)
+                        if (_telekinesisVisible != null)
                         {
-                            _telekinesisVisible?.Hide();
-                            _telekinesisVisible = telekinesisVisible;
-                            _telekinesisVisible.Show();
+                            EventManager.Publish("HideTip");
+                            _telekinesisVisible.Hide();
+                            _telekinesisVisible = null;
                         }
                     }
                 }
@@ -167,15 +179,16 @@ public class Telekinesis : Subscriber
         }
         else
         {
-            if (_telekinesisVisible != null)
+            if (grabbedRigidbody != null)
             {
-                EventManager.Publish("HideTip");
-                _telekinesisVisible.Hide();
-                _telekinesisVisible = null;
+                if (grabbedRigidbody.gameObject.TryGetComponent(out ITelekinesisVisible telekinesisVisible))
+                {
+                    telekinesisVisible?.Show();
+                }
             }
         }
     }
-    
+
     private void ReleaseObject()
     {
         if (isGrabbing)
