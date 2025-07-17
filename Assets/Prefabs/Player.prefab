@@ -3984,6 +3984,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputManager: {fileID: 1723095142000130376}
+  settingsWindow: {fileID: 0}
   menuPause: {fileID: 0}
 --- !u!114 &2572953721575152060
 MonoBehaviour:
@@ -4240,6 +4241,7 @@ GameObject:
   - component: {fileID: 5243591952949664687}
   - component: {fileID: 8837437811060070379}
   - component: {fileID: 2511777835911322176}
+  - component: {fileID: 3142558057125140494}
   m_Layer: 7
   m_Name: Ded24
   m_TagString: Player
@@ -4318,6 +4320,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 910719284bfd20c468e106581bccca49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3142558057125140494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7253844033158601300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1c917541adce44284318fe54e0a1e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7290418280798398351

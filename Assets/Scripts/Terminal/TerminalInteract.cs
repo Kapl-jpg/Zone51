@@ -22,13 +22,13 @@ public class TerminalInteract : Subscriber, IInteractable
         }
     }
     
-
     public void Interact()
     {
         if(RequestManager.GetValue<bool>("LookTutorial")) return;
         
         cinemachine.Priority = 30;
         collider.enabled = false;
+        EventManager.Publish("DisableTip");
         EventManager.Publish("InterfaceController", true);
         EventManager.Publish("PlayerController", false);
         EventManager.Publish("OnOffCursor", true);
@@ -42,6 +42,7 @@ public class TerminalInteract : Subscriber, IInteractable
     {
         cinemachine.Priority = 0;
         collider.enabled = _canInteract;
+        EventManager.Publish("EnableTip");
         EventManager.Publish("InterfaceController", false);
         EventManager.Publish("PlayerController", true);
         EventManager.Publish("OnOffCursor", false);

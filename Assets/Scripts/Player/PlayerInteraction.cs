@@ -8,32 +8,75 @@ public class PlayerInteraction : Subscriber
     [SerializeField] private bool needTransform = true;
     private IInteractable _interactable;
     private IFinishable _finishable;
+    private bool _showTip;
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
         var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-        if (characterType != CharacterType.Alien || !needTransform)
+        if (_interactable != null)
         {
-            if (other.CompareTag("Interactable"))
+            if (characterType == CharacterType.Human)
             {
-                if (other.gameObject.TryGetComponent(out IInteractable interactable))
+                if (!_showTip)
                 {
-                    _interactable = interactable;
-                    _interactable.EnableIndicator();
+                    EventManager.Publish("EnableTip");
                     EventManager.Publish("ShowTip", TipType.Interact);
+                    _showTip = true;
+                }
+
+                if (inputManager.InputE())
+                {
+                    _interactable.Interact();
+                    _interactable = null;
+                    _showTip = false;
+                }
+            }
+            else
+            {
+                _showTip = false;
+                EventManager.Publish("HideTip");
+            }
+
+            if (_finishable != null)
+            {
+                if (characterType == CharacterType.Alien)
+                {
+                    if (!_showTip)
+                    {
+                        EventManager.Publish("EnableTip");
+                        EventManager.Publish("ShowTip", TipType.Interact);
+                        _showTip = true;
+                    }
+                    
+                    if (inputManager.InputE())
+                    {
+                        _finishable.Finish();
+                        _finishable = null;
+                        _showTip = false;
+                    }
+                }
+                else
+                {
+                    _showTip = false;
+                    EventManager.Publish("HideTip");
                 }
             }
         }
-        
-        if(characterType == CharacterType.Alien)
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Interactable"))
         {
-            if (other.CompareTag("Interactable"))
+            if (other.gameObject.TryGetComponent(out IInteractable interactable))
             {
-                if (other.gameObject.TryGetComponent(out IFinishable finishable))
-                {
-                    _finishable = finishable;
-                    EventManager.Publish("ShowTip", TipType.Interact);
-                }
+                _interactable = interactable;
+                _interactable.EnableIndicator();
+            }
+
+            if (other.gameObject.TryGetComponent(out IFinishable finishable))
+            {
+                _finishable = finishable;
             }
         }
     }
@@ -47,6 +90,7 @@ public class PlayerInteraction : Subscriber
             EventManager.Publish("HideTip");
             _finishable = null;
             _interactable = null;
+            _showTip = false;
         }
     }
 
@@ -56,23 +100,5 @@ public class PlayerInteraction : Subscriber
         _interactable.DisableIndicator();
         EventManager.Publish("HideTip");
         _interactable = null;
-    }
-
-    private void Update()
-    {
-        if (inputManager.InputE())
-        {
-            if (_interactable != null)
-            {
-                EventManager.Publish("HideTip");
-                _interactable.Interact();
-            }
-
-            if (_finishable != null)
-            {
-                EventManager.Publish("HideTip");
-                _finishable.Finish();
-            }
-        }
     }
 }

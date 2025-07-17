@@ -24,12 +24,7 @@ namespace Player
             _crouchCenter = alienCollider.center - Vector3.up * 0.25f;
             _crouchHeight = alienCollider.height * 0.7f;
         }
-
-        private void Update()
-        {
-            Crouch();
-        }
-
+        
         [Event("Ventilation")]
         private void Ventilation(bool value)
         {
@@ -41,27 +36,6 @@ namespace Player
             alienCollider.height = _crouchHeight;
             EventManager.Publish("Crouch", true);
         }
-
-        private void Crouch()
-        {
-            if(_ventilationEnabled) return;
-            
-            var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-            if (characterType == CharacterType.Human) return;
-
-            _isCrouching.Value = input.Crouch();
-            if (input.Crouch())
-            {
-                alienCollider.center = _crouchCenter;
-                alienCollider.height = _crouchHeight;
-                EventManager.Publish("Crouch", true);
-            }
-            else
-            {
-                alienCollider.center = _defaultCenter;
-                alienCollider.height = _defaultHeight;
-                EventManager.Publish("Crouch", false);
-            }
-        }
+        
     }
 }
