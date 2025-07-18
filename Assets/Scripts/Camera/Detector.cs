@@ -26,7 +26,6 @@ public class Detector : Subscriber
     private bool isOver = false;
     private bool activeAudioForPlayer = false;
     private bool isLoss = true;
-    private bool isCameraLook = false;
 
     private void Update()
     {
