@@ -155,3 +155,4 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 03d6d85b20cfa3c46918a6e04ef7bd57, type: 3}
   enableTime: 2
   volumeValue: 0.2
+  loseVolumeValue: 0.7

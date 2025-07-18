@@ -14,6 +14,7 @@ public class MusicBackground : Subscriber
     [SerializeField] private AudioClip[] hangarMusic;
     [SerializeField] private float enableTime;
     [SerializeField] private float volumeValue;
+    [SerializeField] private float loseVolumeValue;
     
     private static MusicBackground _instance;
     
@@ -53,6 +54,8 @@ public class MusicBackground : Subscriber
         SceneManager.activeSceneChanged += ChangedActiveScene;
         audioSource.clip = GetAudioClip(SceneManager.GetActiveScene());
         audioSource.volume = volumeValue;
+        if (SceneManager.GetActiveScene().buildIndex == 5)
+            audioSource.volume = loseVolumeValue;
         if (!audioSource.isPlaying)
             audioSource.Play();
     }
@@ -60,16 +63,12 @@ public class MusicBackground : Subscriber
     [Event("EnableMusic")]
     private void EnableMusic()
     {
-        Debug.LogError("EnableMusic");
-        //audioSource.volume = volumeValue;
         StartCoroutine(Enable());
     }
     
     [Event("DisableMusic")]
     private void DisableMusic()
     {
-        Debug.LogError("DisableMusic");
-        //audioSource.volume = volumeValue;
         StartCoroutine(Disable());
     }
 
