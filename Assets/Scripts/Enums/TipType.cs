@@ -3,5 +3,6 @@
     Interact,
     Telekinesis,
     TelekinesisDrop,
-    NeedDisableChip
+    NeedDisableChip,
+    PressE
 }

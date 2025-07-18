@@ -42,7 +42,7 @@ public class PlayerInteraction : Subscriber
                 if (!_showTip)
                 {
                     EventManager.Publish("EnableTip");
-                    EventManager.Publish("ShowTip", TipType.Interact);
+                    EventManager.Publish("ShowTip", TipType.PressE);
                     _showTip = true;
                 }
 
