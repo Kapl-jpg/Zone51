@@ -1695,7 +1695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickerDelay: 0.1
+  flickerDelay: 0.5
 --- !u!1001 &46874304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20164,7 +20164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickerDelay: 0.1
+  flickerDelay: 0.5
 --- !u!1001 &423374244
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41122,7 +41122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickerDelay: 0.1
+  flickerDelay: 0.5
 --- !u!4 &956032725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 20b0c93cf159ea2458225f604bbd0cf1, type: 3}
@@ -86984,7 +86984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8673f61f5d6b84588ae25dddc583a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flickerDelay: 0.1
+  flickerDelay: 0.5
 --- !u!1001 &1691373517
 PrefabInstance:
   m_ObjectHideFlags: 0
