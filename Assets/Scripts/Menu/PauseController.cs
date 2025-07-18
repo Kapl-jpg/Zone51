@@ -36,6 +36,7 @@ public class PauseController : Subscriber
             EventManager.Publish("DisableTip");
             EventManager.Publish("OnOffCursor", true);
             EventManager.Publish("HideCrosshair");
+            EventManager.Publish("IsPauseAllAudioInCamera", true);
             Time.timeScale = 0;
         }
         else
@@ -44,6 +45,7 @@ public class PauseController : Subscriber
             EventManager.Publish("EnableTip");
             EventManager.Publish("OnOffCursor", false);
             EventManager.Publish("ShowCrosshair");
+            EventManager.Publish("IsPauseAllAudioInCamera", false);
             Time.timeScale = 1;
         }
     }

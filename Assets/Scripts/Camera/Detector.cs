@@ -1,7 +1,7 @@
 using Enums;
 using UnityEngine;
 
-public class Detector : MonoBehaviour
+public class Detector : Subscriber
 {
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
@@ -15,12 +15,16 @@ public class Detector : MonoBehaviour
     private Transform detectedPlayer;
     private AudioSource soundReproducing;
 
+    private AudioSource audioForPauseAlarm;
+    private AudioSource audioForPauseForDoctor;
+
     private bool isDetecting = false;
     private bool isSoundPlaying = false;
     private bool isSoundCompleted = false;
     private bool isSwitch = true;
     private bool isOver = false;
-    [SerializeField] private bool activeAudioForPlayer = false;
+    private bool activeAudioForPlayer = false;
+    private bool isLoss = true;
 
     private void Update()
     {
@@ -33,7 +37,7 @@ public class Detector : MonoBehaviour
             UpdateDetection();
         }
 
-        if (isSoundPlaying && !soundReproducing.isPlaying)
+        if (isSoundPlaying && !soundReproducing.isPlaying && isLoss)
         {
             if (isDetecting)
             {
@@ -90,8 +94,6 @@ public class Detector : MonoBehaviour
                 isSoundPlaying = true;
                 isSoundCompleted = false;
                 isSwitch = false;
-
-                
             } 
         }
         else
@@ -182,6 +184,46 @@ public class Detector : MonoBehaviour
     {
         int countSound = Random.Range(0, audioAlarms.Length);
         soundReproducing = audioAlarms[countSound];
+    }
+
+    [Event("IsPauseAllAudioInCamera")]
+    private void IsPauseAllAudioInCamera(bool active)
+    {
+        for (int i = 0; i < audioAlarms.Length; i++)
+        {
+            if (active)
+            {
+                if (audioAlarms[i].isPlaying)
+                {
+                    audioAlarms[i].Pause();
+                    audioForPauseAlarm = audioAlarms[i];
+                }
+
+                if (audioForDoctor.isPlaying)
+                {
+                    audioForDoctor.Pause();
+                    audioForPauseForDoctor = audioForDoctor;
+                }
+
+                isLoss = false;
+            }
+            else
+            {
+                if (audioAlarms[i] == audioForPauseAlarm)
+                {
+                    audioAlarms[i].Play();
+                    audioForPauseAlarm = null;
+                }
+
+                if (audioForPauseForDoctor != null)
+                {
+                    audioForDoctor.Play();
+                    audioForPauseForDoctor = null;
+                }
+
+                isLoss = true;
+            }
+        }
     }
 
     private void OnDrawGizmosSelected()
