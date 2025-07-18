@@ -164,7 +164,6 @@ public class Detector : Subscriber
             {
                 flickerLight.FlashingLights(true);
                 activeAudioForPlayer = true;
-                isCameraLook = true;
 
                 Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, Color.green, 0.1f);
                 return playerHit.collider.CompareTag("Player");
