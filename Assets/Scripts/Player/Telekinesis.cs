@@ -142,6 +142,7 @@ public class Telekinesis : Subscriber
                             if (_telekinesisVisible != telekinesisVisible)
                             {
                                 _telekinesisVisible?.Hide();
+                                EventManager.Publish("ShowTip", TipType.Telekinesis);
                                 _telekinesisVisible = telekinesisVisible;
                                 _telekinesisVisible.Show();
                             }
@@ -179,13 +180,14 @@ public class Telekinesis : Subscriber
         }
         else
         {
-            if (grabbedRigidbody != null)
+            if (!grabbedRigidbody) return;
+            
+            if (grabbedRigidbody.gameObject.TryGetComponent(out ITelekinesisVisible telekinesisVisible))
             {
-                if (grabbedRigidbody.gameObject.TryGetComponent(out ITelekinesisVisible telekinesisVisible))
-                {
-                    telekinesisVisible?.Show();
-                }
+                telekinesisVisible?.Show();
             }
+                
+            EventManager.Publish("ShowTip", TipType.TelekinesisDrop);
         }
     }
 
@@ -281,7 +283,6 @@ public class Telekinesis : Subscriber
         {
             ReleaseObject();
         }
-        //print(chargeTime); // Temporarily
     }
 
     private void ThrowObject()

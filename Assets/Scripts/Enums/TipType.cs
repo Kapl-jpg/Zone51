@@ -2,5 +2,6 @@
 {
     Interact,
     Telekinesis,
+    TelekinesisDrop,
     NeedDisableChip
 }
