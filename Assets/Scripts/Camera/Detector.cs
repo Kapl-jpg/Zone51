@@ -26,6 +26,7 @@ public class Detector : Subscriber
     private bool isOver = false;
     private bool activeAudioForPlayer = false;
     private bool isLoss = true;
+    private bool isCameraLook = false;
 
     private void Update()
     {
@@ -51,6 +52,8 @@ public class Detector : Subscriber
                 isSwitch = true;
             }
         }
+
+        
     }
 
     private void CheckSphereCast()
@@ -105,6 +108,13 @@ public class Detector : Subscriber
         }
         else
         {
+            if (isSoundPlaying && soundReproducing != null)
+            {
+                soundReproducing.Stop();
+                isSoundPlaying = false;
+                isSwitch = true;
+            }
+
             if (activeAudioForPlayer)
             {
                 Vector3 direction = (detectedPlayer.position - rayOrigin.position).normalized;
@@ -155,6 +165,7 @@ public class Detector : Subscriber
             {
                 flickerLight.FlashingLights(true);
                 activeAudioForPlayer = true;
+                isCameraLook = true;
 
                 Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, Color.green, 0.1f);
                 return playerHit.collider.CompareTag("Player");
