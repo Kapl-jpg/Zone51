@@ -5,8 +5,8 @@ public class Detector : Subscriber
 {
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
-    [SerializeField] private AudioSource[] audioAlarms;
-    [SerializeField] private AudioSource audioForDoctor;
+    [SerializeField] private AudioSource[] audioAlarms; // Массив звуков сигнализации
+    [SerializeField] private AudioSource[] audioDoctors; // Массив звуков для доктора
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private FlickerLight flickerLight;
@@ -14,6 +14,7 @@ public class Detector : Subscriber
 
     private Transform detectedPlayer;
     private AudioSource soundReproducing;
+    private AudioSource doctorSoundReproducing;
 
     private AudioSource audioForPauseAlarm;
     private AudioSource audioForPauseForDoctor;
@@ -85,7 +86,7 @@ public class Detector : Subscriber
         {
             if (isSwitch)
             {
-                AppointmentAudio();
+                AppointmentAudioAlien();
             }
 
             if (!isSoundPlaying && soundReproducing != null)
@@ -94,7 +95,7 @@ public class Detector : Subscriber
                 isSoundPlaying = true;
                 isSoundCompleted = false;
                 isSwitch = false;
-            } 
+            }
         }
         else
         {
@@ -111,9 +112,10 @@ public class Detector : Subscriber
                         ResetDetection();
                         flickerLight.FlashingLights(false);
 
-                        if (!audioForDoctor.isPlaying)
+                        if (audioDoctors.Length > 0 && (doctorSoundReproducing == null || !doctorSoundReproducing.isPlaying))
                         {
-                            audioForDoctor.Play();
+                            AppointmentAudioDoctor();
+                            doctorSoundReproducing.Play();
                             activeAudioForPlayer = false;
                         }
                     }
@@ -122,7 +124,7 @@ public class Detector : Subscriber
             else
             {
                 ResetDetection();
-            }  
+            }
         }
     }
 
@@ -146,7 +148,7 @@ public class Detector : Subscriber
             if (characterType == CharacterType.Alien)
             {
                 flickerLight.FlashingLights(true);
-                activeAudioForPlayer = true;// Added new
+                activeAudioForPlayer = true;
 
                 Debug.DrawRay(rayOrigin.position, direction * playerHit.distance, Color.green, 0.1f);
                 return playerHit.collider.CompareTag("Player");
@@ -180,49 +182,52 @@ public class Detector : Subscriber
         }
     }
 
-    private void AppointmentAudio()
+    private void AppointmentAudioAlien()
     {
         int countSound = Random.Range(0, audioAlarms.Length);
         soundReproducing = audioAlarms[countSound];
     }
 
+    private void AppointmentAudioDoctor()
+    {
+        int randomDoctorSound = Random.Range(0, audioDoctors.Length);
+        doctorSoundReproducing = audioDoctors[randomDoctorSound];
+    }
+
     [Event("IsPauseAllAudioInCamera")]
     private void IsPauseAllAudioInCamera(bool active)
     {
-        for (int i = 0; i < audioAlarms.Length; i++)
+        if (active)
         {
-            if (active)
+            if (soundReproducing != null && soundReproducing.isPlaying)
             {
-                if (audioAlarms[i].isPlaying)
-                {
-                    audioAlarms[i].Pause();
-                    audioForPauseAlarm = audioAlarms[i];
-                }
-
-                if (audioForDoctor.isPlaying)
-                {
-                    audioForDoctor.Pause();
-                    audioForPauseForDoctor = audioForDoctor;
-                }
-
-                isLoss = false;
+                soundReproducing.Pause();
+                audioForPauseAlarm = soundReproducing;
             }
-            else
+
+            if (doctorSoundReproducing != null && doctorSoundReproducing.isPlaying)
             {
-                if (audioAlarms[i] == audioForPauseAlarm)
-                {
-                    audioAlarms[i].Play();
-                    audioForPauseAlarm = null;
-                }
-
-                if (audioForPauseForDoctor != null)
-                {
-                    audioForDoctor.Play();
-                    audioForPauseForDoctor = null;
-                }
-
-                isLoss = true;
+                doctorSoundReproducing.Pause();
+                audioForPauseForDoctor = doctorSoundReproducing;
             }
+
+            isLoss = false;
+        }
+        else
+        {
+            if (audioForPauseAlarm != null)
+            {
+                soundReproducing.Play();
+                audioForPauseAlarm = null;
+            }
+
+            if (audioForPauseForDoctor != null)
+            {
+                audioForPauseForDoctor.Play();
+                audioForPauseForDoctor = null;
+            }
+
+            isLoss = true;
         }
     }
 
@@ -235,4 +240,3 @@ public class Detector : Subscriber
         }
     }
 }
-
