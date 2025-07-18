@@ -21,18 +21,15 @@ namespace Camera
 
         private void Update()
         {
-            if (RequestManager.GetValue<bool>("ActivateFirstPersonCamera"))
-            {
-                _targetPointOffset = Mathf.Clamp(
-                    _targetPointOffset + inputManager.InputMouse().y * firstPersonRotationVerticalSpeed *
-                    _currentSensitivity * Time.deltaTime,
-                    minMaxTargetPointOffset.x,
-                    minMaxTargetPointOffset.y);
+            _targetPointOffset = Mathf.Clamp(
+                _targetPointOffset + inputManager.InputMouse().y * firstPersonRotationVerticalSpeed *
+                _currentSensitivity * Time.deltaTime,
+                minMaxTargetPointOffset.x,
+                minMaxTargetPointOffset.y);
 
-                firstPersonTarget.localPosition =
-                    new Vector3(firstPersonTarget.localPosition.x, _targetPointOffset,
-                        firstPersonTarget.localPosition.z);
-            }
+            firstPersonTarget.localPosition =
+                new Vector3(firstPersonTarget.localPosition.x, _targetPointOffset,
+                    firstPersonTarget.localPosition.z);
         }
     }
 }

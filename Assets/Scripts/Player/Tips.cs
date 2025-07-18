@@ -13,6 +13,7 @@ namespace Player
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private string interactTipText;
         [SerializeField] private string telekinesisTipText;
+        [SerializeField] private string telekinesisDropTipText;
 
         private bool _showChip;
 
@@ -51,6 +52,11 @@ namespace Player
             if (tipType == TipType.Telekinesis)
             {
                 tipText.text = telekinesisTipText;
+            }
+
+            if (tipType == TipType.TelekinesisDrop)
+            {
+                tipText.text = telekinesisDropTipText;
             }
 
             if (tipType == TipType.NeedDisableChip)
