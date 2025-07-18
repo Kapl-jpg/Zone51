@@ -43073,7 +43073,8 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 855737683}
+  audioDoctors:
+  - {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -80178,7 +80179,8 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 855737683}
+  audioDoctors:
+  - {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -93319,7 +93321,8 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 855737683}
+  audioDoctors:
+  - {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -93656,7 +93659,8 @@ MonoBehaviour:
   - {fileID: 669284793}
   - {fileID: 1387754580}
   - {fileID: 1432708085}
-  audioForDoctor: {fileID: 855737683}
+  audioDoctors:
+  - {fileID: 855737683}
   detectionLayer:
     serializedVersion: 2
     m_Bits: 128

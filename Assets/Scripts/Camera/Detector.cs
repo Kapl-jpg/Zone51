@@ -84,6 +84,12 @@ public class Detector : Subscriber
 
         if (CheckLineOfSight())
         {
+            if (doctorSoundReproducing != null)
+            {
+                doctorSoundReproducing.Stop();
+            }
+            
+
             if (isSwitch)
             {
                 AppointmentAudioAlien();
