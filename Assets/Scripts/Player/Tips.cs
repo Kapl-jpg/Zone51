@@ -9,12 +9,13 @@ namespace Player
     {
         [SerializeField] private GameObject crosshair;
         [SerializeField] private TMP_Text chipText;
+        [SerializeField] private TMP_Text pressEText;
         [SerializeField] private float chipTipTimer;
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private string interactTipText;
         [SerializeField] private string telekinesisTipText;
         [SerializeField] private string telekinesisDropTipText;
-
+        private bool _showPressE;
         private bool _showChip;
 
         [Event("EnableTip")]
@@ -59,6 +60,11 @@ namespace Player
                 tipText.text = telekinesisDropTipText;
             }
 
+            if (tipType == TipType.PressE)
+            {
+                    pressEText.gameObject.SetActive(true);
+            }
+
             if (tipType == TipType.NeedDisableChip)
             {
                 if (!_showChip)
@@ -85,6 +91,7 @@ namespace Player
         private void HideTip()
         {
             tipText.text = String.Empty;
+            pressEText.gameObject.SetActive(false);
         }
     }
 }
