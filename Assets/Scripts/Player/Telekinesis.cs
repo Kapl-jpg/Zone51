@@ -211,68 +211,57 @@ public class Telekinesis : Subscriber
     }
 
     private void PullObject()
-    {
-        if (!grabbedRigidbody) return;
-
-        Vector3 currentPos = grabbedRigidbody.position;
-        Vector3 targetPos  = grabPoint.position;
-
-        Vector3 dir = targetPos - currentPos;
-        float dist  = dir.magnitude;
-        if (dist < 0.001f) return;
-
-        dir.Normalize();
-        float maxStep = smoothSpeed * Time.fixedDeltaTime;
-        float step    = Mathf.Min(maxStep, dist);
-
-        if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step + wallEpsilon))
         {
-            float allowedMove = hit.distance;
-
-            if (allowedMove < wallEpsilon)
-                return;
-
-            Vector3 posToWall = currentPos + dir * allowedMove;
-
-            float slideStep = step - allowedMove;
-
-            if (slideStep > slideThreshold)
+            if (grabbedRigidbody == null) return;
+            
+            Vector3 currentPos = grabbedRigidbody.position;
+            Vector3 targetPos  = grabPoint.position;
+    
+            Vector3 dir  = (targetPos - currentPos);
+            float   dist = dir.magnitude;
+            if (dist < 0.001f) return;
+    
+            dir /= dist;
+            float maxStep = smoothSpeed * Time.fixedDeltaTime;
+            float step    = Mathf.Min(maxStep, dist);
+    
+            if (grabbedRigidbody.SweepTest(dir, out RaycastHit hit, step))
             {
+                float allowedMove = hit.distance;
+    
+                Vector3 posToWall = currentPos + dir * allowedMove;
+                
                 Vector3 slideDir = Vector3.ProjectOnPlane(dir, hit.normal).normalized;
-                Vector3 slideMove = slideDir * slideStep;
-                Vector3 finalPos = posToWall + slideMove;
-
+    
+                float slideStep = step - allowedMove;
+                Vector3 finalPos = posToWall + slideDir * slideStep;
+    
                 grabbedRigidbody.MovePosition(finalPos);
             }
             else
             {
-                grabbedRigidbody.MovePosition(posToWall);
+                Vector3 finalPos = currentPos + dir * step;
+                grabbedRigidbody.MovePosition(finalPos);
             }
-        }
-        else
-        {
-            Vector3 finalPos = currentPos + dir * step;
-            grabbedRigidbody.MovePosition(finalPos);
-        }
-
-        if (!audioRetention.isPlaying && !audioLifting.isPlaying)
-        {
-            bool activeAudio = true;
-            if (activeAudio)
+    
+            if (!audioRetention.isPlaying && !audioLifting.isPlaying)
             {
-                audioRetention.Play();
-                activeAudio = false;
-                //print("play");
+                bool activeAudio = true;
+                if (activeAudio)
+                {
+                    audioRetention.Play();
+                    activeAudio = false;
+                    print("play");
+                }
+    
+                if (!audioThrowing.isPlaying)
+                {
+                    activeAudio = true;
+                }
             }
-
-            if (!audioThrowing.isPlaying)
-            {
-                activeAudio = true;
-            }
+    
+            ObjectMonitoring();
         }
-
-        ObjectMonitoring();
-    }
 
     private void ChargeThrow()
     {
