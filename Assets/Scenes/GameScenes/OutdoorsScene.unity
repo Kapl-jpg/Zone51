@@ -3156,6 +3156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: control_panel_1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12648,7 +12652,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1224785289593050963, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1289288478686561505, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: cameraTransform
@@ -12984,7 +12988,7 @@ PrefabInstance:
       objectReference: {fileID: 1782559685}
     - target: {fileID: 3348805055649461048, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3407007414582308713, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Mesh
@@ -23531,6 +23535,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
       propertyPath: m_Name
       value: control_panel_1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34126,7 +34134,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 5068432117980152623, guid: 2bc88c4f1ba6392458866dd10985202d, type: 2}
-  m_audioClip: {fileID: 8300000, guid: d8e26aca0bbbf5b44a5b3eaae5136523, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7c4a5e552cc4b424fad2fd842c9825eb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
@@ -43601,6 +43609,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
       propertyPath: m_Name
       value: control_panel_1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -80819,7 +80831,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8918077550557095614, guid: fcb9f8e67fe22d54bbb8328697b94a46, type: 3}
 --- !u!54 &1500090005
@@ -94608,6 +94620,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
       propertyPath: m_Name
       value: control_panel_1 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 872435210b5d044459026cccbdd91004, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -125749,8 +125765,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minImpactVelocity: 2
   maxImpactVelocity: 10
-  minVolume: 0.028
-  maxVolume: 0.511
+  minVolume: 0
+  maxVolume: 0.05
 --- !u!82 &8464576126737466261
 AudioSource:
   m_ObjectHideFlags: 0
