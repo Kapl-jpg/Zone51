@@ -4,7 +4,7 @@ using UnityEngine;
 public class MonsterMovement : MonoBehaviour
 {
     [SerializeField] private float offsetY = 0.1f;
-    [SerializeField] private float moveSpeed;
+    [SerializeField] private float moveTime = 3f;
     private bool _moveUp;
     private Vector3 _startPos;
 
@@ -12,27 +12,36 @@ public class MonsterMovement : MonoBehaviour
     {
         _moveUp = Random.value > 0.5f;
         _startPos = transform.position;
-
+        var upPoint = new Vector3(_startPos.x, _startPos.y + offsetY, _startPos.z);
+        var downPoint = new Vector3(_startPos.x, _startPos.y - offsetY, _startPos.z);
         while (true)
         {
             if (_moveUp)
             {
-                while (transform.position.y < _startPos.y + offsetY)
+                var t = 0f;
+                while (t < 1f)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.up,
-                        moveSpeed * Time.deltaTime);
+                    t += Time.deltaTime / moveTime;
+                    transform.position = Vector3.Lerp(downPoint, upPoint, t);
                     yield return null;
                 }
+
+                _moveUp = false;
             }
             else
             {
-                while (transform.position.y > _startPos.y - offsetY)
+                var t = 0f;
+                while (t < 1f)
                 {
-                    transform.position = Vector3.MoveTowards(transform.position, transform.position + Vector3.down,
-                        moveSpeed * Time.deltaTime);
+                    t += Time.deltaTime / moveTime;
+                    transform.position = Vector3.Lerp(upPoint, downPoint, t);
                     yield return null;
                 }
+                
+                _moveUp = true;
             }
+
+            yield return null;
         }
     }
 }
