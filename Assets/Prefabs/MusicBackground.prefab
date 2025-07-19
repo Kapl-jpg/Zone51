@@ -150,9 +150,10 @@ MonoBehaviour:
   gameMusic:
   - {fileID: 8300000, guid: 85630c5e1b6e35a449eef6440e92e3e8, type: 3}
   - {fileID: 8300000, guid: 6a72bf80b2f4c0e41b0a6b9bfff1890e, type: 3}
+  - {fileID: 8300000, guid: 1637031c66d4f1a4598f73337c7b3b8c, type: 3}
   hangarMusic:
   - {fileID: 8300000, guid: 971dd78c32449914582486825f6d76e5, type: 3}
   - {fileID: 8300000, guid: 03d6d85b20cfa3c46918a6e04ef7bd57, type: 3}
   enableTime: 2
-  volumeValue: 0.2
+  volumeValue: 0.5
   loseVolumeValue: 0.7
