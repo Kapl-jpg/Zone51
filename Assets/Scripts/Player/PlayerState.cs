@@ -83,7 +83,7 @@ namespace Player
         private IEnumerator ForcedStayHuman()
         {
             chipParticles.Play();
-            //audioChip.Play();                     //Audio for chip!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            audioChip.Play();
             yield return new WaitForSeconds(1f);
             EventManager.Publish("SwitchForm", CharacterType.Human);
             _characterType.Value = CharacterType.Human;

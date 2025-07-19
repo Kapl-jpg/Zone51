@@ -12936,6 +12936,10 @@ PrefabInstance:
       value: -0.02138275
       objectReference: {fileID: 0}
     - target: {fileID: 3348805055649461048, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+      propertyPath: audioChip
+      value: 
+      objectReference: {fileID: 1782559685}
+    - target: {fileID: 3348805055649461048, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
       value: 1
       objectReference: {fileID: 0}
@@ -95661,6 +95665,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0.3
   m_ShadowAngle: 0
+--- !u!82 &1782559685 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6907300269530822490, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
+  m_PrefabInstance: {fileID: 260474474}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1783780473
 GameObject:
   m_ObjectHideFlags: 0
