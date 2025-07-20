@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class ResetGround : MonoBehaviour
+namespace Classic
 {
-    private void OnCollisionEnter(Collision other)
+    public class ResetGround: MonoBehaviour
     {
-        if (!other.gameObject.CompareTag("Player")) return;
-
-        EventManager.Publish("ResetPlate");
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!other.CompareTag("Player")) return;
+            
+            EventManager.Publish("ResetPlate");
+        }
     }
 }

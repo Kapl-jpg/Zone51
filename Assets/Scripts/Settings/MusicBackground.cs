@@ -1,22 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MusicBackground : Subscriber
 {
-    [SerializeField] private AudioSource mainMenuMusic;
-    [SerializeField] private AudioSource tutorialMusic;
-    [SerializeField] private AudioSource comicsMusic;
-    [SerializeField] private AudioSource finishMusic;
-    [SerializeField] private AudioSource loseMusic;
-    [SerializeField] private AudioSource[] gameMusic;
-    [SerializeField] private AudioSource[] hangarMusic;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private AudioClip tutorialMusic;
+    [SerializeField] private AudioClip comicsMusic;
+    [SerializeField] private AudioClip finishMusic;
+    [SerializeField] private AudioClip loseMusic;
+    [SerializeField] private AudioClip[] gameMusic;
+    [SerializeField] private AudioClip[] hangarMusic;
     [SerializeField] private float enableTime;
-
-    private Dictionary<AudioSource, float> _volumeBySource = new();
+    [SerializeField] private float volumeValue;
+    [SerializeField] private float loseVolumeValue;
     
-    private AudioSource _activeAudioSource;
     private static MusicBackground _instance;
     
     public static MusicBackground Instance
@@ -41,7 +40,7 @@ public class MusicBackground : Subscriber
     {
         if (_instance == null)
         {
-            _instance = this;
+            _instance = this as MusicBackground;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -53,29 +52,14 @@ public class MusicBackground : Subscriber
     private void Start()
     {
         SceneManager.activeSceneChanged += ChangedActiveScene;
-        _activeAudioSource = GetAudioSource(SceneManager.GetActiveScene());
-        _activeAudioSource.Play();
-        SetVolume();
+        audioSource.clip = GetAudioClip(SceneManager.GetActiveScene());
+        audioSource.volume = volumeValue;
+        if (SceneManager.GetActiveScene().buildIndex == 5)
+            audioSource.volume = loseVolumeValue;
+        if (!audioSource.isPlaying)
+            audioSource.Play();
     }
 
-    private void SetVolume()
-    {
-        _volumeBySource.TryAdd(mainMenuMusic, mainMenuMusic.volume);
-        _volumeBySource.TryAdd(tutorialMusic, tutorialMusic.volume);
-        _volumeBySource.TryAdd(comicsMusic, comicsMusic.volume);
-        _volumeBySource.TryAdd(finishMusic, finishMusic.volume);
-        _volumeBySource.TryAdd(loseMusic, loseMusic.volume);
-        foreach (var audioSource in gameMusic)
-        {
-            _volumeBySource.TryAdd(audioSource, audioSource.volume);
-        }
-
-        foreach (var audioSource in hangarMusic)
-        {
-            _volumeBySource.TryAdd(audioSource, audioSource.volume);
-        }
-    }
-    
     [Event("EnableMusic")]
     private void EnableMusic()
     {
@@ -91,21 +75,21 @@ public class MusicBackground : Subscriber
     private IEnumerator Enable()
     {
         var volume = 0f;
-        while (volume < _volumeBySource[_activeAudioSource])
+        while (volume < volumeValue)
         {
-            volume = Mathf.Clamp(volume + Time.deltaTime/ enableTime, 0f, _volumeBySource[_activeAudioSource]);
-            _activeAudioSource.volume = volume;
+            volume = Mathf.Clamp(volume + Time.deltaTime/ enableTime, 0f, volumeValue);
+            audioSource.volume = volume;
             yield return null;
         }
     }
 
     private IEnumerator Disable()
     {
-        var volume = _activeAudioSource.volume;
+        var volume = audioSource.volume;
         while (volume > 0f)
         {
-            volume = Mathf.Clamp(volume - Time.deltaTime/ enableTime, 0f, _volumeBySource[_activeAudioSource]);
-            _activeAudioSource.volume = volume;
+            volume = Mathf.Clamp(volume - Time.deltaTime/ enableTime, 0f, volumeValue);
+            audioSource.volume = volume;
             yield return null;
         }
     }
@@ -113,33 +97,36 @@ public class MusicBackground : Subscriber
     [Event("EnableGameMusic")]
     private void EnableGameMusic()
     {
-        _activeAudioSource.Stop();
-        _activeAudioSource = gameMusic[Random.Range(0, gameMusic.Length)];
-        _activeAudioSource.Play();
+        audioSource.clip = gameMusic[Random.Range(0, gameMusic.Length)];
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
     }
     
     [Event("EnableHangarMusic")]
     private void EnableHangarMusic()
     {
-        _activeAudioSource.Stop();
-        _activeAudioSource = hangarMusic[Random.Range(0, hangarMusic.Length)];
-        _activeAudioSource.Play();
+        audioSource.clip = hangarMusic[Random.Range(0, hangarMusic.Length)];
+        if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
+        }
     }
     
     private void ChangedActiveScene(Scene current, Scene next)
     {
-        if (_activeAudioSource != GetAudioSource(next))
+        if (!audioSource.clip.Equals(GetAudioClip(next)))
         {
-            _activeAudioSource.Stop();
-            _activeAudioSource = GetAudioSource(next);
-            if (!_activeAudioSource.isPlaying)
+            audioSource.clip = GetAudioClip(next);
+            if (!audioSource.isPlaying)
             {
-                _activeAudioSource.Play();
+                audioSource.Play();
             }
         }
     }
 
-    private AudioSource GetAudioSource(Scene scene)
+    private AudioClip GetAudioClip(Scene scene)
     {
         switch (scene.buildIndex)
         {
