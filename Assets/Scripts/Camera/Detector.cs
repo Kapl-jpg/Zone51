@@ -52,7 +52,7 @@ public class Detector : Subscriber
             }
         }
 
-
+        
     }
 
     private void CheckSphereCast()
@@ -90,7 +90,7 @@ public class Detector : Subscriber
             {
                 doctorSoundReproducing.Stop();
             }
-
+            
 
             if (isSwitch)
             {
