@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Generator
 {
@@ -6,10 +7,12 @@ namespace Generator
     {
         [SerializeField] private GameObject powerScreen;
         [SerializeField] private Collider interactionCollider;
+        [SerializeField] private Button openDoorButton;
 
         [Event("EnablePowerScreen")]
         private void EnablePowerScreen()
         {
+            openDoorButton.interactable = true;
             powerScreen.SetActive(false);
             interactionCollider.enabled = true;
         }
