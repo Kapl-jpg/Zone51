@@ -5,8 +5,8 @@ public class Detector : Subscriber
 {
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
-    [SerializeField] private AudioSource[] audioAlarms; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-    [SerializeField] private AudioSource[] audioDoctors; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    [SerializeField] private AudioSource[] audioAlarms; // Массив звуков сигнализации
+    [SerializeField] private AudioSource[] audioDoctors; // Массив звуков для доктора
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private FlickerLight flickerLight;
@@ -147,8 +147,7 @@ public class Detector : Subscriber
     {
         if (rayOrigin == null || detectedPlayer == null) return false;
 
-        detectedPlayer.TryGetComponent(out Collider hitCollider);
-        Vector3 direction = (hitCollider.bounds.center - rayOrigin.position).normalized;
+        Vector3 direction = (detectedPlayer.position - rayOrigin.position).normalized;
         float distance = Vector3.Distance(rayOrigin.position, detectedPlayer.position);
 
         if (Physics.Raycast(rayOrigin.position, direction, out RaycastHit obstacleHit, distance, obstacleLayerMask))
