@@ -15,6 +15,7 @@ public class Plate : Subscriber
     private Material _plateMaterial;
     private bool _active;
     private bool _canUse;
+    private bool _solved;
     
     private void Start()
     {
@@ -24,45 +25,51 @@ public class Plate : Subscriber
         meshRenderer.material = _plateMaterial;
         _plateMaterial.SetFloat("_Enable", active ? 1f : 0f);
     }
-    
+
     private void OnCollisionEnter(Collision other)
     {
-        if(!_canUse) return;
-        
-        if (!other.gameObject.CompareTag("Player")) return;
-        
-        var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
-
-        if (!final)
+        if (_canUse)
         {
-            if (plateType == CharacterType.Neutral || characterType == plateType)
-            {
-                if (nextPlate)
-                {
-                    print("AudioJump");
-                    _audioClassic.Play();
-                    plateAnimation.Enable();
-                    nextPlate._canUse = true;
-                    EnablePlate();
-                }
+            if (!other.gameObject.CompareTag("Player")) return;
 
-                _active = true;
-                _canUse = false;
+            var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
+
+            if (!final)
+            {
+                if (plateType == CharacterType.Neutral || characterType == plateType)
+                {
+                    if (nextPlate)
+                    {
+                        _audioClassic.Play();
+                        plateAnimation.Enable();
+                        nextPlate._canUse = true;
+                        EnablePlate();
+                    }
+
+                    _active = true;
+                    _canUse = false;
+                }
+                else
+                {
+                    EventManager.Publish("ResetPlate");
+                }
             }
             else
             {
-                EventManager.Publish("ResetPlate");
+                FinalEvent();
             }
         }
         else
         {
-            FinalEvent();
+            EventManager.Publish("ResetPlate");
         }
     }
 
     [Event("ResetPlate")]
     private void OnResetPlate()
     {
+        if (_solved) return;
+        
         if (_active)
         {
             _audioClassic.Play();
@@ -72,6 +79,12 @@ public class Plate : Subscriber
 
         _plateMaterial.SetFloat("_Enable", active? 1f : 0f);
         _canUse = active;
+    }
+
+    [Event("SolvePlates")]
+    private void SolvePlates()
+    {
+        _solved = true;
     }
     
     private void EnablePlate()
@@ -85,5 +98,6 @@ public class Plate : Subscriber
         EnablePlate();
         _canUse = false;
         EventManager.Publish("OpenTopDoor");
+        EventManager.Publish("SolvePlates");
     }
 }
