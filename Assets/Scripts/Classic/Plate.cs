@@ -15,7 +15,7 @@ public class Plate : Subscriber
     private Material _plateMaterial;
     private bool _active;
     private bool _canUse;
-    private bool _solved;
+    private bool _lockPlate;
     
     private void Start()
     {
@@ -25,11 +25,12 @@ public class Plate : Subscriber
         meshRenderer.material = _plateMaterial;
         _plateMaterial.SetFloat("_Enable", active ? 1f : 0f);
     }
-
+    
     private void OnCollisionEnter(Collision other)
     {
         if (_canUse)
         {
+
             if (!other.gameObject.CompareTag("Player")) return;
 
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
@@ -40,6 +41,7 @@ public class Plate : Subscriber
                 {
                     if (nextPlate)
                     {
+                        print("AudioJump");
                         _audioClassic.Play();
                         plateAnimation.Enable();
                         nextPlate._canUse = true;
@@ -68,7 +70,7 @@ public class Plate : Subscriber
     [Event("ResetPlate")]
     private void OnResetPlate()
     {
-        if (_solved) return;
+        if(_lockPlate) return;
         
         if (_active)
         {
@@ -81,10 +83,10 @@ public class Plate : Subscriber
         _canUse = active;
     }
 
-    [Event("SolvePlates")]
-    private void SolvePlates()
+    [Event("LockPlate")]
+    private void OnLockPlate()
     {
-        _solved = true;
+        _lockPlate = true;
     }
     
     private void EnablePlate()
@@ -98,6 +100,6 @@ public class Plate : Subscriber
         EnablePlate();
         _canUse = false;
         EventManager.Publish("OpenTopDoor");
-        EventManager.Publish("SolvePlates");
+        EventManager.Publish("LockPlate");
     }
 }
