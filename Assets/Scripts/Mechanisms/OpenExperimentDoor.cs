@@ -10,36 +10,30 @@ namespace Mechanisms
         [SerializeField] private Animator doorAnimator;
         [SerializeField] private AudioSource audioOpen;
         [SerializeField] private AudioSource audioClose;
-        private bool _opened;
         private bool _isOpen = false;
 
         [Event("OpenExperimentDoor")]
         private void OpenDoor()
         {
-            //if (!_isOpen)
-            //{
-                
-            //}
-            if (!_opened) return;
-            var getPower = RequestManager.GetValue<bool>("GetPower");
+            if (_isOpen) return; // Если дверь уже открыта, ничего не делаем
 
-            if (!getPower) return;
+            var getPower = RequestManager.GetValue<bool>("GetPower");
+            if (!getPower) return; // Если нет питания, не открываем
+
             doorAnimator.SetTrigger(Open);
             audioOpen.Play();
-            _opened = true;
             _isOpen = true;
         }
 
         [Event("CloseExperimentDoor")]
         private void CloseDoor()
         {
-            //if (_isOpen)
-            //{
-                
-            //}
+            if (!_isOpen) return; // Если дверь уже закрыта, ничего не делаем
+
             doorAnimator.SetTrigger(Close);
             audioClose.Play();
             _isOpen = false;
         }
+
     }
 }

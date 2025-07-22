@@ -139,6 +139,7 @@ public class Detector : Subscriber
             else
             {
                 ResetDetection();
+                doctorSoundReproducing.Stop();
             }
         }
     }
