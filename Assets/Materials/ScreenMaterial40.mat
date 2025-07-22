@@ -29,7 +29,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ENABLE_FOG_ON_TRANSPARENT
-  - _STATES_HORIZONTAL
+  - _STATES_BOTH
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
   - _DISABLE_SSR_TRANSPARENT
@@ -186,9 +186,9 @@ Material:
     - _BOOLEAN: 0
     - _BlendMode: 0
     - _CoatMask: 0
-    - _Columns: 120
+    - _Columns: 256
     - _ConservativeDepthOffsetEnable: 0
-    - _CrtEffect: 0.2
+    - _CrtEffect: 0.02
     - _CrtStrength: 0.2
     - _CullMode: 2
     - _CullModeForward: 2
@@ -279,8 +279,8 @@ Material:
     - _RefractionModel: 0
     - _RenderQueueType: 4
     - _RequireSplitLighting: 0
-    - _Rows: 70
-    - _STATES: 0
+    - _Rows: 61
+    - _STATES: 2
     - _Smoothness: 0.5
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0

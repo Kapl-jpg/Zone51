@@ -15,10 +15,12 @@ namespace Mechanisms
         private void OpenDoor()
         {
             var getPower = RequestManager.GetValue<bool>("GetPower");
-            
-            if(getPower)
+
+            if (getPower)
+            {
                 doorAnimator.SetTrigger(Open);
                 audioOpen.Play();
+            }
         }
 
         [Event("CloseExperimentDoor")]
