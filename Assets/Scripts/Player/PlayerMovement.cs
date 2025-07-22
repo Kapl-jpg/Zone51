@@ -36,6 +36,7 @@ public class PlayerMovement : Subscriber
     {
         Move();
         //PlayWalkingOrRunningSound(); //Commit
+        //PlayWalkingOrRunningSoundInVentilation();
     }
 
     private void Move()
@@ -89,8 +90,18 @@ public class PlayerMovement : Subscriber
             else
             {
                 _isHuman = false;
-                whoseRunning = audioRunningUsualAlien;
-                return alienSpeedRunning;
+
+                if (_activeAudioByGender)
+                {
+                    whoseRunning = audioRunningUsualAlien;
+                }
+                else
+                {
+                    whoseRunning = audioRunningVentilationAlien;
+                }
+
+
+                    return alienSpeedRunning;
                 
             }
         }
@@ -106,33 +117,48 @@ public class PlayerMovement : Subscriber
         else
         {
             _isHuman = false;
-            whoseWalking = audioWalkingUsualAlien;
-            return alienSpeedWalking;
+            if (_activeAudioByGender)
+            {
+                whoseWalking = audioWalkingUsualAlien;
+            }
+            else
+            {
+                whoseWalking = audioWalkingVentilationAlien;
+            }
+
+
+                return alienSpeedWalking;
         }
     }
 
     [Event("PlayWalkingOrRunningSound")]
     private void PlayWalkingOrRunningSound()
     {
-        if (!_isHuman && _activeAudioByGender)
-        {
-            PlayAudio();
-        }
-        else if (!_isHuman && !_activeAudioByGender)
-        {
-            if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && !audioRunningVentilationAlien.isPlaying)
-            {
-                audioRunningVentilationAlien.Play();
-            }
-            else if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && !audioWalkingVentilationAlien.isPlaying)
-            {
-                audioWalkingVentilationAlien.Play(); 
-            }
-        }
-        else if (_isHuman)
-        {
-            PlayAudio();
-        }
+        //if (!_isHuman && _activeAudioByGender)
+        //{
+        //    PlayAudio();
+        //}
+        //else if (!_isHuman && !_activeAudioByGender)
+        //{
+        //    if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && !audioRunningVentilationAlien.isPlaying)
+        //    {
+        //        audioRunningVentilationAlien.Play();
+        //    }
+        //    else if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && !audioWalkingVentilationAlien.isPlaying)
+        //    {
+        //        audioWalkingVentilationAlien.Play(); 
+        //    }
+        //}
+        //else if (_isHuman)
+        //{
+        //    PlayAudio();
+        //}
+        //if (_activeAudioByGender)
+        //{
+            
+        //}
+        PlayAudio();
+
     }
 
     [Event("ActiveAudioInVentilation")]
@@ -141,16 +167,38 @@ public class PlayerMovement : Subscriber
     {
         _activeAudioByGender = active;
     }
+    
+    private void PlayWalkingOrRunningSoundInVentilation()
+    {
+        if (!_isHuman && !_activeAudioByGender)
+        {
+            if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && !audioRunningVentilationAlien.isPlaying)
+            {
+                //audioRunningVentilationAlien.pitch = 1.5f;
+                //audioRunningVentilationAlien.Play();
+                //audioWalkingVentilationAlien.pitch = 1.5f;
+                audioRunningVentilationAlien.Play();
+            }
+            else if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && !audioWalkingVentilationAlien.isPlaying)
+            {
+                //audioWalkingVentilationAlien.Play();
+                //audioWalkingVentilationAlien.pitch = 1;
+                audioWalkingVentilationAlien.Play();
+            }
+        }
+    }
 
     private void PlayAudio()
     {
         if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
         {
             whoseWalking.Play();
+            print("Walk");
         }
         else if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
         {
             whoseRunning.Play();
+            print("Run");
         }
     }
 }
