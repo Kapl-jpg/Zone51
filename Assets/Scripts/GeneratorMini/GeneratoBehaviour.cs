@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class GeneratorMiniBehaviour : Subscriber
+public class GeneratorMiniBehaviour : MonoBehaviour
 {
     [SerializeField] private float firstBatteryStep;
     [SerializeField] private float secondBatteryStep;
@@ -31,8 +31,7 @@ public class GeneratorMiniBehaviour : Subscriber
         _generatorWireMaterial.SetColor("_Color", wireEnableColor);
     }
 
-    [Event("RemoveBattery")]
-    private void RemoveBattery()
+    public void RemoveBattery()
     {
         if(!_disabled)
             StartCoroutine(Dissolve(0, secondBatteryStep));

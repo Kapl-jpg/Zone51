@@ -7,6 +7,7 @@ namespace GeneratorMini
     public class BatteryMini : MonoBehaviour, IInteractable
     {
         [SerializeField] private ParticleSystem particles;
+        [SerializeField] private GeneratorMiniBehaviour miniBehaviour;
         private bool _used;
         
         public void Interact()
@@ -14,7 +15,7 @@ namespace GeneratorMini
             if(_used) return;
 
             StartCoroutine(DisableParticles());
-            EventManager.Publish("RemoveBattery");
+            miniBehaviour.RemoveBattery();
             _used = true;
         }
 
