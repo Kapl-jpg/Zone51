@@ -15,10 +15,10 @@ namespace Mechanisms
         [Event("OpenExperimentDoor")]
         private void OpenDoor()
         {
-            if (_isOpen) return; // Если дверь уже открыта, ничего не делаем
+            if (_isOpen) return;
 
             var getPower = RequestManager.GetValue<bool>("GetPower");
-            if (!getPower) return; // Если нет питания, не открываем
+            if (!getPower) return;
 
             doorAnimator.SetTrigger(Open);
             audioOpen.Play();
@@ -28,12 +28,11 @@ namespace Mechanisms
         [Event("CloseExperimentDoor")]
         private void CloseDoor()
         {
-            if (!_isOpen) return; // Если дверь уже закрыта, ничего не делаем
+            if (!_isOpen) return;
 
             doorAnimator.SetTrigger(Close);
             audioClose.Play();
             _isOpen = false;
         }
-
     }
 }
