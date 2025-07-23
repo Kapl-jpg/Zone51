@@ -18547,19 +18547,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98923767
+      value: 0.9828274
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09434976
+      value: 0.09373838
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.11132965
+      value: 0.15822685
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.010618201
+      value: -0.015091079
       objectReference: {fileID: 0}
     - target: {fileID: 5741852306710327128, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Mesh
@@ -21277,6 +21277,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 9f3d7ebe8e51e444892bd25ae4abcef2, type: 3}
       propertyPath: m_Name
       value: LightOfCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9f3d7ebe8e51e444892bd25ae4abcef2, type: 3}
+      propertyPath: m_Layer
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 9f3d7ebe8e51e444892bd25ae4abcef2, type: 3}
       propertyPath: m_IsActive
@@ -54393,6 +54397,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   flickerLight: {fileID: 420585668}
+  dataAudiWithCamera: {fileID: 1637615991}
   sphereRadius: 18.39
 --- !u!1001 &1002838051
 PrefabInstance:
@@ -94106,6 +94111,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightOfCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9f3d7ebe8e51e444892bd25ae4abcef2, type: 3}
+      propertyPath: m_Layer
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -96423,6 +96432,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   flickerLight: {fileID: 38401712}
+  dataAudiWithCamera: {fileID: 1637615991}
   sphereRadius: 15.1
 --- !u!4 &1580891969 stripped
 Transform:
@@ -100897,6 +100907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1637615990}
+  - component: {fileID: 1637615991}
   m_Layer: 0
   m_Name: SecurityCamers
   m_TagString: Untagged
@@ -100931,6 +100942,18 @@ Transform:
   - {fileID: 625950599}
   m_Father: {fileID: 255348175}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1637615991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1637615989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af65b06bcd0c83249981e3968cf748c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1638181734
 GameObject:
   m_ObjectHideFlags: 0
@@ -110043,6 +110066,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   flickerLight: {fileID: 1691173410}
+  dataAudiWithCamera: {fileID: 1637615991}
   sphereRadius: 12.3
 --- !u!1 &1798284170
 GameObject:
@@ -110385,6 +110409,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   flickerLight: {fileID: 955895226}
+  dataAudiWithCamera: {fileID: 1637615991}
   sphereRadius: 16.2
 --- !u!1 &1812109522
 GameObject:
@@ -126716,7 +126741,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055636177}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09463094, y: 0.08095096, z: -0.0077207987, w: 0.99218565}
+  m_LocalRotation: {x: 0.09415696, y: 0.12802263, z: -0.012210318, w: 0.9872161}
   m_LocalPosition: {x: -16.340174, y: 0.30469966, z: -13.765222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
