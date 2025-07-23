@@ -5,14 +5,16 @@ public class Detector : Subscriber
 {
     [SerializeField] private Transform rayOrigin;
     [SerializeField] private Transform sphereCenter;
-    [SerializeField] private AudioSource[] audioAlarms; // ������ ������ ������������
-    [SerializeField] private AudioSource[] audioDoctors; // ������ ������ ��� �������
+    [SerializeField] private AudioSource[] audioAlarms;
+    [SerializeField] private AudioSource[] audioDoctors;
     [SerializeField] private LayerMask detectionLayer;
     [SerializeField] private LayerMask obstacleLayerMask;
     [SerializeField] private FlickerLight flickerLight;
+    [SerializeField] private DataAudiWithCamera dataAudiWithCamera;
     [SerializeField] private float sphereRadius = 5f;
 
     private Transform detectedPlayer;
+
     private AudioSource soundReproducing;
     private AudioSource doctorSoundReproducing;
 
@@ -99,6 +101,7 @@ public class Detector : Subscriber
 
             if (!isSoundPlaying && soundReproducing != null)
             {
+                dataAudiWithCamera.OffAudioInArray();
                 soundReproducing.Play();
                 isSoundPlaying = true;
                 isSoundCompleted = false;
@@ -131,6 +134,7 @@ public class Detector : Subscriber
                         {
                             AppointmentAudioDoctor();
                             doctorSoundReproducing.Play();
+                            dataAudiWithCamera.AddedAudioInArray(doctorSoundReproducing);
                             activeAudioForPlayer = false;
                         }
                     }
@@ -139,7 +143,7 @@ public class Detector : Subscriber
             else
             {
                 ResetDetection();
-                doctorSoundReproducing.Stop();
+                //doctorSoundReproducing.Stop();
             }
         }
     }
