@@ -18044,19 +18044,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9892333
+      value: 0.98862964
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.094395444
+      value: 0.09429177
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.11132915
+      value: 0.11660609
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.010623343
+      value: -0.01112145
       objectReference: {fileID: 0}
     - target: {fileID: 5741852306710327128, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Mesh
@@ -94206,7 +94206,7 @@ MonoBehaviour:
     m_Bits: 1
   flickerLight: {fileID: 38401712}
   dataAudiWithCamera: {fileID: 1637615991}
-  sphereRadius: 15.1
+  sphereRadius: 11.6
 --- !u!4 &1580891969 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bcae1f0ed16bbad4c9af96f047855b6a, type: 3}
@@ -123932,7 +123932,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055636177}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09473152, y: 0.08100631, z: -0.0077343993, w: 0.9921714}
+  m_LocalRotation: {x: 0.094588414, y: 0.08624356, z: -0.008225589, w: 0.99173963}
   m_LocalPosition: {x: -14.300173, y: 0.30469966, z: -14.515222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
