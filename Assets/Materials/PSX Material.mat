@@ -51,7 +51,7 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _Dither_Opacity: 0.1
-    - _Quantization_Level: 16
+    - _Quantization_Level: 32
     - _Saturation_Layers: 2
     - _Stencil: 0
     - _StencilComp: 8
@@ -62,6 +62,6 @@ Material:
     - _UIMaskSoftnessY: 1
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
-    - _Quality: {r: 500, g: 500, b: 0, a: 0}
+    - _Quality: {r: 750, g: 750, b: 0, a: 0}
     - _TargetSize: {r: 640, g: 360, b: 0, a: 0}
   m_BuildTextureStacks: []
