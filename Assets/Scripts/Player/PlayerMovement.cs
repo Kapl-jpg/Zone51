@@ -193,12 +193,10 @@ public class PlayerMovement : Subscriber
         if (_inputManager.GetMove().magnitude > 0.1f && !_inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseWalking.isPlaying)
         {
             whoseWalking.Play();
-            print("Walk");
         }
         else if (_inputManager.GetMove().magnitude > 0.1f && _inputManager.InputShift() && RequestManager.GetValue<bool>("IsGrounded") && !whoseRunning.isPlaying)
         {
             whoseRunning.Play();
-            print("Run");
         }
     }
 }
