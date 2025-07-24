@@ -1,27 +1,26 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Cutscene
 {
-    public class NextSlide : MonoBehaviour
+    public class NextSlide : Subscriber
     {
         [SerializeField] private GameObject[] slides;
         [SerializeField] private float slideTime;
+        private int _slideNumber;
 
-        private IEnumerator Start()
+        [Event("NextSlide")]
+        private void Next()
         {
-            var slideNumber = 0;
-            while (slideNumber < slides.Length)
+            _slideNumber++;
+            if (_slideNumber < slides.Length)
             {
-                if(slideNumber > 0)
-                    slides[slideNumber - 1].SetActive(false);
-                
-                slides[slideNumber].SetActive(true);
-                slideNumber++;
-                
-                yield return new WaitForSeconds(slideTime);
+                slides[_slideNumber - 1].SetActive(false);
+                slides[_slideNumber].SetActive(true);
             }
-            EventManager.Publish("StartGame");
+            else
+            {
+                EventManager.Publish("StartGame");
+            }
         }
     }
 }

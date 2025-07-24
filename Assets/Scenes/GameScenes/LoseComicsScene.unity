@@ -1097,8 +1097,7 @@ GameObject:
   - component: {fileID: 1879476104}
   - component: {fileID: 1879476103}
   - component: {fileID: 1879476109}
-  - component: {fileID: 1879476108}
-  - component: {fileID: 1879476107}
+  - component: {fileID: 1879476110}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1191,35 +1190,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1879476107
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879476102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea202b7783a4287b08d692215b44026, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slides:
-  - {fileID: 137196633}
-  slideTime: 5
---- !u!114 &1879476108
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1879476102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ec8354010f1f8345a4b7519bb135245, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdTimer: 2
-  skipText: {fileID: 403476673}
 --- !u!114 &1879476109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1233,6 +1203,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextSceneIndex: 0
+--- !u!114 &1879476110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1879476102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63f4f0cd802563b4a912b2a3c0d9aaa2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
