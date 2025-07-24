@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: The Chubriki
   productName: "\u041E\u0431\u044A\u0435\u043A\u0442 \u2116410"
-  defaultCursor: {fileID: 2800000, guid: 2cf9236811eeb5445970244e93f8d983, type: 3}
+  defaultCursor: {fileID: 2800000, guid: c2440f3f64576aa4c8138dc2356f6fb8, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
