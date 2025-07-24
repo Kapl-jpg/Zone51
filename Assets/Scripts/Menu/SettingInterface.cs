@@ -80,6 +80,7 @@ public class SettingInterface : MonoBehaviour
         pauseMenu.SetActive(true);
     }
 
+
     IEnumerator LoadNextSceneAfterTime(float time, int index)
     {
         yield return new WaitForSeconds(time);
