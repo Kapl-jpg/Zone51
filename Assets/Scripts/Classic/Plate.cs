@@ -8,6 +8,7 @@ public class Plate : Subscriber
     [SerializeField] private PlateAnimation plateAnimation;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private CharacterType plateType;
+    [SerializeField] private bool start;
     [SerializeField] private bool active;
     [SerializeField] private bool final;
 
@@ -16,6 +17,7 @@ public class Plate : Subscriber
     private bool _active;
     private bool _canUse;
     private bool _lockPlate;
+    private bool _currentPlate;
     
     private void Start()
     {
@@ -30,7 +32,7 @@ public class Plate : Subscriber
     {
         if (_canUse)
         {
-
+            _currentPlate = true;
             if (!other.gameObject.CompareTag("Player")) return;
 
             var characterType = RequestManager.GetValue<CharacterType>("CharacterType");
@@ -70,8 +72,9 @@ public class Plate : Subscriber
     [Event("ResetPlate")]
     private void OnResetPlate()
     {
-        if(_lockPlate) return;
-        
+        //if(_currentPlate && )
+        if (_lockPlate) return;
+
         if (_active)
         {
             _audioClassic.Play();
@@ -79,7 +82,7 @@ public class Plate : Subscriber
             _active = false;
         }
 
-        _plateMaterial.SetFloat("_Enable", active? 1f : 0f);
+        _plateMaterial.SetFloat("_Enable", active ? 1f : 0f);
         _canUse = active;
     }
 

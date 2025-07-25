@@ -8,6 +8,8 @@ public class Goose: MonoBehaviour
     [SerializeField] private new Collider collider;
     [SerializeField] private float showTime;
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip gooseClip;
     
     private Material _gooseMaterial;
     private bool _show;
@@ -28,6 +30,7 @@ public class Goose: MonoBehaviour
 
     private IEnumerator Dissolve()
     {
+        audioSource.PlayOneShot(audioSource.clip);
         collider.enabled = false;
         goose.SetActive(false);
         achievementPanel.SetActive(true);
