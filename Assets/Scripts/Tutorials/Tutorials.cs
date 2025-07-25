@@ -9,6 +9,8 @@ public class Tutorials : Subscriber
     [SerializeField] private List<TutorialData> tutorials;
     [SerializeField] private GameObject closeTip;
     [SerializeField] private TutorialInput input;
+    [SerializeField] private float movementTutorialDelay;
+    
     private TutorialType _currentTutorial;
 
     private void Update()
@@ -32,6 +34,7 @@ public class Tutorials : Subscriber
     
     private void HideTutorial()
     {
+        Time.timeScale = 1;
         EventManager.Publish("PlayerController", true);
         closeTip.SetActive(false);
         
@@ -40,11 +43,13 @@ public class Tutorials : Subscriber
 
         if (_currentTutorial == TutorialType.Mouse)
         {
-            ShowTutorial(TutorialType.Movement);
+            StartCoroutine(ShowMovementTutorial());
         }
-        else
-        {
-            Time.timeScale = 1;
-        }
+    }
+
+    private IEnumerator ShowMovementTutorial()
+    {
+        yield return new WaitForSeconds(movementTutorialDelay);
+        ShowTutorial(TutorialType.Movement);
     }
 }

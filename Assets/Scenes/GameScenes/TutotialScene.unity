@@ -17976,6 +17976,7 @@ MonoBehaviour:
     tutorialUI: {fileID: 20867226}
   closeTip: {fileID: 1406639381}
   input: {fileID: 483661379}
+  movementTutorialDelay: 2
 --- !u!114 &483661379
 MonoBehaviour:
   m_ObjectHideFlags: 0
