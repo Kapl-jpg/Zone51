@@ -75,12 +75,6 @@ public class MeshUIInteraction : MonoBehaviour
                             if (activeButton == null)
                             {
                                 activeButton = button;
-
-                                //if (activeAudioGuidance)
-                                //{
-                                //    audioForTerminal.GuidanceOnButtons();
-                                //    activeAudioGuidance = false;
-                                //}
                             }
 
                             button.image.color = new Color(color.r, color.g, color.b, 1f);

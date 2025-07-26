@@ -24,7 +24,7 @@ namespace Generator
         [SerializeField] private MeshRenderer downMech;
         [SerializeField] private AudioSource audioRotateMechanisn;
         [SerializeField] private AudioSource audioOnWires;
-
+        [SerializeField] private Collider triggerCollider;
 
         private Directions _currentDirection = Directions.Right;
 
@@ -75,6 +75,7 @@ namespace Generator
             rightMech.material.SetColor("_Color", lightColor);
             downMech.material.SetColor("_Color", lightColor);
             
+            triggerCollider.enabled = true;
             _canUse = true;
         }
 

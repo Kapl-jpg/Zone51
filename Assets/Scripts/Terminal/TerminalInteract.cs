@@ -28,6 +28,7 @@ public class TerminalInteract : Subscriber, IInteractable
         
         cinemachine.Priority = 30;
         collider.enabled = false;
+        terminalInput.EnableInput();
         EventManager.Publish("DisableTip");
         EventManager.Publish("InterfaceController", true);
         EventManager.Publish("PlayerController", false);
@@ -41,6 +42,7 @@ public class TerminalInteract : Subscriber, IInteractable
     {
         cinemachine.Priority = 0;
         collider.enabled = _canInteract;
+        terminalInput.DisableInput();
         EventManager.Publish("EnableTip");
         EventManager.Publish("InterfaceController", false);
         EventManager.Publish("PlayerController", true);

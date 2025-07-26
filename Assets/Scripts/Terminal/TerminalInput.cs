@@ -9,15 +9,18 @@ namespace Terminal
         private void Start()
         {
             _inputSystem = new InputSystem_Actions();
+        }
+
+        public void EnableInput()
+        {
             _inputSystem.UI.Enable();
         }
 
-        protected override void OnDisable()
+        public void DisableInput()
         {
-            base.OnDisable();
             _inputSystem.UI.Disable();
         }
-
+        
         public bool Click()
         {
             return _inputSystem.UI.Click.triggered;

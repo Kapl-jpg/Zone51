@@ -23085,9 +23085,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b0d3b3c06e068458861a58e8a73676, type: 3}
       insertIndex: -1
       addedObject: {fileID: 699577610}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e6b0d3b3c06e068458861a58e8a73676, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 699577612}
     - targetCorrespondingSourceObject: {fileID: -8256134651489076907, guid: e6b0d3b3c06e068458861a58e8a73676, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1805280661}
@@ -27757,7 +27754,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cinemachine: {fileID: 1024720081}
   collider: {fileID: 699577611}
-  terminalInput: {fileID: 699577612}
+  terminalInput: {fileID: 1805280659}
 --- !u!65 &699577611
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27779,18 +27776,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 5, z: 5.8427405}
   m_Center: {x: 0.25, y: 0, z: -0.043771625}
---- !u!114 &699577612
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 699577608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fd1ef094616404eb162be11fce2ff8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &700350643
 GameObject:
   m_ObjectHideFlags: 0
