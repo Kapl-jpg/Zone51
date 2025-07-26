@@ -53,7 +53,7 @@ public class MusicBackground : Subscriber
     private void Start()
     {
         SceneManager.activeSceneChanged += ChangedActiveScene;
-        _activeAudioSource = GetAudioSource(SceneManager.GetActiveScene());
+        _activeAudioSource = GetAudioSource(SceneManager.GetActiveScene().buildIndex);
         _activeAudioSource.Play();
         SetVolume();
     }
@@ -128,20 +128,21 @@ public class MusicBackground : Subscriber
     
     private void ChangedActiveScene(Scene current, Scene next)
     {
-        if (_activeAudioSource != GetAudioSource(next))
+        if (_activeAudioSource != GetAudioSource(next.buildIndex))
         {
             _activeAudioSource.Stop();
-            _activeAudioSource = GetAudioSource(next);
+            _activeAudioSource = GetAudioSource(next.buildIndex);
             if (!_activeAudioSource.isPlaying)
             {
                 _activeAudioSource.Play();
+                print(_activeAudioSource.name);
             }
         }
     }
 
-    private AudioSource GetAudioSource(Scene scene)
+    private AudioSource GetAudioSource(int index)
     {
-        switch (scene.buildIndex)
+        switch (index)
         {
             case 0:
                 return mainMenuMusic;
@@ -150,6 +151,13 @@ public class MusicBackground : Subscriber
             case 2:
                 return comicsMusic;
             case 3:
+                foreach (var source in gameMusic)
+                {
+                    if (source.isPlaying)
+                    {
+                        return source;
+                    }
+                }
                 return gameMusic[Random.Range(0, gameMusic.Length)];
             case 4:
                 return finishMusic;

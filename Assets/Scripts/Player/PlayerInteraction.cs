@@ -32,6 +32,7 @@ public class PlayerInteraction : Subscriber
             {
                 _showTip = false;
                 EventManager.Publish("ShowTip", TipType.Transformation);
+                print("1");
             }
         }
 
@@ -55,6 +56,7 @@ public class PlayerInteraction : Subscriber
             {
                 _showTip = false;
                 EventManager.Publish("ShowTip", TipType.Transformation);
+                print("2");
             }
         }
     }
