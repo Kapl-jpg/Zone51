@@ -18102,7 +18102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1224785289593050963, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1289288478686561505, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: cameraTransform
@@ -18438,7 +18438,7 @@ PrefabInstance:
       objectReference: {fileID: 1782559685}
     - target: {fileID: 3348805055649461048, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: needGetAbility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3407007414582308713, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Mesh
@@ -18754,19 +18754,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.98923767
+      value: 0.98923314
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.09434978
+      value: 0.09439758
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.11132968
+      value: 0.11132922
       objectReference: {fileID: 0}
     - target: {fileID: 5623748204969872358, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.010618207
+      value: -0.010623592
       objectReference: {fileID: 0}
     - target: {fileID: 5741852306710327128, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_Mesh
@@ -18886,7 +18886,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.9
+      value: -16.32
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.y
@@ -18894,7 +18894,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20
+      value: -11.6
       objectReference: {fileID: 0}
     - target: {fileID: 6575044093103930079, guid: 0f758ab913c8ba347a6a3c545ed2d138, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23936,6 +23936,7 @@ MonoBehaviour:
   chipTipTimer: 1
   tipText: {fileID: 1423168023}
   interactTipText: "[E] \u0434\u043B\u044F \u0432\u0437\u0430\u0438\u043C\u043E\u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044F"
+  transformationTipText: "[F] \u0434\u043B\u044F \u0442\u0440\u0430\u043D\u0441\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u0438"
   telekinesisTipText: "[LMB] \u0441\u0445\u0432\u0430\u0442\u0438\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442"
   telekinesisDropTipText: "[LBM] \u043F\u043E\u0441\u0442\u0430\u0432\u0438\u0442\u044C
     | [RBM] \u0431\u0440\u043E\u0441\u0438\u0442\u044C"
@@ -130497,8 +130498,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2055636177}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.094630964, y: 0.08095099, z: -0.0077208034, w: 0.99218565}
-  m_LocalPosition: {x: -6.9001727, y: 0.30469966, z: 16.184778}
+  m_LocalRotation: {x: 0.09472687, y: 0.080950364, z: -0.00772864, w: 0.9921765}
+  m_LocalPosition: {x: -16.320173, y: 0.30469966, z: -15.415222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -141534,7 +141535,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 6503297603189401656}
   meshRenderer: {fileID: 3513992743862759085}
   plateType: 2
-  start: 1
   active: 1
   final: 0
 --- !u!64 &6503297603189401655
@@ -141725,7 +141725,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 6540169291532846163}
   meshRenderer: {fileID: 3741404588363478451}
   plateType: 1
-  start: 0
   active: 0
   final: 0
 --- !u!64 &6540169291532846162
@@ -142628,7 +142627,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 7306243253459084687}
   meshRenderer: {fileID: 7306243253459084684}
   plateType: 1
-  start: 0
   active: 0
   final: 0
 --- !u!64 &7306243253459084686
@@ -142843,7 +142841,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 7360843133917560141}
   meshRenderer: {fileID: 7360843133917560138}
   plateType: 1
-  start: 0
   active: 0
   final: 0
 --- !u!64 &7360843133917560140
@@ -143509,7 +143506,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 7587276209101346080}
   meshRenderer: {fileID: 7587276209101346077}
   plateType: 0
-  start: 0
   active: 0
   final: 0
 --- !u!64 &7587276209101346079
@@ -144143,7 +144139,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 7953692356855104436}
   meshRenderer: {fileID: 1052103136950290874}
   plateType: 1
-  start: 0
   active: 0
   final: 0
 --- !u!64 &7953692356855104435
@@ -144464,7 +144459,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 8015060508637354042}
   meshRenderer: {fileID: 1560409171048973688}
   plateType: 0
-  start: 0
   active: 0
   final: 0
 --- !u!64 &8015060508637354041
@@ -144701,7 +144695,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 8081193486374933789}
   meshRenderer: {fileID: 5021174728327217722}
   plateType: 0
-  start: 0
   active: 0
   final: 0
 --- !u!64 &8081193486374933788
@@ -144960,7 +144953,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 8196021396296433186}
   meshRenderer: {fileID: 505059206384247745}
   plateType: 2
-  start: 0
   active: 0
   final: 1
 --- !u!64 &8196021396296433185
@@ -145858,7 +145850,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 8714192297049204397}
   meshRenderer: {fileID: 1899487374291118549}
   plateType: 0
-  start: 0
   active: 0
   final: 0
 --- !u!64 &8714192297049204396
@@ -146143,7 +146134,6 @@ MonoBehaviour:
   plateAnimation: {fileID: 8796408580607986332}
   meshRenderer: {fileID: 2333156553417854094}
   plateType: 1
-  start: 0
   active: 0
   final: 0
 --- !u!64 &8796408580607986331

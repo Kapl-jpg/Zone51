@@ -11,7 +11,6 @@ public class MeshUIInteraction : MonoBehaviour
     [SerializeField] private bool ignoreColor;
     private Collider _meshCollider;
 
-    private bool activeAudioGuidance = true;
     private Button activeButton;
 
     private void Start()
@@ -100,7 +99,6 @@ public class MeshUIInteraction : MonoBehaviour
                         {
                             if (activeButton != null)
                             {
-                                activeAudioGuidance = true;
                                 activeButton = null;
                                 
                             }

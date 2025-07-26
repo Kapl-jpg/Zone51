@@ -4,5 +4,6 @@
     Telekinesis,
     TelekinesisDrop,
     NeedDisableChip,
-    PressE
+    PressE,
+    Transformation
 }

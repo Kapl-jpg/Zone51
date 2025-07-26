@@ -13,6 +13,7 @@ namespace Player
         [SerializeField] private float chipTipTimer;
         [SerializeField] private TMP_Text tipText;
         [SerializeField] private string interactTipText;
+        [SerializeField] private string transformationTipText;
         [SerializeField] private string telekinesisTipText;
         [SerializeField] private string telekinesisDropTipText;
         private bool _showPressE;
@@ -48,6 +49,11 @@ namespace Player
             if (tipType == TipType.Interact)
             {
                 tipText.text = interactTipText;
+            }
+
+            if (tipType == TipType.Transformation)
+            {
+                tipText.text = transformationTipText;
             }
 
             if (tipType == TipType.Telekinesis)
