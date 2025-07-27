@@ -589,7 +589,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -691657196122679706, guid: 2bc88c4f1ba6392458866dd10985202d, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7abf846d0b863d4429d16c10ac7fe46b, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -597,10 +597,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 1
-  MaxDistance: 110
+  MinDistance: 0
+  MaxDistance: 120
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -619,11 +619,11 @@ AudioSource:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -4.9406295
+      outSlope: -4.9406295
       tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
+      weightedMode: 1
+      inWeight: 0.110497236
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -636,7 +636,7 @@ AudioSource:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
@@ -845,7 +845,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -691657196122679706, guid: 2bc88c4f1ba6392458866dd10985202d, type: 2}
   m_audioClip: {fileID: 8300000, guid: 4c7d5641ba169554eb368ff5e4c418a9, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -853,10 +853,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 0
-  MinDistance: 1
-  MaxDistance: 110
+  MinDistance: 0
+  MaxDistance: 120
   Pan2D: 0
-  rolloffMode: 1
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -875,11 +875,11 @@ AudioSource:
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -4.9406295
+      outSlope: -4.9406295
       tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
+      weightedMode: 1
+      inWeight: 0.110497236
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -892,7 +892,7 @@ AudioSource:
       value: 1
       inSlope: 0
       outSlope: 0
-      tangentMode: 0
+      tangentMode: 136
       weightedMode: 0
       inWeight: 0.33333334
       outWeight: 0.33333334
